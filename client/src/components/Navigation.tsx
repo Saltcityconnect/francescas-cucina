@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Catering", href: "/catering" },
   { label: "Events", href: "/events" },
   { label: "About", href: "/about" },
+  { label: "Gift Cards", href: "/gift-cards" },
 ];
 
 export default function Navigation() {

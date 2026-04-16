@@ -542,6 +542,106 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── GIFT CARDS ── */}
+      <section
+        className="py-20 md:py-24"
+        style={{
+          background: "var(--charcoal-mid)",
+          borderTop: "1px solid rgba(184,150,90,0.15)",
+        }}
+      >
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="reveal" style={{ opacity: 0 }}>
+              <p className="section-label" style={{ marginBottom: "1rem" }}>The Perfect Gift</p>
+              <span className="gold-rule" style={{ marginBottom: "2rem" }} />
+              <h2
+                className="display-headline"
+                style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", marginTop: "1.5rem", marginBottom: "1.25rem" }}
+              >
+                Give the Gift of<br />Great Italian Food
+              </h2>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 300,
+                  fontSize: "0.95rem",
+                  color: "var(--ivory-muted)",
+                  lineHeight: 1.9,
+                  marginBottom: "2rem",
+                }}
+              >
+                Francesca's gift cards are available in any denomination and make the perfect
+                present for anyone who loves exceptional Italian cuisine. We offer both
+                traditional physical cards (with free shipping) and instant electronic cards
+                delivered by email.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://francescas.securetree.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold"
+                >
+                  Order Traditional Card
+                </a>
+                <a
+                  href="https://www.toasttab.com/francesca-s-cucina-545-n-salina-st/giftcards"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold"
+                  style={{ background: "rgba(184,150,90,0.1)" }}
+                >
+                  Order Electronic Card
+                </a>
+              </div>
+            </div>
+
+            <div className="reveal grid grid-cols-2 gap-4" style={{ opacity: 0 }}>
+              {[
+                { icon: "💳", title: "Any Denomination", desc: "Choose any amount — perfect for any budget or occasion." },
+                { icon: "📦", title: "Free Shipping", desc: "Traditional cards ship to you or your recipient at no charge." },
+                { icon: "⚡", title: "Instant Delivery", desc: "Electronic cards arrive in your recipient's inbox immediately." },
+                { icon: "✓", title: "Never Expires", desc: "Your gift card holds its value until the last bite." },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  style={{
+                    background: "var(--charcoal)",
+                    border: "1px solid rgba(184,150,90,0.12)",
+                    padding: "1.5rem",
+                  }}
+                >
+                  <span style={{ fontSize: "1.5rem", display: "block", marginBottom: "0.75rem" }}>{item.icon}</span>
+                  <h3
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontWeight: 600,
+                      fontSize: "1.1rem",
+                      color: "var(--ivory)",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 300,
+                      fontSize: "0.8rem",
+                      color: "var(--ivory-muted)",
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

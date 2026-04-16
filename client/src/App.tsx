@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import GiftCards from "./pages/GiftCards";
 import Menu from "./pages/Menu";
 import Events from "./pages/Events";
 import Catering from "./pages/Catering";
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/events" component={Events} />
       <Route path="/catering" component={Catering} />
       <Route path="/about" component={About} />
+      <Route path="/gift-cards" component={GiftCards} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -47,7 +47,7 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex gap-4 mt-2">
               {[
-                { label: "Facebook", href: "https://www.facebook.com/FrancescasCucina" },
+                { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
                 { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
                 { label: "TripAdvisor", href: "https://www.tripadvisor.com" },
               ].map((s) => (
