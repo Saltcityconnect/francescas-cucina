@@ -4,21 +4,21 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+import HomeA from "./pages/HomeA";
+import HomeB from "./pages/HomeB";
 import GiftCards from "./pages/GiftCards";
 import Menu from "./pages/Menu";
 import Events from "./pages/Events";
 import Catering from "./pages/Catering";
-import About from "./pages/About";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={HomeA} />
+      <Route path="/option-b" component={HomeB} />
       <Route path="/menu" component={Menu} />
       <Route path="/events" component={Events} />
       <Route path="/catering" component={Catering} />
-      <Route path="/about" component={About} />
       <Route path="/gift-cards" component={GiftCards} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

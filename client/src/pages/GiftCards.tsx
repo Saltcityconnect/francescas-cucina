@@ -4,7 +4,7 @@
  * SEO: H1 with keyword, proper heading hierarchy, descriptive content
  */
 
-import Navigation from "@/components/Navigation";
+import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
 const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
@@ -12,7 +12,7 @@ const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/Jq
 export default function GiftCards() {
   return (
     <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
-      <Navigation />
+      <NavigationA />
 
       {/* Page Header */}
       <section

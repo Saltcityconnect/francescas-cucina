@@ -1,9 +1,8 @@
 /*
- * DESIGN SYSTEM: Contemporary Italian — Cinematic Dark with Gold Accents
- * Philosophy: Cinema-quality photography as foundation; typography as sculpture;
- *             gold as warmth not ostentation; feels like opening a high-end menu.
- * Colors: Deep charcoal-black bg, warm ivory text, antique gold accents, brick red brand
- * Typography: Cormorant Garamond (display) + DM Sans (body)
+ * DESIGN SYSTEM: Two Options
+ * Option A — Motherwolf-inspired: Dark charcoal, Big Shoulders Display condensed caps, asymmetric editorial
+ * Option B — Sunny's-inspired: Hunter green, centered logo, warm cream, pill buttons
+ * Shared: Big Shoulders Display for headings, DM Sans for body, real Francesca's photography
  */
 
 @import "tailwindcss";
@@ -39,31 +38,41 @@
 
 :root {
   --radius: 0.25rem;
-  /* Brand Colors */
+
+  /* === SHARED BRAND COLORS === */
+  --ivory: oklch(0.96 0.015 85);
+  --ivory-muted: oklch(0.78 0.012 85);
+  --cream: oklch(0.97 0.012 90);
+
+  /* === OPTION A: Motherwolf Dark === */
+  --charcoal: oklch(0.13 0.006 60);
+  --charcoal-mid: oklch(0.18 0.007 60);
+  --charcoal-light: oklch(0.24 0.008 60);
   --gold: oklch(0.72 0.09 75);
   --gold-light: oklch(0.82 0.07 75);
-  --brick: oklch(0.42 0.12 25);
-  --ivory: oklch(0.96 0.015 85);
-  --ivory-muted: oklch(0.80 0.012 85);
-  --charcoal: oklch(0.12 0.005 60);
-  --charcoal-mid: oklch(0.18 0.006 60);
-  --charcoal-light: oklch(0.24 0.007 60);
 
-  /* Semantic tokens */
-  --background: oklch(0.12 0.005 60);
+  /* === OPTION B: Sunny's Hunter Green === */
+  --hunter-green: oklch(0.28 0.07 150);
+  --hunter-green-dark: oklch(0.20 0.06 150);
+  --hunter-green-light: oklch(0.36 0.07 150);
+  --sage: oklch(0.82 0.04 140);
+  --warm-white: oklch(0.97 0.008 85);
+
+  /* === SEMANTIC TOKENS (default: dark/charcoal for Option A) === */
+  --background: oklch(0.13 0.006 60);
   --foreground: oklch(0.96 0.015 85);
-  --card: oklch(0.16 0.006 60);
+  --card: oklch(0.17 0.007 60);
   --card-foreground: oklch(0.96 0.015 85);
-  --popover: oklch(0.16 0.006 60);
+  --popover: oklch(0.17 0.007 60);
   --popover-foreground: oklch(0.96 0.015 85);
   --primary: oklch(0.72 0.09 75);
-  --primary-foreground: oklch(0.12 0.005 60);
-  --secondary: oklch(0.18 0.006 60);
+  --primary-foreground: oklch(0.13 0.006 60);
+  --secondary: oklch(0.20 0.007 60);
   --secondary-foreground: oklch(0.96 0.015 85);
-  --muted: oklch(0.20 0.006 60);
+  --muted: oklch(0.22 0.007 60);
   --muted-foreground: oklch(0.65 0.012 85);
   --accent: oklch(0.72 0.09 75);
-  --accent-foreground: oklch(0.12 0.005 60);
+  --accent-foreground: oklch(0.13 0.006 60);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.28 0.008 60);
@@ -120,7 +129,34 @@
     }
   }
 
-  /* Gold rule divider */
+  /* === BIG SHOULDERS DISPLAY — the Motherwolf/Tungsten-style font === */
+  .display-condensed {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 0.92;
+  }
+
+  /* === CORMORANT GARAMOND — elegant italic serif === */
+  .display-serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.05;
+  }
+
+  /* === SECTION LABEL === */
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* === GOLD RULE DIVIDER === */
   .gold-rule {
     width: 60px;
     height: 1px;
@@ -128,37 +164,40 @@
     display: block;
   }
 
-  /* Section label style */
-  .section-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  /* Display headline */
-  .display-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-style: italic;
-    line-height: 1.05;
+  /* === OPTION A BUTTONS (dark bg, ivory/gold outline) === */
+  .btn-outline-ivory {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 2rem;
+    border: 1px solid rgba(245,240,228,0.6);
     color: var(--ivory);
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  .btn-outline-ivory:hover {
+    background: var(--ivory);
+    color: var(--charcoal);
+    border-color: var(--ivory);
   }
 
-  /* Gold button */
   .btn-gold {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 2rem;
+    padding: 0.7rem 2rem;
     border: 1px solid var(--gold);
     color: var(--gold);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.25em;
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -169,7 +208,30 @@
     color: var(--charcoal);
   }
 
-  /* Grain texture overlay */
+  /* === OPTION B BUTTONS (green bg, pill shape) === */
+  .btn-green-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.5rem;
+    border: 1.5px solid var(--ivory);
+    color: var(--ivory);
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  .btn-green-pill:hover {
+    background: var(--ivory);
+    color: var(--hunter-green);
+  }
+
+  /* === GRAIN TEXTURE OVERLAY === */
   .grain-overlay::after {
     content: '';
     position: absolute;
@@ -179,25 +241,26 @@
     z-index: 1;
   }
 
-  /* Fade up animation */
+  /* === ANIMATIONS === */
   @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   .animate-fade-up {
-    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
-
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+  }
   .animate-delay-100 { animation-delay: 0.1s; opacity: 0; }
   .animate-delay-200 { animation-delay: 0.2s; opacity: 0; }
   .animate-delay-300 { animation-delay: 0.3s; opacity: 0; }
   .animate-delay-400 { animation-delay: 0.4s; opacity: 0; }
   .animate-delay-500 { animation-delay: 0.5s; opacity: 0; }
+  .animate-delay-600 { animation-delay: 0.6s; opacity: 0; }
 }

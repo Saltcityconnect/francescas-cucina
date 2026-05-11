@@ -1,33 +1,44 @@
 /*
- * DESIGN: Contemporary Italian — Cinematic Dark with Gold Accents
- * Events page: Private event spaces, inquiry form
- * SEO: H1 with keyword, proper heading hierarchy, descriptive content
+ * EVENTS PAGE — Motherwolf Private Dining style
+ * Full-bleed hero, venue cards with photo + capacity + inquire button, contact form
  */
 
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
+import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const EVENT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events2_c0b40758.jpg";
-const DINING_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/red_brick_room_8261d100.jpg";
+const EVENT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events1_8d038c07.jpg";
+const RED_BRICK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/red_brick_room_8261d100.jpg";
+const EVENTS2_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events2_c0b40758.jpg";
+const EVENTS3_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events3_5bf028ae.jpg";
 
-const inputStyle = {
-  width: "100%",
-  background: "var(--charcoal-light)",
-  border: "1px solid rgba(184,150,90,0.2)",
-  color: "var(--ivory)",
-  padding: "0.75rem 1rem",
-  fontFamily: "'DM Sans', sans-serif",
-  fontWeight: 300,
-  fontSize: "0.875rem",
-  outline: "none",
-  transition: "border-color 0.3s ease",
-};
+const venues = [
+  {
+    name: "The Red Brick Room",
+    img: RED_BRICK_IMG,
+    capacity: "Up to 60 guests",
+    desc: "Our signature private dining room features exposed brick walls, warm lighting, and an intimate atmosphere perfect for rehearsal dinners, corporate events, birthday celebrations, and holiday parties.",
+    features: ["Private bar service", "Custom menu options", "AV capabilities", "Dedicated event staff"],
+  },
+  {
+    name: "The Tuscany Terrace",
+    img: EVENTS3_IMG,
+    capacity: "Up to 100 guests",
+    desc: "Our intimate, enclosed inner patio features an elegant fireplace, vintage greenery, and rustic architecture with contemporary décor. Perfect for intimate ceremonies, wedding receptions, and seasonal celebrations.",
+    features: ["Outdoor setting", "Seasonal availability", "Cocktail receptions", "Full dinner service"],
+  },
+  {
+    name: "Full Restaurant Buyout",
+    img: EVENTS2_IMG,
+    capacity: "Up to 130 guests",
+    desc: "Reserve the entire Francesca's Cucina experience for your most special occasions. Ideal for wedding rehearsals, milestone anniversaries, corporate galas, and large family celebrations.",
+    features: ["Exclusive use", "Custom menu design", "Full bar service", "Event coordination"],
+  },
+];
 
 export default function Events() {
-  const [form, setForm] = useState({
-    firstName: "", lastName: "", email: "", phone: "",
-    date: "", time: "", guests: "", message: "", space: "banquet",
+  const [formData, setFormData] = useState({
+    name: "", email: "", phone: "", eventType: "", guestCount: "", date: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -37,396 +48,164 @@ export default function Events() {
   };
 
   return (
-    <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
-      <Navigation />
+    <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
+      <NavigationA />
 
-      {/* Page Header */}
-      <section
-        className="relative overflow-hidden"
-        style={{ paddingTop: "120px", paddingBottom: "80px" }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${EVENT_IMG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center 30%",
-            opacity: 0.3,
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(12,11,9,0.5), rgba(12,11,9,0.92))" }}
-        />
-        <div className="container relative text-center" style={{ zIndex: 2 }}>
-          <p className="section-label" style={{ marginBottom: "1rem" }}>Private Dining</p>
-          <span className="gold-rule" style={{ margin: "0 auto 2rem" }} />
-          <h1
-            className="display-headline"
-            style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "1.5rem", marginBottom: "1rem" }}
-          >
-            Private Events at<br />Francesca's
+      {/* HERO */}
+      <section style={{ position: "relative", height: "80vh", overflow: "hidden" }}>
+        <img src={EVENT_IMG} alt="Private dining at Francesca's Cucina"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(13,12,10,0.75) 100%)" }} />
+        <div style={{
+          position: "absolute", inset: 0, display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "flex-end", padding: "0 1.5rem 6rem", textAlign: "center", zIndex: 2,
+        }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.68rem", letterSpacing: "0.4em", textTransform: "uppercase", color: "rgba(245,240,228,0.65)", marginBottom: "1.25rem" }}>
+            Private Dining &amp; Events
+          </p>
+          <h1 className="display-condensed" style={{ fontSize: "clamp(3.5rem, 10vw, 8rem)", color: "var(--ivory)", lineHeight: 0.9, marginBottom: "1.5rem" }}>
+            Host Your<br />Event
           </h1>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "1rem",
-              color: "var(--ivory-muted)",
-              maxWidth: "520px",
-              margin: "0 auto",
-              lineHeight: 1.7,
-            }}
-          >
-            Host your next special occasion in one of our two stunning private event spaces.
-            Weddings, rehearsal dinners, corporate gatherings, and intimate celebrations —
-            we coordinate every detail.
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 400, fontSize: "clamp(1rem, 2vw, 1.35rem)", color: "rgba(245,240,228,0.75)", maxWidth: "600px" }}>
+            Intimate gatherings to grand celebrations — we create unforgettable experiences
           </p>
         </div>
       </section>
 
-      {/* Venue Cards */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Red Brick Room */}
-            <div
-              style={{
-                background: "var(--charcoal-mid)",
-                border: "1px solid rgba(184,150,90,0.15)",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
-                <img
-                  src={DINING_IMG}
-                  alt="The Red Brick Room — private dining room at Francesca's Cucina Syracuse"
-                  className="w-full h-full"
-                  style={{ objectFit: "cover" }}
-                  loading="lazy"
-                />
-              </div>
-              <div style={{ padding: "2rem" }}>
-                <p className="section-label" style={{ marginBottom: "0.75rem" }}>Venue One</p>
-                <h2
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontStyle: "italic",
-                    fontWeight: 600,
-                    fontSize: "2rem",
-                    color: "var(--ivory)",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  The Red Brick Room
-                </h2>
-                <p
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 300,
-                    fontSize: "0.875rem",
-                    color: "var(--ivory-muted)",
-                    lineHeight: 1.8,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  A warm, rustic dining room featuring exposed brick walls, striking windows
-                  that let in natural light, and warm neutral décor. Ideal for showers,
-                  receptions, rehearsal dinners, small holiday parties, and intimate gatherings.
-                </p>
-                <div
-                  style={{
-                    borderTop: "1px solid rgba(184,150,90,0.15)",
-                    paddingTop: "1.25rem",
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "1rem",
-                  }}
-                >
-                  {[
-                    { label: "Capacity", value: "Up to 60 guests" },
-                    { label: "Availability", value: "Every day, all year" },
-                    { label: "Style", value: "Rustic, intimate" },
-                    { label: "Ideal for", value: "Rehearsals, showers" },
-                  ].map((d) => (
-                    <div key={d.label}>
-                      <p className="section-label" style={{ fontSize: "0.55rem", marginBottom: "0.25rem" }}>{d.label}</p>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.825rem", color: "var(--ivory)" }}>{d.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Tuscany Terrace */}
-            <div
-              style={{
-                background: "var(--charcoal-mid)",
-                border: "1px solid rgba(184,150,90,0.15)",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
-                <img
-                  src={EVENT_IMG}
-                  alt="The Tuscany Terrace — enclosed outdoor patio for weddings and events at Francesca's Cucina"
-                  className="w-full h-full"
-                  style={{ objectFit: "cover" }}
-                  loading="lazy"
-                />
-              </div>
-              <div style={{ padding: "2rem" }}>
-                <p className="section-label" style={{ marginBottom: "0.75rem" }}>Venue Two</p>
-                <h2
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontStyle: "italic",
-                    fontWeight: 600,
-                    fontSize: "2rem",
-                    color: "var(--ivory)",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  The Tuscany Terrace
-                </h2>
-                <p
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 300,
-                    fontSize: "0.875rem",
-                    color: "var(--ivory-muted)",
-                    lineHeight: 1.8,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  Our intimate, enclosed inner patio features an elegant fireplace, vintage
-                  greenery, and rustic architecture with contemporary décor. Perfect for
-                  intimate ceremonies, wedding receptions, and seasonal celebrations.
-                </p>
-                <div
-                  style={{
-                    borderTop: "1px solid rgba(184,150,90,0.15)",
-                    paddingTop: "1.25rem",
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "1rem",
-                  }}
-                >
-                  {[
-                    { label: "Capacity", value: "Up to 100 guests" },
-                    { label: "Availability", value: "Sat afternoons & Sundays" },
-                    { label: "Style", value: "Elegant, romantic" },
-                    { label: "Ideal for", value: "Weddings, ceremonies" },
-                  ].map((d) => (
-                    <div key={d.label}>
-                      <p className="section-label" style={{ fontSize: "0.55rem", marginBottom: "0.25rem" }}>{d.label}</p>
-                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.825rem", color: "var(--ivory)" }}>{d.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* INTRO */}
+      <section style={{ padding: "6rem 0 4rem", background: "var(--charcoal)" }}>
+        <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 2rem", textAlign: "center" }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "1.05rem", color: "var(--ivory-muted)", lineHeight: 1.9 }}>
+            Francesca's Cucina events feature thoughtfully curated menus inspired by classic Italian cuisine and seasonal specialties. Whether you're planning an intimate dinner for 20 or a grand celebration for 130, our dedicated events team will work with you to create an experience that exceeds every expectation.
+          </p>
         </div>
       </section>
 
-      {/* Inquiry Form */}
-      <section
-        className="py-20 md:py-28"
-        style={{ background: "var(--charcoal-mid)", borderTop: "1px solid rgba(184,150,90,0.1)" }}
-      >
-        <div className="container">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
-              <p className="section-label" style={{ marginBottom: "1rem" }}>Get in Touch</p>
-              <span className="gold-rule" style={{ margin: "0 auto 2rem" }} />
-              <h2
-                className="display-headline"
-                style={{ fontSize: "clamp(2rem, 4vw, 3rem)", marginTop: "1.5rem", marginBottom: "1rem" }}
-              >
-                Inquire About Your Event
-              </h2>
-              <p
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
-                  fontSize: "0.875rem",
-                  color: "var(--ivory-muted)",
-                  lineHeight: 1.7,
-                }}
-              >
-                Fill out the form below or call us directly at{" "}
-                <a href="tel:+13154098848" style={{ color: "var(--gold)" }}>(315) 409-8848</a>
+      {/* VENUE CARDS */}
+      <section style={{ padding: "2rem 0 6rem", background: "var(--charcoal)" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 3rem" }}>
+          {venues.map((venue, i) => (
+            <div key={venue.name} style={{
+              display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0", marginBottom: "4px", minHeight: "480px",
+            }} className="venue-card-grid">
+              {i % 2 === 0 ? (
+                <>
+                  <div style={{ overflow: "hidden" }}>
+                    <img src={venue.img} alt={venue.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.7s ease" }}
+                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")} />
+                  </div>
+                  <div style={{ background: "var(--charcoal-mid)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 3.5rem" }}>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>{venue.capacity}</p>
+                    <h2 className="display-condensed" style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "var(--ivory)", marginBottom: "1.5rem", lineHeight: 0.95 }}>{venue.name}</h2>
+                    <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "1.5rem" }} />
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: "var(--ivory-muted)", lineHeight: 1.85, marginBottom: "1.5rem" }}>{venue.desc}</p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
+                      {venue.features.map((f) => (
+                        <span key={f} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.72rem", fontWeight: 400, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ivory-muted)", border: "1px solid rgba(245,240,228,0.2)", padding: "0.3rem 0.75rem" }}>{f}</span>
+                      ))}
+                    </div>
+                    <a href="#inquire" className="btn-outline-ivory" style={{ width: "fit-content" }}>Inquire Now</a>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div style={{ background: "var(--charcoal-mid)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 3.5rem" }}>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>{venue.capacity}</p>
+                    <h2 className="display-condensed" style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "var(--ivory)", marginBottom: "1.5rem", lineHeight: 0.95 }}>{venue.name}</h2>
+                    <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "1.5rem" }} />
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: "var(--ivory-muted)", lineHeight: 1.85, marginBottom: "1.5rem" }}>{venue.desc}</p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
+                      {venue.features.map((f) => (
+                        <span key={f} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.72rem", fontWeight: 400, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ivory-muted)", border: "1px solid rgba(245,240,228,0.2)", padding: "0.3rem 0.75rem" }}>{f}</span>
+                      ))}
+                    </div>
+                    <a href="#inquire" className="btn-outline-ivory" style={{ width: "fit-content" }}>Inquire Now</a>
+                  </div>
+                  <div style={{ overflow: "hidden" }}>
+                    <img src={venue.img} alt={venue.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.7s ease" }}
+                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")} />
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* INQUIRY FORM */}
+      <section id="inquire" style={{ padding: "7rem 0", background: "var(--charcoal-mid)", scrollMarginTop: "72px" }}>
+        <div style={{ maxWidth: "760px", margin: "0 auto", padding: "0 2rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1.25rem" }}>Get in Touch</p>
+            <h2 className="display-condensed" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "var(--ivory)", lineHeight: 0.92, marginBottom: "1.5rem" }}>Plan Your Event</h2>
+            <div style={{ width: "50px", height: "1px", background: "var(--gold)", margin: "0 auto 1.5rem" }} />
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: "var(--ivory-muted)", lineHeight: 1.8 }}>
+              Contact our events team at{" "}
+              <a href="mailto:catering@francescas-cucina.com" style={{ color: "var(--gold)", textDecoration: "none" }}>catering@francescas-cucina.com</a>{" "}
+              or <a href="tel:+13154098848" style={{ color: "var(--gold)", textDecoration: "none" }}>(315) 409-8848</a>, or fill out the form below.
+            </p>
+          </div>
+
+          {submitted ? (
+            <div style={{ textAlign: "center", padding: "4rem 2rem", border: "1px solid rgba(255,255,255,0.1)" }}>
+              <p className="display-condensed" style={{ fontSize: "2rem", color: "var(--ivory)", marginBottom: "1rem" }}>Thank You!</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.95rem", color: "var(--ivory-muted)", lineHeight: 1.8 }}>
+                We've received your inquiry and will be in touch within 24 hours to discuss your event.
               </p>
             </div>
-
-            {submitted ? (
-              <div
-                className="text-center py-16"
-                style={{ border: "1px solid rgba(184,150,90,0.3)", padding: "3rem" }}
-              >
-                <span className="gold-rule" style={{ margin: "0 auto 2rem" }} />
-                <h3
-                  className="display-headline"
-                  style={{ fontSize: "1.75rem", marginTop: "1.5rem", marginBottom: "1rem" }}
-                >
-                  Thank You
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 300,
-                    fontSize: "0.875rem",
-                    color: "var(--ivory-muted)",
-                  }}
-                >
-                  We've received your inquiry and will be in touch within 24 hours.
-                </p>
+          ) : (
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }} className="form-grid">
+                {[
+                  { label: "Full Name", key: "name", type: "text", placeholder: "Your name", required: true },
+                  { label: "Email", key: "email", type: "email", placeholder: "your@email.com", required: true },
+                  { label: "Phone", key: "phone", type: "tel", placeholder: "(315) 000-0000", required: false },
+                  { label: "Number of Guests", key: "guestCount", type: "number", placeholder: "e.g. 40", required: true },
+                ].map((field) => (
+                  <div key={field.key}>
+                    <label style={{ display: "block", fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--ivory-muted)", marginBottom: "0.5rem" }}>{field.label}</label>
+                    <input type={field.type} required={field.required} placeholder={field.placeholder}
+                      value={(formData as Record<string, string>)[field.key]}
+                      onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                      style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", padding: "0.85rem 1rem", color: "var(--ivory)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.9rem", fontWeight: 300, outline: "none", boxSizing: "border-box" }} />
+                  </div>
+                ))}
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>First Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={form.firstName}
-                      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Last Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={form.lastName}
-                      onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
+              {[
+                { label: "Event Type", key: "eventType", placeholder: "e.g. Birthday, Wedding Rehearsal, Corporate Dinner" },
+                { label: "Preferred Date", key: "date", placeholder: "e.g. Saturday, June 14, 2025" },
+              ].map((field) => (
+                <div key={field.key}>
+                  <label style={{ display: "block", fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--ivory-muted)", marginBottom: "0.5rem" }}>{field.label}</label>
+                  <input type="text" placeholder={field.placeholder}
+                    value={(formData as Record<string, string>)[field.key]}
+                    onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                    style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", padding: "0.85rem 1rem", color: "var(--ivory)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.9rem", fontWeight: 300, outline: "none", boxSizing: "border-box" }} />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Email</label>
-                    <input
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Phone</label>
-                    <input
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Date of Event</label>
-                    <input
-                      type="date"
-                      value={form.date}
-                      onChange={(e) => setForm({ ...form, date: e.target.value })}
-                      style={{ ...inputStyle, colorScheme: "dark" }}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Time</label>
-                    <input
-                      type="time"
-                      value={form.time}
-                      onChange={(e) => setForm({ ...form, time: e.target.value })}
-                      style={{ ...inputStyle, colorScheme: "dark" }}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
-                  <div>
-                    <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Number of Guests</label>
-                    <input
-                      type="number"
-                      min="1"
-                      max="100"
-                      value={form.guests}
-                      onChange={(e) => setForm({ ...form, guests: e.target.value })}
-                      style={inputStyle}
-                      onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                      onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Preferred Space</label>
-                  <div className="flex gap-6">
-                    {[
-                      { value: "banquet", label: "The Red Brick Room" },
-                      { value: "patio", label: "The Tuscany Terrace" },
-                    ].map((opt) => (
-                      <label
-                        key={opt.value}
-                        className="flex items-center gap-2"
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontWeight: 300,
-                          fontSize: "0.875rem",
-                          color: form.space === opt.value ? "var(--gold)" : "var(--ivory-muted)",
-                          cursor: "pointer",
-                          transition: "color 0.3s ease",
-                        }}
-                      >
-                        <input
-                          type="radio"
-                          name="space"
-                          value={opt.value}
-                          checked={form.space === opt.value}
-                          onChange={(e) => setForm({ ...form, space: e.target.value })}
-                          style={{ accentColor: "var(--gold)" }}
-                        />
-                        {opt.label}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <label className="section-label" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.6rem" }}>Your Message</label>
-                  <textarea
-                    rows={4}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    style={{ ...inputStyle, resize: "vertical" }}
-                    placeholder="Tell us about your event..."
-                    onFocus={(e) => (e.target.style.borderColor = "var(--gold)")}
-                    onBlur={(e) => (e.target.style.borderColor = "rgba(184,150,90,0.2)")}
-                  />
-                </div>
-                <button type="submit" className="btn-gold" style={{ alignSelf: "flex-start", marginTop: "0.5rem" }}>
-                  Submit Inquiry
-                </button>
-              </form>
-            )}
-          </div>
+              ))}
+              <div>
+                <label style={{ display: "block", fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--ivory-muted)", marginBottom: "0.5rem" }}>Additional Details</label>
+                <textarea rows={5} placeholder="Tell us about your event..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  style={{ width: "100%", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", padding: "0.85rem 1rem", color: "var(--ivory)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.9rem", fontWeight: 300, outline: "none", resize: "vertical", boxSizing: "border-box" }} />
+              </div>
+              <button type="submit" className="btn-outline-ivory" style={{ alignSelf: "flex-start", marginTop: "0.5rem" }}>Submit Inquiry</button>
+            </form>
+          )}
         </div>
       </section>
 
       <Footer />
+
+      <style>{`
+        @media (max-width: 768px) {
+          .venue-card-grid { grid-template-columns: 1fr !important; min-height: auto !important; }
+          .form-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }

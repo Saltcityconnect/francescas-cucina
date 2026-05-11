@@ -1,25 +1,28 @@
 /*
- * DESIGN: Contemporary Italian — Cinematic Dark with Gold Accents
- * Menu page: Clean editorial list format with category anchors
- * SEO: H1 with keyword, proper heading hierarchy, descriptive content
+ * MENU PAGE — Sunny's Miami style
+ * Dark charcoal bg, Big Shoulders Display condensed category names stacked left,
+ * large food photo right, then full menu items listed below
  */
 
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
+import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const FOOD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
+const STEAK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/steak_324fcfb5.jpg";
+const PASTA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
+const SEAFOOD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/seafood_d149e28c.jpg";
+const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
 
 const categories = [
   {
     id: "appetizers",
-    label: "Apertivi",
     title: "Appetizers",
+    img: SEAFOOD_IMG,
     items: [
       { name: "Utica-Style Greens", desc: "Escarole, prosciutto, hot peppers, toasted breadcrumbs and romano" },
       { name: "Stuffed Hot Cherry Peppers", desc: "Signature meatball mix baked with marinara and romano cheese" },
       { name: "Hey Meatball!", desc: "Three stuffed meatballs, three-cheese blend, roasted red peppers, marinara, caramelized onions, grated cheese" },
-      { name: "Goat Cheese Fritter", desc: "Fritti, battered fresh goat cheese, garlic crostini, fra diavolo sauce" },
+      { name: "Goat Cheese Fritter", desc: "Battered fresh goat cheese, garlic crostini, fra diavolo sauce" },
       { name: "Calabrian Ribs", desc: "Baby back ribs, calabrian chili rub, buttermilk polenta, fennel, gorgonzola slaw" },
       { name: "Fried Calamari", desc: "Lightly breaded, perfectly fried with marinara dipping sauce" },
       { name: "Arancini Rice Balls", desc: "Arborio rice, mozzarella, provolone, spicy Italian sausage, roasted peppers, basil, shaved parmesan" },
@@ -29,8 +32,8 @@ const categories = [
   },
   {
     id: "salads",
-    label: "Zuppi & Insalata",
-    title: "Soups & Salads",
+    title: "Salads",
+    img: PASTA_IMG,
     items: [
       { name: "Italian Wedding Soup", desc: "Classic Italian wedding soup with housemade meatballs" },
       { name: "Tuscan Greens & Beans", desc: "A hearty Tuscan-style soup" },
@@ -43,8 +46,8 @@ const categories = [
   },
   {
     id: "pasta",
-    label: "Francesca's Favorites",
     title: "Pasta",
+    img: PASTA_IMG,
     items: [
       { name: "Eggplant Rollatini", desc: "Lightly breaded eggplant, seasoned ricotta, melted mozzarella, side of linguini marinara" },
       { name: "Gemelli Angeloro", desc: "Twin pasta, grilled chicken, utica greens, prosciutto, extra-virgin garlic olive oil, toasted breadcrumbs, romano cheese, splash of tomato ragu" },
@@ -62,44 +65,25 @@ const categories = [
     ],
   },
   {
-    id: "seafood",
-    label: "Pesci",
-    title: "Seafood",
+    id: "entrees",
+    title: "Entrees",
+    img: SEAFOOD_IMG,
     items: [
       { name: "Salmon Fillet", desc: "Broiled Canadian salmon with savory Italian herb crust, lemon-chive butter sauce, saffron risotto and grilled asparagus" },
       { name: "Crab-Stuffed Salmon", desc: "Oven-roasted Canadian salmon stuffed with jumbo lump crabmeat, shrimp and lobster chive velouté, saffron risotto and grilled asparagus" },
       { name: "Shrimp with Polenta", desc: "Colossal shrimp, crispy pancetta, spinach, cherry tomatoes and pearl onions in a garlic pomodoro with alfredo drizzle over creamy polenta" },
-      { name: "Cioppino", desc: "The San Francisco favorite — clams, mussels, calamari, shrimp, scallops and fresh fish in white wine, fumet and tomato broth, served with garlic crostini over linguine" },
-      { name: "Salmon and Broccolini", desc: "Oven-roasted Canadian salmon, broccolini and blistered heirloom cherry tomatoes in a light parmesan and tarragon lemon cream sauce over housemade pappardelle" },
-      { name: "Scallops", desc: "Chef's daily preparation — ask your server for tonight's feature" },
-    ],
-  },
-  {
-    id: "chicken",
-    label: "Pollame",
-    title: "Chicken",
-    items: [
+      { name: "Cioppino", desc: "Clams, mussels, calamari, shrimp, scallops and fresh fish in white wine, fumet and tomato broth, served with garlic crostini over linguine" },
       { name: "Chicken Parmesan", desc: "A classic chicken dish prepared au gratin with fresh whole milk mozzarella" },
-      { name: "Grilled Chicken Parmesan", desc: "Grilled chicken au gratin with fresh whole milk mozzarella and house marinara over rigatoni" },
-      { name: "Chicken MVP", desc: "\"Matty D's Vodka Parm\" — breaded chicken au gratin with fresh mozzarella, house vodka sauce and pesto drizzle over rigatoni" },
-      { name: "Chicken Francaise", desc: "Egg-battered chicken cutlets sautéed with white wine, lemon and butter, served over linguine" },
       { name: "Chicken Marsala", desc: "Tender chicken breast sautéed with shallots, garlic and wild mushrooms in a sweet Marsala wine reduction, served over linguine" },
-      { name: "Chicken Capricciosa", desc: "Breaded chicken cutlet topped with shaved parmesan, a lemon-dressed tomato and ciliegine arugula salad, served with red pepper aioli" },
-    ],
-  },
-  {
-    id: "veal",
-    label: "Vitello",
-    title: "Veal",
-    items: [
+      { name: "Chicken Francaise", desc: "Egg-battered chicken cutlets sautéed with white wine, lemon and butter, served over linguine" },
+      { name: "Chicken MVP", desc: "\"Matty D's Vodka Parm\" — breaded chicken au gratin with fresh mozzarella, house vodka sauce and pesto drizzle over rigatoni" },
       { name: "Veal Parmesan", desc: "14oz bone-in veal chop pounded au gratin with fresh whole milk mozzarella and housemade marinara over chef's choice pasta" },
-      { name: "Veal Capricciosa", desc: "Breaded veal cutlet topped with shaved parmesan, a lemon-dressed tomato and ciliegine arugula salad, served with red pepper aioli" },
     ],
   },
   {
     id: "steaks",
-    label: "Carne",
     title: "Steaks",
+    img: STEAK_IMG,
     items: [
       { name: "Filet Gorgonzola", desc: "Two Angus Reserve medallions layered with Utica greens over gemelli pasta tossed in aged Italian gorgonzola cream sauce" },
       { name: "Filet Mignon", desc: "8oz center-cut Angus Reserve filet, seasoned and grilled to perfection, served with smoked gouda au gratin mash and seasonal vegetables" },
@@ -108,213 +92,269 @@ const categories = [
       { name: "Surf and Turf", desc: "Chef's daily adventure with fresh proteins and seasonally inspired seafood — ask your server for tonight's feature" },
     ],
   },
+  {
+    id: "desserts",
+    title: "Desserts",
+    img: DESSERT_IMG,
+    items: [
+      { name: "Tiramisu", desc: "Classic Italian tiramisu with espresso-soaked ladyfingers and mascarpone cream" },
+      { name: "Cannoli", desc: "Traditional Sicilian cannoli with sweet ricotta filling and chocolate chips" },
+      { name: "Panna Cotta", desc: "Silky vanilla panna cotta with seasonal berry compote" },
+      { name: "Chocolate Lava Cake", desc: "Warm chocolate cake with a molten center, served with vanilla gelato" },
+      { name: "Gelato", desc: "Ask your server for today's housemade selections" },
+    ],
+  },
 ];
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
 
-  return (
-    <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
-      <Navigation />
+  const activeData = categories.find((c) => c.id === activeCategory) || categories[0];
 
-      {/* Page Header */}
-      <section
-        className="relative overflow-hidden"
-        style={{ paddingTop: "120px", paddingBottom: "80px" }}
+  return (
+    <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
+      <NavigationA />
+
+      {/* ─── HERO SPLIT: Sunny's style — category list left, photo right ─── */}
+      <section style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        minHeight: "100vh",
+        paddingTop: "72px",
+      }}
+      className="menu-hero-grid"
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${FOOD_IMG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center 40%",
-            opacity: 0.25,
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to bottom, rgba(12,11,9,0.6), rgba(12,11,9,0.9))",
-          }}
-        />
-        <div className="container relative text-center" style={{ zIndex: 2 }}>
-          <p className="section-label" style={{ marginBottom: "1rem" }}>
-            Italian Restaurant Menu
+        {/* Left: dark panel with category names */}
+        <div style={{
+          background: "var(--charcoal)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "4rem 4rem 4rem 3rem",
+        }}>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.68rem", letterSpacing: "0.35em",
+            textTransform: "uppercase", color: "var(--gold)",
+            marginBottom: "2.5rem",
+          }}>
+            Menu
           </p>
-          <span className="gold-rule" style={{ margin: "0 auto 2rem" }} />
-          <h1
-            className="display-headline"
-            style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "1.5rem", marginBottom: "1rem" }}
-          >
-            Our Menu
+
+          <h1 style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 900,
+            fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "rgba(245,240,228,0.4)",
+            marginBottom: "1rem",
+          }}>
+            Dinner Menu
           </h1>
-          <p
+
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              style={{
+                fontFamily: "'Big Shoulders Display', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                color: activeCategory === cat.id ? "var(--ivory)" : "rgba(245,240,228,0.3)",
+                background: "none",
+                border: "none",
+                textAlign: "left",
+                lineHeight: 1.05,
+                padding: "0.1rem 0",
+                transition: "color 0.25s ease",
+                cursor: "pointer",
+                display: "block",
+                width: "100%",
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== cat.id) (e.currentTarget as HTMLElement).style.color = "rgba(245,240,228,0.65)";
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== cat.id) (e.currentTarget as HTMLElement).style.color = "rgba(245,240,228,0.3)";
+              }}
+            >
+              {cat.title}
+            </button>
+          ))}
+        </div>
+
+        {/* Right: large food photo */}
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          <img
+            key={activeData.img}
+            src={activeData.img}
+            alt={`${activeData.title} at Francesca's Cucina`}
             style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "1rem",
-              color: "var(--ivory-muted)",
-              maxWidth: "480px",
-              margin: "0 auto",
-              lineHeight: 1.7,
+              width: "100%", height: "100%",
+              objectFit: "cover",
+              display: "block",
+              transition: "opacity 0.4s ease",
             }}
-          >
-            Classic Italian cuisine crafted with care. All pasta is made in-house.
-            Served with soup or house salad where noted.
-          </p>
+          />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to left, transparent 60%, rgba(13,12,10,0.3) 100%)",
+          }} />
         </div>
       </section>
 
-      {/* Category Nav */}
-      <div
-        className="sticky top-16 md:top-20 z-30"
-        style={{
-          background: "rgba(12,11,9,0.97)",
-          borderBottom: "1px solid rgba(184,150,90,0.15)",
-          backdropFilter: "blur(12px)",
-        }}
-      >
-        <div className="container">
-          <div className="flex overflow-x-auto gap-0 py-0" style={{ scrollbarWidth: "none" }}>
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setActiveCategory(cat.id);
-                  document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: activeCategory === cat.id ? "var(--gold)" : "var(--ivory-muted)",
-                  padding: "1.25rem 1rem",
-                  background: "transparent",
-                  border: "none",
-                  borderBottom: activeCategory === cat.id ? "1px solid var(--gold)" : "1px solid transparent",
-                  whiteSpace: "nowrap",
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                }}
-              >
-                {cat.title}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* ─── MENU ITEMS ─── */}
+      <section style={{ padding: "6rem 0", background: "var(--charcoal)" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 3rem" }}>
 
-      {/* Menu Content */}
-      <div className="container py-16">
-        {categories.map((cat, ci) => (
-          <section
-            key={cat.id}
-            id={cat.id}
-            className="mb-20"
-            style={{ scrollMarginTop: "120px" }}
-          >
-            <div className="mb-10">
-              <p className="section-label" style={{ marginBottom: "0.75rem" }}>{cat.label}</p>
-              <span className="gold-rule" style={{ marginBottom: "1.5rem" }} />
+          {/* Sticky category nav */}
+          <div style={{
+            position: "sticky",
+            top: "72px",
+            zIndex: 30,
+            background: "rgba(18,16,14,0.97)",
+            backdropFilter: "blur(12px)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            marginBottom: "4rem",
+            marginLeft: "-3rem",
+            marginRight: "-3rem",
+            padding: "0 3rem",
+          }}>
+            <div style={{
+              display: "flex",
+              overflowX: "auto",
+              gap: "0",
+              scrollbarWidth: "none",
+            }}>
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setActiveCategory(cat.id);
+                    document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  style={{
+                    fontFamily: "'Big Shoulders Display', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "0.78rem",
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: activeCategory === cat.id ? "var(--ivory)" : "rgba(245,240,228,0.45)",
+                    padding: "1.25rem 1.25rem",
+                    background: "transparent",
+                    border: "none",
+                    borderBottom: activeCategory === cat.id ? "2px solid var(--ivory)" : "2px solid transparent",
+                    whiteSpace: "nowrap",
+                    transition: "all 0.25s ease",
+                    cursor: "pointer",
+                  }}
+                >
+                  {cat.title}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* All categories */}
+          {categories.map((cat) => (
+            <section
+              key={cat.id}
+              id={cat.id}
+              style={{ marginBottom: "5rem", scrollMarginTop: "140px" }}
+            >
               <h2
+                className="display-condensed"
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontStyle: "italic",
-                  fontWeight: 600,
-                  fontSize: "2.25rem",
+                  fontSize: "clamp(2.5rem, 5vw, 4rem)",
                   color: "var(--ivory)",
-                  marginTop: "1.25rem",
+                  marginBottom: "0.5rem",
                 }}
               >
                 {cat.title}
               </h2>
-            </div>
+              <div style={{ width: "50px", height: "1px", background: "var(--gold)", marginBottom: "2.5rem" }} />
 
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 gap-0"
-              style={{ borderTop: "1px solid rgba(184,150,90,0.1)" }}
-            >
-              {cat.items.map((item) => (
-                <div
-                  key={item.name}
-                  className="group"
-                  style={{
-                    padding: "1.25rem 0",
-                    borderBottom: "1px solid rgba(184,150,90,0.1)",
-                    paddingRight: "2rem",
-                    transition: "background 0.3s ease",
-                  }}
-                >
-                  <h3
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "0",
+              }}
+              className="menu-items-grid"
+              >
+                {cat.items.map((item, idx) => (
+                  <div
+                    key={idx}
                     style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontWeight: 600,
-                      fontSize: "1.05rem",
+                      padding: "1.25rem 0",
+                      borderBottom: "1px solid rgba(255,255,255,0.06)",
+                      paddingRight: idx % 2 === 0 ? "3rem" : "0",
+                    }}
+                  >
+                    <p style={{
+                      fontFamily: "'Big Shoulders Display', sans-serif",
+                      fontWeight: 700,
+                      fontSize: "1rem",
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
                       color: "var(--ivory)",
                       marginBottom: "0.35rem",
-                      letterSpacing: "0.02em",
-                    }}
-                  >
-                    {item.name}
-                  </h3>
-                  <p
-                    style={{
+                    }}>
+                      {item.name}
+                    </p>
+                    <p style={{
                       fontFamily: "'DM Sans', sans-serif",
                       fontWeight: 300,
-                      fontSize: "0.825rem",
+                      fontSize: "0.875rem",
                       color: "var(--ivory-muted)",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
+                      lineHeight: 1.65,
+                    }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
 
-        {/* Wine List CTA */}
-        <div
-          className="text-center py-12"
-          style={{
-            borderTop: "1px solid rgba(184,150,90,0.2)",
-            borderBottom: "1px solid rgba(184,150,90,0.2)",
-            marginBottom: "2rem",
-          }}
-        >
-          <p className="section-label" style={{ marginBottom: "1rem" }}>Beverages</p>
-          <h2
-            className="display-headline"
-            style={{ fontSize: "2rem", marginBottom: "1rem" }}
-          >
-            Wine List
-          </h2>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "0.875rem",
+          {/* Reservation CTA */}
+          <div style={{
+            textAlign: "center",
+            padding: "4rem 0",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+          }}>
+            <p style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "1.5rem",
               color: "var(--ivory-muted)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Ask your server for our curated selection of Italian and domestic wines.
-          </p>
-          <a
-            href="https://resy.com/cities/syr/francescas-cucina"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold"
-          >
-            Reserve Your Table
-          </a>
+              marginBottom: "2rem",
+            }}>
+              Ready to dine with us?
+            </p>
+            <a
+              href="https://resy.com/cities/syr/francescas-cucina"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline-ivory"
+            >
+              Make a Reservation
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
 
       <Footer />
+
+      <style>{`
+        @media (max-width: 768px) {
+          .menu-hero-grid { grid-template-columns: 1fr !important; }
+          .menu-items-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
