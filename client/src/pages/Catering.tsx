@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import NavigationA from "@/components/NavigationA";
+import NavigationB from "@/components/NavigationB";
 import Footer from "@/components/Footer";
 
 const PASTA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
@@ -118,7 +118,7 @@ export default function Catering() {
 
   return (
     <div style={{ background: "#f9f6f0", minHeight: "100vh", color: "#1a1a18" }}>
-      <NavigationA />
+      <NavigationB />
 
       {/* ─── HERO ─── */}
       <div style={{ position: "relative", height: "340px", overflow: "hidden", marginTop: "72px" }}>

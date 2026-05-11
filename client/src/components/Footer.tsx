@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: "var(--charcoal)",
+        background: "var(--hunter-green-dark)",
         borderTop: "1px solid rgba(184,150,90,0.2)",
       }}
     >
@@ -29,7 +29,7 @@ export default function Footer() {
             >
               francesca's
             </span>
-            <span className="section-label" style={{ color: "var(--gold)" }}>
+            <span className="section-label" style={{ color: "var(--sage)" }}>
               Cucina
             </span>
             <p
@@ -66,7 +66,7 @@ export default function Footer() {
                     textDecoration: "none",
                     transition: "color 0.3s ease",
                   }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--gold)")}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--sage)")}
                   onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--ivory-muted)")}
                 >
                   {s.label}
@@ -150,14 +150,14 @@ export default function Footer() {
               info@francescas-cucina.com
             </a>
             <div className="flex flex-col gap-3 mt-2">
-              <Link href="/menu" className="btn-gold" style={{ width: "fit-content", padding: "0.5rem 1.25rem", fontSize: "0.65rem" }}>
+              <Link href="/menu" className="btn-green-pill" style={{ width: "fit-content", padding: "0.5rem 1.25rem", fontSize: "0.65rem" }}>
                 View Menu
               </Link>
               <a
                 href="https://resy.com/cities/syr/francescas-cucina"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold"
+                className="btn-green-pill"
                 style={{ width: "fit-content", padding: "0.5rem 1.25rem", fontSize: "0.65rem" }}
               >
                 Reservations

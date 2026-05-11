@@ -431,38 +431,7 @@ export default function HomeB() {
         </div>
       </section>
 
-      {/* ─── OPTION SWITCHER ─── */}
-      <div style={{
-        background: "var(--hunter-green)",
-        padding: "1.5rem 3rem",
-        textAlign: "center",
-        borderTop: "1px solid rgba(245,240,228,0.06)",
-      }}>
-        <p style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: "0.7rem",
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: "rgba(245,240,228,0.35)",
-          marginBottom: "0.75rem",
-        }}>
-          You're viewing Option B (Green / Sunny's-inspired)
-        </p>
-        <Link
-          href="/"
-          style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 600,
-            fontSize: "0.8rem",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: "var(--sage)",
-            textDecoration: "none",
-          }}
-        >
-          Switch to Option A (Dark / Motherwolf-inspired) →
-        </Link>
-      </div>
+
 
       <style>{`
         @media (max-width: 768px) {

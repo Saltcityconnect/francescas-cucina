@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import NavigationA from "@/components/NavigationA";
+import NavigationB from "@/components/NavigationB";
 import Footer from "@/components/Footer";
 
 const STEAK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/steak_324fcfb5.jpg";
@@ -147,8 +147,8 @@ export default function Menu() {
   }, []);
 
   return (
-    <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
-      <NavigationA />
+    <div style={{ background: "var(--hunter-green)", minHeight: "100vh", color: "var(--ivory)" }}>
+      <NavigationB />
 
       {/* ─── HERO: split — category list left, photo right (Motherwolf style) ─── */}
       <section style={{
@@ -161,7 +161,7 @@ export default function Menu() {
       >
         {/* Left: dark panel with category names */}
         <div style={{
-          background: "var(--charcoal)",
+          background: "var(--hunter-green)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -170,7 +170,7 @@ export default function Menu() {
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontSize: "0.65rem", letterSpacing: "0.4em",
-            textTransform: "uppercase", color: "var(--gold)",
+            textTransform: "uppercase", color: "var(--sage)",
             marginBottom: "2.5rem",
           }}>
             Menu
@@ -223,7 +223,7 @@ export default function Menu() {
           />
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to left, transparent 55%, rgba(13,12,10,0.25) 100%)",
+            background: "linear-gradient(to left, transparent 55%, rgba(15,35,20,0.25) 100%)",
           }} />
         </div>
       </section>
@@ -233,7 +233,7 @@ export default function Menu() {
         position: "sticky",
         top: "72px",
         zIndex: 40,
-        background: "rgba(18,16,14,0.97)",
+        background: "rgba(20,45,25,0.97)",
         backdropFilter: "blur(14px)",
         borderBottom: "1px solid rgba(255,255,255,0.07)",
         overflowX: "auto",
@@ -258,7 +258,7 @@ export default function Menu() {
                 color: activeCategory === cat.id ? "var(--ivory)" : "var(--ivory-muted)",
                 background: "none",
                 border: "none",
-                borderBottom: activeCategory === cat.id ? "2px solid var(--gold)" : "2px solid transparent",
+                borderBottom: activeCategory === cat.id ? "2px solid var(--sage)" : "2px solid transparent",
                 padding: "1.1rem 1.4rem",
                 cursor: "pointer",
                 transition: "color 0.2s ease, border-color 0.2s ease",
@@ -298,7 +298,7 @@ export default function Menu() {
                   fontStyle: "italic",
                   fontWeight: 400,
                   fontSize: "1rem",
-                  color: "var(--gold)",
+                  color: "var(--sage)",
                   marginBottom: "0.5rem",
                   letterSpacing: "0.05em",
                 }}>

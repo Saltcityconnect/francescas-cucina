@@ -163,6 +163,14 @@
     display: block;
   }
 
+  /* === SAGE RULE DIVIDER (Option B) === */
+  .sage-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--sage);
+    display: block;
+  }
+
   /* === OPTION A BUTTONS (dark bg, ivory/gold outline) === */
   .btn-outline-ivory {
     display: inline-flex;

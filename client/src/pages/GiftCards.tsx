@@ -4,15 +4,15 @@
  * SEO: H1 with keyword, proper heading hierarchy, descriptive content
  */
 
-import NavigationA from "@/components/NavigationA";
+import NavigationB from "@/components/NavigationB";
 import Footer from "@/components/Footer";
 
 const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
 
 export default function GiftCards() {
   return (
-    <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
-      <NavigationA />
+    <div style={{ background: "var(--hunter-green)", minHeight: "100vh" }}>
+      <NavigationB />
 
       {/* Page Header */}
       <section
@@ -34,7 +34,7 @@ export default function GiftCards() {
         />
         <div className="container relative text-center" style={{ zIndex: 2 }}>
           <p className="section-label" style={{ marginBottom: "1rem" }}>The Perfect Gift</p>
-          <span className="gold-rule" style={{ margin: "0 auto 2rem" }} />
+          <span className="sage-rule" style={{ margin: "0 auto 2rem" }} />
           <h1
             className="display-headline"
             style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "1.5rem", marginBottom: "1rem" }}
@@ -66,7 +66,7 @@ export default function GiftCards() {
             {/* Traditional Physical Gift Card */}
             <div
               style={{
-                background: "var(--charcoal-mid)",
+                background: "var(--hunter-green-dark)",
                 border: "1px solid rgba(184,150,90,0.2)",
                 padding: "2.5rem",
                 display: "flex",
@@ -86,7 +86,7 @@ export default function GiftCards() {
                   marginBottom: "0.5rem",
                 }}
               >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" strokeWidth="1.5">
                   <rect x="2" y="5" width="20" height="14" rx="2" />
                   <path d="M2 10h20" />
                   <path d="M6 15h4" />
@@ -139,7 +139,7 @@ export default function GiftCards() {
                     className="flex items-center gap-3"
                     style={{ marginBottom: "0.6rem" }}
                   >
-                    <span style={{ color: "var(--gold)", fontSize: "0.75rem" }}>—</span>
+                    <span style={{ color: "var(--sage)", fontSize: "0.75rem" }}>—</span>
                     <span
                       style={{
                         fontFamily: "'DM Sans', sans-serif",
@@ -158,7 +158,7 @@ export default function GiftCards() {
                 href="https://francescas.securetree.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold"
+                className="btn-green-pill"
                 style={{ marginTop: "auto", textAlign: "center" }}
               >
                 Order Traditional Gift Card
@@ -168,7 +168,7 @@ export default function GiftCards() {
             {/* Electronic / Digital Gift Card */}
             <div
               style={{
-                background: "var(--charcoal-mid)",
+                background: "var(--hunter-green-dark)",
                 border: "1px solid rgba(184,150,90,0.2)",
                 padding: "2.5rem",
                 display: "flex",
@@ -188,7 +188,7 @@ export default function GiftCards() {
                   marginBottom: "0.5rem",
                 }}
               >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" strokeWidth="1.5">
                   <rect x="5" y="2" width="14" height="20" rx="2" />
                   <path d="M12 18h.01" />
                 </svg>
@@ -240,7 +240,7 @@ export default function GiftCards() {
                     className="flex items-center gap-3"
                     style={{ marginBottom: "0.6rem" }}
                   >
-                    <span style={{ color: "var(--gold)", fontSize: "0.75rem" }}>—</span>
+                    <span style={{ color: "var(--sage)", fontSize: "0.75rem" }}>—</span>
                     <span
                       style={{
                         fontFamily: "'DM Sans', sans-serif",
@@ -259,7 +259,7 @@ export default function GiftCards() {
                 href="https://www.toasttab.com/francesca-s-cucina-545-n-salina-st/giftcards"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold"
+                className="btn-green-pill"
                 style={{ marginTop: "auto", textAlign: "center" }}
               >
                 Order Electronic Gift Card
@@ -271,7 +271,7 @@ export default function GiftCards() {
           <div
             className="max-w-4xl mx-auto mt-8"
             style={{
-              background: "var(--charcoal-mid)",
+              background: "var(--hunter-green-dark)",
               border: "1px solid rgba(184,150,90,0.12)",
               padding: "2rem 2.5rem",
               display: "flex",
@@ -310,7 +310,7 @@ export default function GiftCards() {
               href="https://www.toasttab.com/francesca-s-cucina-545-n-salina-st/findcard"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold"
+              className="btn-green-pill"
               style={{ background: "rgba(184,150,90,0.1)", whiteSpace: "nowrap" }}
             >
               Check Balance
@@ -323,14 +323,14 @@ export default function GiftCards() {
       <section
         className="py-20 md:py-24"
         style={{
-          background: "var(--charcoal-mid)",
+          background: "var(--hunter-green-dark)",
           borderTop: "1px solid rgba(184,150,90,0.1)",
           borderBottom: "1px solid rgba(184,150,90,0.1)",
         }}
       >
         <div className="container text-center">
           <p className="section-label" style={{ marginBottom: "1rem" }}>Share the Experience</p>
-          <span className="gold-rule" style={{ margin: "0 auto 2rem" }} />
+          <span className="sage-rule" style={{ margin: "0 auto 2rem" }} />
           <h2
             className="display-headline"
             style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", marginTop: "1.5rem", marginBottom: "1.25rem" }}
@@ -357,7 +357,7 @@ export default function GiftCards() {
               href="https://francescas.securetree.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold"
+              className="btn-green-pill"
             >
               Order Traditional Card
             </a>
@@ -365,7 +365,7 @@ export default function GiftCards() {
               href="https://www.toasttab.com/francesca-s-cucina-545-n-salina-st/giftcards"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold"
+              className="btn-green-pill"
               style={{ background: "rgba(184,150,90,0.1)" }}
             >
               Order Electronic Card

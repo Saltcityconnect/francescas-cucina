@@ -67,7 +67,7 @@ export default function NavigationB() {
             </button>
 
             {/* Wordmark — Center */}
-            <Link href="/option-b" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textDecoration: "none" }}>
+            <Link href="/" className="nav-wordmark" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textDecoration: "none" }}>
               <div style={{ textAlign: "center", lineHeight: 1 }}>
                 <div style={{
                   fontFamily: "'Big Shoulders Display', sans-serif",
