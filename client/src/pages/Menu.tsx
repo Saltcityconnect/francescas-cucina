@@ -1,10 +1,10 @@
 /*
- * MENU PAGE — Sunny's Miami style
- * Dark charcoal bg, Big Shoulders Display condensed category names stacked left,
- * large food photo right, then full menu items listed below
+ * MENU PAGE — Motherwolf editorial style
+ * Dark charcoal bg, large condensed section headers, two-column item grid
+ * Category nav sticky at top, items listed with name + description
  */
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
@@ -12,11 +12,13 @@ const STEAK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX
 const PASTA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
 const SEAFOOD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/seafood_d149e28c.jpg";
 const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
+const CHEF_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/chef_special_8863e660.jpg";
 
 const categories = [
   {
     id: "appetizers",
-    title: "Appetizers",
+    label: "Appetizers",
+    italianLabel: "Antipasti",
     img: SEAFOOD_IMG,
     items: [
       { name: "Utica-Style Greens", desc: "Escarole, prosciutto, hot peppers, toasted breadcrumbs and romano" },
@@ -32,8 +34,9 @@ const categories = [
   },
   {
     id: "salads",
-    title: "Salads",
-    img: PASTA_IMG,
+    label: "Soups & Salads",
+    italianLabel: "Zuppe e Insalate",
+    img: CHEF_IMG,
     items: [
       { name: "Italian Wedding Soup", desc: "Classic Italian wedding soup with housemade meatballs" },
       { name: "Tuscan Greens & Beans", desc: "A hearty Tuscan-style soup" },
@@ -46,7 +49,8 @@ const categories = [
   },
   {
     id: "pasta",
-    title: "Pasta",
+    label: "Pasta",
+    italianLabel: "La Pasta",
     img: PASTA_IMG,
     items: [
       { name: "Eggplant Rollatini", desc: "Lightly breaded eggplant, seasoned ricotta, melted mozzarella, side of linguini marinara" },
@@ -66,7 +70,8 @@ const categories = [
   },
   {
     id: "entrees",
-    title: "Entrees",
+    label: "Entrees",
+    italianLabel: "Secondi",
     img: SEAFOOD_IMG,
     items: [
       { name: "Salmon Fillet", desc: "Broiled Canadian salmon with savory Italian herb crust, lemon-chive butter sauce, saffron risotto and grilled asparagus" },
@@ -82,7 +87,8 @@ const categories = [
   },
   {
     id: "steaks",
-    title: "Steaks",
+    label: "Steaks",
+    italianLabel: "Bistecca",
     img: STEAK_IMG,
     items: [
       { name: "Filet Gorgonzola", desc: "Two Angus Reserve medallions layered with Utica greens over gemelli pasta tossed in aged Italian gorgonzola cream sauce" },
@@ -94,7 +100,8 @@ const categories = [
   },
   {
     id: "desserts",
-    title: "Desserts",
+    label: "Desserts",
+    italianLabel: "Dolci",
     img: DESSERT_IMG,
     items: [
       { name: "Tiramisu", desc: "Classic Italian tiramisu with espresso-soaked ladyfingers and mascarpone cream" },
@@ -108,14 +115,42 @@ const categories = [
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState("appetizers");
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  const activeData = categories.find((c) => c.id === activeCategory) || categories[0];
+  // Scroll to section when category tab clicked
+  const scrollToSection = (id: string) => {
+    setActiveCategory(id);
+    const el = sectionRefs.current[id];
+    if (el) {
+      const offset = 130;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
+  // Update active tab on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      for (const cat of categories) {
+        const el = sectionRefs.current[cat.id];
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 160 && rect.bottom > 160) {
+            setActiveCategory(cat.id);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
       <NavigationA />
 
-      {/* ─── HERO SPLIT: Sunny's style — category list left, photo right ─── */}
+      {/* ─── HERO: split — category list left, photo right (Motherwolf style) ─── */}
       <section style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -134,54 +169,41 @@ export default function Menu() {
         }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.68rem", letterSpacing: "0.35em",
+            fontSize: "0.65rem", letterSpacing: "0.4em",
             textTransform: "uppercase", color: "var(--gold)",
             marginBottom: "2.5rem",
           }}>
             Menu
           </p>
 
-          <h1 style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "rgba(245,240,228,0.4)",
-            marginBottom: "1rem",
-          }}>
-            Dinner Menu
-          </h1>
-
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => scrollToSection(cat.id)}
               style={{
                 fontFamily: "'Big Shoulders Display', sans-serif",
                 fontWeight: 800,
-                fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)",
-                letterSpacing: "0.04em",
-                textTransform: "uppercase",
-                color: activeCategory === cat.id ? "var(--ivory)" : "rgba(245,240,228,0.3)",
+                fontSize: "clamp(2.2rem, 4vw, 4.2rem)",
+                letterSpacing: "0.02em",
+                color: activeCategory === cat.id ? "var(--ivory)" : "rgba(245,240,228,0.25)",
                 background: "none",
                 border: "none",
                 textAlign: "left",
-                lineHeight: 1.05,
-                padding: "0.1rem 0",
+                lineHeight: 1.08,
+                padding: "0.05rem 0",
                 transition: "color 0.25s ease",
                 cursor: "pointer",
                 display: "block",
                 width: "100%",
               }}
               onMouseEnter={(e) => {
-                if (activeCategory !== cat.id) (e.currentTarget as HTMLElement).style.color = "rgba(245,240,228,0.65)";
+                if (activeCategory !== cat.id) (e.currentTarget as HTMLElement).style.color = "rgba(245,240,228,0.6)";
               }}
               onMouseLeave={(e) => {
-                if (activeCategory !== cat.id) (e.currentTarget as HTMLElement).style.color = "rgba(245,240,228,0.3)";
+                if (activeCategory !== cat.id) (e.currentTarget as HTMLElement).style.color = "rgba(245,240,228,0.25)";
               }}
             >
-              {cat.title}
+              {cat.label}
             </button>
           ))}
         </div>
@@ -189,170 +211,195 @@ export default function Menu() {
         {/* Right: large food photo */}
         <div style={{ position: "relative", overflow: "hidden" }}>
           <img
-            key={activeData.img}
-            src={activeData.img}
-            alt={`${activeData.title} at Francesca's Cucina`}
+            key={activeCategory}
+            src={categories.find(c => c.id === activeCategory)?.img || STEAK_IMG}
+            alt={`${categories.find(c => c.id === activeCategory)?.label} at Francesca's Cucina`}
             style={{
               width: "100%", height: "100%",
               objectFit: "cover",
               display: "block",
-              transition: "opacity 0.4s ease",
+              transition: "opacity 0.5s ease",
             }}
           />
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to left, transparent 60%, rgba(13,12,10,0.3) 100%)",
+            background: "linear-gradient(to left, transparent 55%, rgba(13,12,10,0.25) 100%)",
           }} />
         </div>
       </section>
 
-      {/* ─── MENU ITEMS ─── */}
-      <section style={{ padding: "6rem 0", background: "var(--charcoal)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 3rem" }}>
+      {/* ─── STICKY CATEGORY NAV ─── */}
+      <div style={{
+        position: "sticky",
+        top: "72px",
+        zIndex: 40,
+        background: "rgba(18,16,14,0.97)",
+        backdropFilter: "blur(14px)",
+        borderBottom: "1px solid rgba(255,255,255,0.07)",
+        overflowX: "auto",
+      }}>
+        <div style={{
+          display: "flex",
+          gap: "0",
+          maxWidth: "1320px",
+          margin: "0 auto",
+          padding: "0 2rem",
+        }}>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => scrollToSection(cat.id)}
+              style={{
+                fontFamily: "'Big Shoulders Display', sans-serif",
+                fontWeight: 600,
+                fontSize: "0.78rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: activeCategory === cat.id ? "var(--ivory)" : "var(--ivory-muted)",
+                background: "none",
+                border: "none",
+                borderBottom: activeCategory === cat.id ? "2px solid var(--gold)" : "2px solid transparent",
+                padding: "1.1rem 1.4rem",
+                cursor: "pointer",
+                transition: "color 0.2s ease, border-color 0.2s ease",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          {/* Sticky category nav */}
-          <div style={{
-            position: "sticky",
-            top: "72px",
-            zIndex: 30,
-            background: "rgba(18,16,14,0.97)",
-            backdropFilter: "blur(12px)",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
-            marginBottom: "4rem",
-            marginLeft: "-3rem",
-            marginRight: "-3rem",
-            padding: "0 3rem",
-          }}>
+      {/* ─── MENU SECTIONS ─── */}
+      <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 3rem 8rem" }}>
+        {categories.map((cat) => (
+          <section
+            key={cat.id}
+            id={cat.id}
+            ref={(el) => { sectionRefs.current[cat.id] = el; }}
+            style={{ paddingTop: "6rem" }}
+          >
+            {/* Section header — Motherwolf style */}
             <div style={{
-              display: "flex",
-              overflowX: "auto",
-              gap: "0",
-              scrollbarWidth: "none",
-            }}>
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => {
-                    setActiveCategory(cat.id);
-                    document.getElementById(cat.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "3rem",
+              alignItems: "flex-end",
+              marginBottom: "3rem",
+              paddingBottom: "2rem",
+              borderBottom: "1px solid rgba(255,255,255,0.07)",
+            }}
+            className="menu-section-header"
+            >
+              <div>
+                <p style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  fontSize: "1rem",
+                  color: "var(--gold)",
+                  marginBottom: "0.5rem",
+                  letterSpacing: "0.05em",
+                }}>
+                  {cat.italianLabel}
+                </p>
+                <h2 style={{
+                  fontFamily: "'Big Shoulders Display', sans-serif",
+                  fontWeight: 900,
+                  fontSize: "clamp(3.5rem, 7vw, 7rem)",
+                  letterSpacing: "0.02em",
+                  color: "var(--ivory)",
+                  lineHeight: 0.88,
+                }}>
+                  {cat.label}
+                </h2>
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <img
+                  src={cat.img}
+                  alt={cat.label}
                   style={{
-                    fontFamily: "'Big Shoulders Display', sans-serif",
-                    fontWeight: 600,
-                    fontSize: "0.78rem",
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase",
-                    color: activeCategory === cat.id ? "var(--ivory)" : "rgba(245,240,228,0.45)",
-                    padding: "1.25rem 1.25rem",
-                    background: "transparent",
-                    border: "none",
-                    borderBottom: activeCategory === cat.id ? "2px solid var(--ivory)" : "2px solid transparent",
-                    whiteSpace: "nowrap",
-                    transition: "all 0.25s ease",
-                    cursor: "pointer",
+                    width: "180px",
+                    height: "120px",
+                    objectFit: "cover",
+                    opacity: 0.7,
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Items — two column grid */}
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "0",
+            }}
+            className="menu-items-grid"
+            >
+              {cat.items.map((item, i) => (
+                <div
+                  key={item.name}
+                  style={{
+                    padding: "1.75rem 2rem 1.75rem 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    paddingRight: i % 2 === 0 ? "3rem" : "0",
+                    paddingLeft: i % 2 === 1 ? "3rem" : "0",
+                    borderLeft: i % 2 === 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
                   }}
                 >
-                  {cat.title}
-                </button>
+                  <h3 style={{
+                    fontFamily: "'Big Shoulders Display', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "1.15rem",
+                    letterSpacing: "0.04em",
+                    color: "var(--ivory)",
+                    marginBottom: "0.5rem",
+                    lineHeight: 1.2,
+                  }}>
+                    {item.name}
+                  </h3>
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 300,
+                    fontSize: "0.85rem",
+                    color: "var(--ivory-muted)",
+                    lineHeight: 1.7,
+                  }}>
+                    {item.desc}
+                  </p>
+                </div>
               ))}
             </div>
-          </div>
+          </section>
+        ))}
 
-          {/* All categories */}
-          {categories.map((cat) => (
-            <section
-              key={cat.id}
-              id={cat.id}
-              style={{ marginBottom: "5rem", scrollMarginTop: "140px" }}
-            >
-              <h2
-                className="display-condensed"
-                style={{
-                  fontSize: "clamp(2.5rem, 5vw, 4rem)",
-                  color: "var(--ivory)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                {cat.title}
-              </h2>
-              <div style={{ width: "50px", height: "1px", background: "var(--gold)", marginBottom: "2.5rem" }} />
-
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                gap: "0",
-              }}
-              className="menu-items-grid"
-              >
-                {cat.items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: "1.25rem 0",
-                      borderBottom: "1px solid rgba(255,255,255,0.06)",
-                      paddingRight: idx % 2 === 0 ? "3rem" : "0",
-                    }}
-                  >
-                    <p style={{
-                      fontFamily: "'Big Shoulders Display', sans-serif",
-                      fontWeight: 700,
-                      fontSize: "1rem",
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      color: "var(--ivory)",
-                      marginBottom: "0.35rem",
-                    }}>
-                      {item.name}
-                    </p>
-                    <p style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 300,
-                      fontSize: "0.875rem",
-                      color: "var(--ivory-muted)",
-                      lineHeight: 1.65,
-                    }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ))}
-
-          {/* Reservation CTA */}
-          <div style={{
-            textAlign: "center",
-            padding: "4rem 0",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-          }}>
-            <p style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "1.5rem",
-              color: "var(--ivory-muted)",
-              marginBottom: "2rem",
-            }}>
-              Ready to dine with us?
-            </p>
-            <a
-              href="https://resy.com/cities/syr/francescas-cucina"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline-ivory"
-            >
-              Make a Reservation
-            </a>
-          </div>
-        </div>
-      </section>
+        {/* Consuming notice */}
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.72rem",
+          color: "rgba(245,240,228,0.3)",
+          marginTop: "5rem",
+          lineHeight: 1.6,
+          maxWidth: "600px",
+        }}>
+          *Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Menu items and prices subject to change based on seasonal availability.
+        </p>
+      </div>
 
       <Footer />
 
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .menu-hero-grid { grid-template-columns: 1fr !important; }
+          .menu-hero-grid > div:last-child { height: 45vw !important; }
+        }
+        @media (max-width: 640px) {
+          .menu-section-header { grid-template-columns: 1fr !important; }
+          .menu-section-header > div:last-child { display: none !important; }
           .menu-items-grid { grid-template-columns: 1fr !important; }
+          .menu-items-grid > div { padding-left: 0 !important; padding-right: 0 !important; border-left: none !important; }
         }
       `}</style>
     </div>

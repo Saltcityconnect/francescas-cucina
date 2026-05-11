@@ -73,8 +73,8 @@ export default function NavigationB() {
                   fontFamily: "'Big Shoulders Display', sans-serif",
                   fontWeight: 800,
                   fontSize: "clamp(1rem, 2.2vw, 1.35rem)",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  textTransform: "none",
                   color: "var(--cream)",
                 }}>
                   Francesca's Cucina

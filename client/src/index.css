@@ -134,7 +134,6 @@
     font-family: 'Big Shoulders Display', sans-serif;
     font-weight: 700;
     letter-spacing: 0.04em;
-    text-transform: uppercase;
     line-height: 0.92;
   }
 
@@ -263,4 +262,11 @@
   .animate-delay-400 { animation-delay: 0.4s; opacity: 0; }
   .animate-delay-500 { animation-delay: 0.5s; opacity: 0; }
   .animate-delay-600 { animation-delay: 0.6s; opacity: 0; }
+
+  /* === MOBILE NAV: hide wordmark on small screens === */
+  @media (max-width: 640px) {
+    .nav-wordmark {
+      display: none !important;
+    }
+  }
 }

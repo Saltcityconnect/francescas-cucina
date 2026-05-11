@@ -76,15 +76,15 @@ export default function NavigationA() {
               }} />
             </button>
 
-            {/* Wordmark — Center */}
-            <Link href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textDecoration: "none" }}>
+            {/* Wordmark — Center (hidden on mobile) */}
+            <Link href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textDecoration: "none", display: "var(--nav-wordmark-display, block)" }} className="nav-wordmark">
               <div style={{ textAlign: "center", lineHeight: 1 }}>
                 <div style={{
                   fontFamily: "'Big Shoulders Display', sans-serif",
                   fontWeight: 800,
                   fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  textTransform: "none",
                   color: "var(--ivory)",
                 }}>
                   Francesca's Cucina
