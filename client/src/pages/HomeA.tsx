@@ -294,79 +294,21 @@ export default function HomeA() {
           </p>
         </div>
 
-        {/* 5-photo grid: 1 tall left + 2×2 right rectangle — all cells use object-cover to fill edge-to-edge */}
+        {/* Composite food photo — full-width, natural proportions */}
         <div style={{
           maxWidth: "1400px",
           margin: "0 auto",
           padding: "0 2rem",
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
-          gridTemplateRows: "320px 320px",
-          gap: "4px",
-        }}
-        className="menu-photo-grid"
-        >
-          {/* Large left photo — spans 2 rows, fills full height */}
-          <div style={{
-            gridColumn: "1",
-            gridRow: "1 / 3",
-            overflow: "hidden",
-          }}>
-            <img
-              src={FOOD1}
-              alt="Francesca's signature dish"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center top",
-                display: "block",
-              }}
-            />
-          </div>
-
-          {/* Right 2×2 grid — all 4 cells equal size */}
-          <div style={{
-            gridColumn: "2",
-            gridRow: "1 / 3",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gridTemplateRows: "320px 320px",
-            gap: "4px",
-          }}>
-            {/* Top-left of right grid */}
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src={FOOD2}
-                alt="Francesca's signature dish"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-              />
-            </div>
-            {/* Top-right of right grid */}
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src={FOOD3}
-                alt="Francesca's signature dish"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-              />
-            </div>
-            {/* Bottom-left of right grid */}
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src={FOOD4}
-                alt="Francesca's signature dish"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
-              />
-            </div>
-            {/* Bottom-right of right grid */}
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src={FOOD5}
-                alt="Francesca's signature dish"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-              />
-            </div>
-          </div>
+        }}>
+          <img
+            src="/manus-storage/food_composite_e7b235b5.png"
+            alt="Francesca's Cucina signature dishes"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+            }}
+          />
         </div>
 
         {/* VIEW FULL MENU button */}
