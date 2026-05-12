@@ -356,6 +356,77 @@ export default function HomeA() {
         `}</style>
       </section>
 
+      {/* ─── CATERING BANNER SECTION ─── */}
+      <section style={{
+        background: "#1a1714",
+        backgroundImage: "url('/manus-storage/catering_hero_panoramic_8e6a4a0a.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "6rem 2rem",
+        textAlign: "center",
+        position: "relative",
+      }}>
+        {/* Dark overlay */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "rgba(15,12,10,0.78)",
+          pointerEvents: "none",
+        }} />
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "700px", margin: "0 auto" }}>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.65rem",
+            fontWeight: 500,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: "1.5rem",
+          }}>Catering</p>
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 400,
+            fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
+            lineHeight: 1.15,
+            color: "var(--ivory)",
+            marginBottom: "1.5rem",
+          }}>Bring Francesca&rsquo;s to the table.</h2>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "1rem",
+            color: "rgba(245,240,228,0.75)",
+            marginBottom: "2.5rem",
+            lineHeight: 1.7,
+          }}>Curated Italian catering for gatherings, celebrations, and special occasions of all sizes.</p>
+          <Link
+            href="/catering"
+            style={{
+              display: "inline-block",
+              padding: "1rem 2.5rem",
+              border: "1px solid var(--ivory)",
+              borderRadius: "6px",
+              color: "var(--ivory)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.7rem",
+              fontWeight: 500,
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "background 0.3s ease, color 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "var(--ivory)";
+              (e.currentTarget as HTMLElement).style.color = "var(--charcoal)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "var(--ivory)";
+            }}
+          >
+            Book Your Order
+          </Link>
+        </div>
+      </section>
+
       {/* ─── PRIVATE DINING SECTION ─── */}
       <section style={{ background: "var(--charcoal)", padding: "0 0 6rem" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 2rem", textAlign: "center" }}>
