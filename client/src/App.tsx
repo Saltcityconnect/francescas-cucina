@@ -4,7 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import HomeB from "./pages/HomeB";
+import HomeA from "./pages/HomeA";
 import GiftCards from "./pages/GiftCards";
 import Menu from "./pages/Menu";
 import Events from "./pages/Events";
@@ -13,7 +13,7 @@ import Catering from "./pages/Catering";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={HomeB} />
+      <Route path="/" component={HomeA} />
       <Route path="/menu" component={Menu} />
       <Route path="/events" component={Events} />
       <Route path="/catering" component={Catering} />

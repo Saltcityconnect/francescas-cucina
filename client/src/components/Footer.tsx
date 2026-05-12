@@ -1,206 +1,235 @@
 /*
- * DESIGN: Contemporary Italian — Cinematic Dark with Gold Accents
- * Footer: Dark charcoal, gold accents, elegant typography
+ * FOOTER — Dark Charcoal
+ * Bordered box: FRANCESCA'S CUCINA header, Address + Hours columns,
+ * Follow Us social icons, Reservations + Gift Cards buttons bottom-right
  */
 
 import { Link } from "wouter";
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: "var(--hunter-green-dark)",
-        borderTop: "1px solid rgba(184,150,90,0.2)",
-      }}
-    >
-      {/* Main footer content */}
-      <div className="container py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-          {/* Brand column */}
-          <div className="flex flex-col gap-4">
-            <span
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontStyle: "italic",
-                fontWeight: 600,
-                fontSize: "2rem",
-                color: "var(--ivory)",
-              }}
-            >
-              francesca's
-            </span>
-            <span className="section-label" style={{ color: "var(--sage)" }}>
-              Cucina
-            </span>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 300,
-                fontSize: "0.85rem",
-                color: "var(--ivory-muted)",
-                lineHeight: 1.7,
-                maxWidth: "260px",
-              }}
-            >
-              Celebrating food &amp; family in the heart of Syracuse for over 30 years.
-            </p>
-            {/* Social links */}
-            <div className="flex gap-4 mt-2">
-              {[
-                { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
-                { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
-                { label: "TripAdvisor", href: "https://www.tripadvisor.com" },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 300,
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase",
-                    color: "var(--ivory-muted)",
-                    textDecoration: "none",
-                    transition: "color 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--sage)")}
-                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--ivory-muted)")}
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Hours column */}
-          <div className="flex flex-col gap-4">
-            <span className="section-label">Hours</span>
-            <div
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 300,
-                fontSize: "0.875rem",
-                color: "var(--ivory-muted)",
-                lineHeight: 2,
-              }}
-            >
-              <div className="flex justify-between gap-8">
-                <span>Monday – Thursday</span>
-                <span style={{ color: "var(--ivory)" }}>4 – 9 pm</span>
-              </div>
-              <div className="flex justify-between gap-8">
-                <span>Friday – Saturday</span>
-                <span style={{ color: "var(--ivory)" }}>4 – 10 pm</span>
-              </div>
-              <div className="flex justify-between gap-8">
-                <span>Sunday</span>
-                <span style={{ color: "var(--ivory)" }}>Closed</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact column */}
-          <div className="flex flex-col gap-4">
-            <span className="section-label">Find Us</span>
-            <address
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 300,
-                fontSize: "0.875rem",
-                color: "var(--ivory-muted)",
-                lineHeight: 1.8,
-                fontStyle: "normal",
-              }}
-            >
-              <a
-                href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--ivory-muted)", textDecoration: "none" }}
-              >
-                545 North Salina Street<br />
-                Syracuse, NY 13208
-              </a>
-            </address>
-            <a
-              href="tel:+13154251556"
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 300,
-                fontSize: "0.875rem",
-                color: "var(--ivory-muted)",
-                textDecoration: "none",
-              }}
-            >
-              (315) 425-1556
-            </a>
-            <a
-              href="mailto:info@francescas-cucina.com"
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 300,
-                fontSize: "0.875rem",
-                color: "var(--ivory-muted)",
-                textDecoration: "none",
-              }}
-            >
-              info@francescas-cucina.com
-            </a>
-            <div className="flex flex-col gap-3 mt-2">
-              <Link href="/menu" className="btn-green-pill" style={{ width: "fit-content", padding: "0.5rem 1.25rem", fontSize: "0.65rem" }}>
-                View Menu
-              </Link>
-              <a
-                href="https://resy.com/cities/syr/francescas-cucina"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-green-pill"
-                style={{ width: "fit-content", padding: "0.5rem 1.25rem", fontSize: "0.65rem" }}
-              >
-                Reservations
-              </a>
-            </div>
-          </div>
-        </div>
+    <footer style={{ background: "var(--charcoal)", padding: "3rem 2rem 2rem" }}>
+      {/* ── Branded header with decorative lines ── */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: "1.25rem",
+        maxWidth: "860px", margin: "0 auto 1.5rem",
+      }}>
+        <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
+        <span style={{
+          fontFamily: "'Big Shoulders Display', sans-serif",
+          fontWeight: 700,
+          fontSize: "clamp(0.85rem, 2vw, 1.1rem)",
+          letterSpacing: "0.25em",
+          textTransform: "uppercase",
+          color: "var(--gold)",
+          whiteSpace: "nowrap",
+        }}>
+          Francesca's Cucina
+        </span>
+        <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
       </div>
 
-      {/* Bottom bar */}
-      <div
-        style={{
-          borderTop: "1px solid rgba(184,150,90,0.1)",
-          padding: "1.25rem 0",
-        }}
-      >
-        <div className="container flex flex-col md:flex-row items-center justify-between gap-2">
-          <p
+      {/* ── Bordered content box ── */}
+      <div style={{
+        maxWidth: "860px",
+        margin: "0 auto",
+        border: "1px solid rgba(184,160,90,0.3)",
+        padding: "2rem 2.5rem",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "2rem 3rem",
+      }}>
+        {/* ── ADDRESS (top-left) ── */}
+        <div>
+          <p style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 600,
+            fontSize: "0.7rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: "0.6rem",
+          }}>
+            Address
+          </p>
+          <a
+            href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 300,
-              fontSize: "0.7rem",
-              letterSpacing: "0.1em",
+              fontSize: "0.875rem",
               color: "var(--ivory-muted)",
-              opacity: 0.6,
+              textDecoration: "none",
+              lineHeight: 1.8,
+              display: "block",
             }}
           >
-            © {new Date().getFullYear()} Francesca's Cucina. All rights reserved.
-          </p>
-          <p
+            545 North Salina Street<br />
+            Syracuse, NY 13208
+          </a>
+          <a
+            href="tel:+13154251556"
             style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 300,
-              fontSize: "0.7rem",
-              letterSpacing: "0.1em",
+              fontSize: "0.875rem",
               color: "var(--ivory-muted)",
-              opacity: 0.4,
+              textDecoration: "none",
+              display: "block",
+              marginTop: "0.4rem",
             }}
           >
-            545 North Salina Street · Syracuse, NY
+            (315) 425-1556
+          </a>
+        </div>
+
+        {/* ── HOURS (top-right) ── */}
+        <div>
+          <p style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 600,
+            fontSize: "0.7rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: "0.6rem",
+          }}>
+            Hours
           </p>
+          <div style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: "0.875rem",
+            color: "var(--ivory-muted)",
+            lineHeight: 2,
+          }}>
+            <div>Monday – Thursday &nbsp; 4 – 9 pm</div>
+            <div>Friday – Saturday &nbsp;&nbsp;&nbsp; 4 – 10 pm</div>
+            <div>Sunday &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Closed</div>
+          </div>
+        </div>
+
+        {/* ── FOLLOW US (bottom-left) ── */}
+        <div>
+          <p style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 600,
+            fontSize: "0.7rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: "0.6rem",
+          }}>
+            Follow Us
+          </p>
+          <div style={{ display: "flex", gap: "1.25rem" }}>
+            {[
+              { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
+              { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 300,
+                  fontSize: "0.8rem",
+                  color: "var(--ivory-muted)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--gold)")}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--ivory-muted)")}
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* ── RESERVATIONS + GIFT CARDS buttons (bottom-right) ── */}
+        <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-end", justifyContent: "flex-end" }}>
+          <a
+            href="https://resy.com/cities/syr/francescas-cucina"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 600,
+              fontSize: "0.7rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--ivory)",
+              textDecoration: "none",
+              border: "1px solid rgba(245,240,228,0.5)",
+              padding: "0.55rem 1.25rem",
+              transition: "background 0.2s ease",
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+          >
+            Reservations
+          </a>
+          <Link
+            href="/gift-cards"
+            style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 600,
+              fontSize: "0.7rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--ivory)",
+              textDecoration: "none",
+              border: "1px solid rgba(245,240,228,0.5)",
+              padding: "0.55rem 1.25rem",
+              transition: "background 0.2s ease",
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+          >
+            Gift Cards
+          </Link>
         </div>
       </div>
+
+      {/* ── Bottom copyright bar ── */}
+      <div style={{
+        maxWidth: "860px", margin: "1.25rem auto 0",
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        flexWrap: "wrap", gap: "0.5rem",
+      }}>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.7rem",
+          letterSpacing: "0.08em",
+          color: "rgba(245,240,228,0.35)",
+        }}>
+          © {new Date().getFullYear()} Francesca's Cucina. All rights reserved.
+        </p>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.7rem",
+          letterSpacing: "0.08em",
+          color: "rgba(245,240,228,0.25)",
+        }}>
+          545 North Salina Street · Syracuse, NY
+        </p>
+      </div>
+
+      {/* Responsive: stack grid on mobile */}
+      <style>{`
+        @media (max-width: 600px) {
+          footer > div:nth-child(2) {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }
