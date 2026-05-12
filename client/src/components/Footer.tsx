@@ -1,13 +1,13 @@
 /*
- * FOOTER — 4-quadrant layout
- * Desktop: 2-col grid, generous padding
- * Mobile: stays 2-col grid (2×2), tighter padding + smaller text so all 4 fit on screen
- * - No outer border, only internal dividers
- * - Icons inline next to labels
- * - Body text indented under label word
+ * FOOTER — matches reference design
+ * Desktop: background photo + dark overlay, compact 4-quadrant grid, spaced-caps header,
+ *          proportional side-by-side buttons, full-width hours rows
+ * Mobile: stays 2-col grid (2×2), small font, no wrapping
  */
 
 import { Link } from "wouter";
+
+const FOOTER_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/exterior_building_fcb6fd3d.webp";
 
 const PinIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -30,7 +30,7 @@ const FbIcon = () => (
 );
 
 const CalIcon = () => (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
     <line x1="16" y1="2" x2="16" y2="6"/>
     <line x1="8" y1="2" x2="8" y2="6"/>
@@ -39,58 +39,68 @@ const CalIcon = () => (
 );
 
 const CardIcon = () => (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect x="1" y="6" width="22" height="13" rx="2" ry="2"/>
     <line x1="1" y1="10" x2="23" y2="10"/>
   </svg>
 );
 
-const divider = "1px solid rgba(184,160,90,0.2)";
+const divider = "1px solid rgba(184,160,90,0.22)";
 
 export default function Footer() {
   return (
-    <footer style={{ position: "relative", overflow: "hidden", background: "#0a0907" }}>
+    <footer style={{ position: "relative", overflow: "hidden" }}>
+
+      {/* Background photo */}
       <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0,
-        background: "radial-gradient(ellipse at 65% 40%, rgba(70,50,15,0.18) 0%, transparent 65%)",
+        position: "absolute", inset: 0, zIndex: 0,
+        backgroundImage: `url(${FOOTER_BG})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center 30%",
+      }} />
+      {/* Dark overlay — heavier than hero so text is legible */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 1,
+        background: "rgba(6,5,3,0.82)",
       }} />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: "1400px", margin: "0 auto", padding: "3.5rem 3rem 2rem" }}>
+      <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 2.5rem 1.5rem" }}>
 
-        {/* ── Header ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
-          <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
+        {/* ── Header: spaced caps matching reference ── */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.35rem" }}>
+          <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.45)" }} />
           <span style={{
-            fontFamily: "'Playfair Display', serif",
-            fontWeight: 400,
-            fontStyle: "italic",
-            fontSize: "clamp(1rem, 2.4vw, 1.6rem)",
-            letterSpacing: "0.15em",
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 500,
+            fontStyle: "normal",
+            fontSize: "clamp(0.7rem, 1.4vw, 0.95rem)",
+            letterSpacing: "0.45em",
+            textTransform: "uppercase",
             color: "var(--gold)",
             whiteSpace: "nowrap",
           }}>
             Francesca's Cucina
           </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
+          <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.45)" }} />
         </div>
 
         {/* Ornament */}
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <svg width="140" height="22" viewBox="0 0 140 22" fill="none" style={{ display: "inline-block" }}>
-            <line x1="0" y1="11" x2="46" y2="11" stroke="rgba(184,160,90,0.45)" strokeWidth="0.75"/>
-            <path d="M46 11 Q52 5 58 11" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
-            <path d="M46 11 Q52 17 58 11" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
-            <circle cx="61" cy="11" r="1.2" fill="rgba(184,160,90,0.6)"/>
-            <polygon points="70,4 76,11 70,18 64,11" stroke="rgba(184,160,90,0.75)" strokeWidth="0.75" fill="none"/>
-            <circle cx="70" cy="11" r="1.5" fill="rgba(184,160,90,0.65)"/>
-            <circle cx="79" cy="11" r="1.2" fill="rgba(184,160,90,0.6)"/>
-            <path d="M82 11 Q88 5 94 11" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
-            <path d="M82 11 Q88 17 94 11" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
-            <line x1="94" y1="11" x2="140" y2="11" stroke="rgba(184,160,90,0.45)" strokeWidth="0.75"/>
+        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          <svg width="100" height="18" viewBox="0 0 100 18" fill="none" style={{ display: "inline-block" }}>
+            <line x1="0" y1="9" x2="32" y2="9" stroke="rgba(184,160,90,0.4)" strokeWidth="0.75"/>
+            <path d="M32 9 Q37 4 42 9" stroke="rgba(184,160,90,0.5)" strokeWidth="0.75" fill="none"/>
+            <path d="M32 9 Q37 14 42 9" stroke="rgba(184,160,90,0.5)" strokeWidth="0.75" fill="none"/>
+            <circle cx="44.5" cy="9" r="1" fill="rgba(184,160,90,0.55)"/>
+            <polygon points="50,3 55,9 50,15 45,9" stroke="rgba(184,160,90,0.7)" strokeWidth="0.75" fill="none"/>
+            <circle cx="50" cy="9" r="1.2" fill="rgba(184,160,90,0.6)"/>
+            <circle cx="55.5" cy="9" r="1" fill="rgba(184,160,90,0.55)"/>
+            <path d="M58 9 Q63 4 68 9" stroke="rgba(184,160,90,0.5)" strokeWidth="0.75" fill="none"/>
+            <path d="M58 9 Q63 14 68 9" stroke="rgba(184,160,90,0.5)" strokeWidth="0.75" fill="none"/>
+            <line x1="68" y1="9" x2="100" y2="9" stroke="rgba(184,160,90,0.4)" strokeWidth="0.75"/>
           </svg>
         </div>
 
-        {/* ── 4-quadrant grid — stays 2-col on mobile too ── */}
+        {/* ── 4-quadrant grid ── */}
         <div className="footer-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -103,7 +113,7 @@ export default function Footer() {
               <div className="footer-icon-circle"><PinIcon /></div>
               <span className="footer-label">Address</span>
             </div>
-            <div className="footer-body footer-indent">
+            <div className="footer-indent">
               <a
                 href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
                 target="_blank" rel="noopener noreferrer"
@@ -112,7 +122,7 @@ export default function Footer() {
                 545 North Salina Street<br />
                 Syracuse, NY 13208
               </a>
-              <a href="tel:+13154251556" className="footer-link" style={{ display: "block", marginTop: "0.1rem" }}>
+              <a href="tel:+13154251556" className="footer-link" style={{ marginTop: "0.25rem" }}>
                 (315) 425–1556
               </a>
             </div>
@@ -124,9 +134,9 @@ export default function Footer() {
               <div className="footer-icon-circle"><ClockIcon /></div>
               <span className="footer-label">Hours</span>
             </div>
-            <div className="footer-body footer-indent footer-hours">
-              <div className="footer-hour-row"><span>Mon – Thu</span><span>4–9 pm</span></div>
-              <div className="footer-hour-row"><span>Fri – Sat</span><span>4–10 pm</span></div>
+            <div className="footer-indent footer-hours">
+              <div className="footer-hour-row"><span>Monday – Thursday</span><span>4 – 9 pm</span></div>
+              <div className="footer-hour-row"><span>Friday – Saturday</span><span>4 – 10 pm</span></div>
               <div className="footer-hour-row"><span>Sunday</span><span>Closed</span></div>
             </div>
           </div>
@@ -137,7 +147,7 @@ export default function Footer() {
               <div className="footer-icon-circle"><FbIcon /></div>
               <span className="footer-label">Follow Us</span>
             </div>
-            <div className="footer-body footer-indent" style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+            <div className="footer-indent footer-social">
               {[
                 { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
                 { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
@@ -167,11 +177,11 @@ export default function Footer() {
 
         {/* Copyright */}
         <p style={{
-          marginTop: "1.25rem",
+          marginTop: "1rem",
           fontFamily: "'DM Sans', sans-serif",
           fontWeight: 300,
-          fontSize: "0.62rem",
-          color: "rgba(245,240,228,0.25)",
+          fontSize: "0.6rem",
+          color: "rgba(245,240,228,0.22)",
           textAlign: "center",
           letterSpacing: "0.05em",
         }}>
@@ -180,29 +190,23 @@ export default function Footer() {
       </div>
 
       <style>{`
-        /* ── Shared cell padding ── */
+        /* ── Mobile base (default) ── */
         .footer-cell {
-          padding: 1.2rem 0.75rem;
+          padding: 1.1rem 0.7rem;
           box-sizing: border-box;
           overflow: hidden;
         }
-
-        /* ── Icon + label row ── */
         .footer-label-row {
           display: flex;
           align-items: center;
           gap: 0.4rem;
-          margin-bottom: 0.6rem;
+          margin-bottom: 0.55rem;
         }
         .footer-icon-circle {
-          width: 26px;
-          height: 26px;
-          min-width: 26px;
+          width: 26px; height: 26px; min-width: 26px;
           border-radius: 50%;
           border: 1px solid rgba(184,160,90,0.45);
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
+          display: inline-flex; align-items: center; justify-content: center;
           flex-shrink: 0;
         }
         .footer-label {
@@ -214,18 +218,7 @@ export default function Footer() {
           color: var(--gold);
           white-space: nowrap;
         }
-
-        /* ── Body text ── */
-        .footer-body {
-          font-family: 'DM Sans', sans-serif;
-          font-weight: 300;
-          font-size: 0.65rem;
-          color: rgba(245,240,228,0.78);
-          line-height: 1.7;
-        }
-        .footer-indent {
-          padding-left: 0;
-        }
+        .footer-indent { padding-left: 0; }
         .footer-link {
           color: rgba(245,240,228,0.78);
           text-decoration: none;
@@ -237,9 +230,7 @@ export default function Footer() {
           white-space: nowrap;
         }
         .footer-link:hover { color: var(--gold); }
-
-        /* ── Hours ── */
-        .footer-hours { display: flex; flex-direction: column; gap: 0; }
+        .footer-hours { display: flex; flex-direction: column; }
         .footer-hour-row {
           display: flex;
           justify-content: space-between;
@@ -251,8 +242,7 @@ export default function Footer() {
           line-height: 1.7;
           white-space: nowrap;
         }
-
-        /* ── Buttons quadrant ── */
+        .footer-social { display: flex; flex-direction: column; gap: 0; }
         .footer-btns {
           display: flex;
           flex-direction: column;
@@ -272,26 +262,33 @@ export default function Footer() {
           color: var(--gold);
           text-decoration: none;
           border: 1px solid rgba(184,160,90,0.5);
-          border-radius: 4px;
-          padding: 0.6rem 0.35rem;
+          border-radius: 3px;
+          padding: 0.55rem 0.3rem;
           background: transparent;
           transition: background 0.2s ease;
           width: 100%;
           box-sizing: border-box;
           white-space: nowrap;
         }
-        .footer-btn:hover { background: rgba(184,160,90,0.1); }
+        .footer-btn:hover { background: rgba(184,160,90,0.08); }
 
-        /* ── Desktop: restore larger padding + text ── */
+        /* ── Desktop overrides ── */
         @media (min-width: 640px) {
-          .footer-cell { padding: 2.25rem 2.5rem; }
-          .footer-icon-circle { width: 42px; height: 42px; min-width: 42px; }
-          .footer-label { font-size: 0.6rem; }
-          .footer-body, .footer-link, .footer-hour-row { font-size: 0.875rem; }
-          .footer-indent { padding-left: 56px; }
-          .footer-btn { font-size: 0.6rem; padding: 1rem 1.75rem; }
-          .footer-btns { flex-direction: row; gap: 1rem; }
-          .footer-hours { gap: 0; }
+          .footer-cell { padding: 1.6rem 2rem; }
+          .footer-icon-circle { width: 36px; height: 36px; min-width: 36px; }
+          .footer-label { font-size: 0.58rem; letter-spacing: 0.28em; }
+          .footer-indent { padding-left: 50px; }
+          .footer-link { font-size: 0.82rem; white-space: normal; }
+          .footer-hour-row { font-size: 0.82rem; white-space: normal; }
+          .footer-social { flex-direction: row; gap: 1.5rem; }
+          .footer-btns { flex-direction: row; gap: 0.75rem; align-items: center; }
+          .footer-btn {
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            padding: 0.7rem 1.4rem;
+            width: auto;
+            flex: 1;
+          }
         }
       `}</style>
     </footer>
