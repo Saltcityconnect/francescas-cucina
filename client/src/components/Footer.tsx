@@ -55,10 +55,10 @@ export default function Footer() {
         background: "radial-gradient(ellipse at 65% 40%, rgba(70,50,15,0.18) 0%, transparent 65%)",
       }} />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: "1400px", margin: "0 auto", padding: "2rem 1.5rem 1.25rem" }}>
+      <div style={{ position: "relative", zIndex: 1, maxWidth: "1400px", margin: "0 auto", padding: "3.5rem 3rem 2rem" }}>
 
         {/* ── Header ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.3rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
           <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
           <span style={{
             fontFamily: "'Playfair Display', serif",
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         {/* Ornament */}
-        <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <svg width="140" height="22" viewBox="0 0 140 22" fill="none" style={{ display: "inline-block" }}>
             <line x1="0" y1="11" x2="46" y2="11" stroke="rgba(184,160,90,0.45)" strokeWidth="0.75"/>
             <path d="M46 11 Q52 5 58 11" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
@@ -280,13 +280,13 @@ export default function Footer() {
 
         /* ── Desktop: restore larger padding + text ── */
         @media (min-width: 640px) {
-          .footer-cell { padding: 1.5rem 2rem; }
-          .footer-icon-circle { width: 38px; height: 38px; min-width: 38px; }
-          .footer-label { font-size: 0.58rem; }
-          .footer-body, .footer-link, .footer-hour-row { font-size: 0.82rem; }
-          .footer-indent { padding-left: 52px; }
-          .footer-btn { font-size: 0.58rem; padding: 0.75rem 1.25rem; }
-          .footer-btns { flex-direction: row; gap: 0.75rem; }
+          .footer-cell { padding: 2.25rem 2.5rem; }
+          .footer-icon-circle { width: 42px; height: 42px; min-width: 42px; }
+          .footer-label { font-size: 0.6rem; }
+          .footer-body, .footer-link, .footer-hour-row { font-size: 0.875rem; }
+          .footer-indent { padding-left: 56px; }
+          .footer-btn { font-size: 0.6rem; padding: 1rem 1.75rem; }
+          .footer-btns { flex-direction: row; gap: 1rem; }
           .footer-hours { gap: 0; }
         }
       `}</style>
