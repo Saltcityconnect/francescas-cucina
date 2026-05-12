@@ -128,11 +128,7 @@ export default function Catering() {
           alt="Francesca's Cucina catering spread"
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }}
         />
-        {/* Dark overlay for text legibility */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "rgba(0,0,0,0.52)",
-        }} />
+        {/* No dark overlay — keep photo vibrant */}
         {/* Centered heading + contact info */}
         <div style={{
           position: "absolute", inset: 0,
@@ -149,6 +145,7 @@ export default function Catering() {
             color: "#fff",
             lineHeight: 0.9,
             margin: "0 0 0.75rem",
+            textShadow: "0 2px 20px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.9)",
           }}>
             Catering
           </h1>
@@ -156,9 +153,10 @@ export default function Catering() {
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 300,
             fontSize: "clamp(0.8rem, 1.8vw, 1rem)",
-            color: "rgba(255,255,255,0.88)",
+            color: "#fff",
             margin: 0,
             lineHeight: 1.7,
+            textShadow: "0 1px 8px rgba(0,0,0,0.8)",
           }}>
             To place a catering order, please call{" "}
             <a href="tel:3154098848" style={{ color: "#fff", textDecoration: "underline" }}>315-409-8848</a>
