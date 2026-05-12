@@ -14,7 +14,7 @@ const STEAK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX
 const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
 const CHEF_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/chef_special_8863e660.jpg";
 const EVENT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events1_8d038c07.jpg";
-const CATERING_HERO_IMG = "/manus-storage/catering_hero_panoramic_9e80d04e.jpg";
+const CATERING_HERO_IMG = "/manus-storage/combined_food_table_f4c054cb.png";
 
 const cateringMenu = [
   {
@@ -122,43 +122,43 @@ export default function Catering() {
       <NavigationA />
 
       {/* ─── HERO ─── */}
-      <div style={{ position: "relative", height: "clamp(220px, 35vw, 420px)", overflow: "hidden", marginTop: "72px" }}>
+      <div style={{ position: "relative", height: "clamp(280px, 40vw, 480px)", overflow: "hidden", marginTop: "72px" }}>
         <img
           src={CATERING_HERO_IMG}
           alt="Francesca's Cucina catering spread"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }}
         />
-        {/* Gradient overlay — heavier at bottom for text legibility */}
+        {/* Dark overlay for text legibility */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.72) 100%)",
+          background: "rgba(0,0,0,0.52)",
         }} />
-        {/* Mandolin-style: name top-left, contact bottom-left */}
+        {/* Centered heading + contact info */}
         <div style={{
           position: "absolute", inset: 0,
-          display: "flex", flexDirection: "column", justifyContent: "flex-end",
-          padding: "clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)",
+          display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
+          textAlign: "center",
+          padding: "0 1.5rem",
           zIndex: 2,
         }}>
           <h1 style={{
             fontFamily: "'Big Shoulders Display', sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(3rem, 9vw, 7rem)",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
+            fontSize: "clamp(3.5rem, 10vw, 8rem)",
+            letterSpacing: "0.04em",
             color: "#fff",
-            lineHeight: 0.88,
-            margin: "0 0 0.6rem",
+            lineHeight: 0.9,
+            margin: "0 0 0.75rem",
           }}>
             Catering
           </h1>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 300,
-            fontSize: "clamp(0.78rem, 1.8vw, 0.95rem)",
-            color: "rgba(255,255,255,0.82)",
+            fontSize: "clamp(0.8rem, 1.8vw, 1rem)",
+            color: "rgba(255,255,255,0.88)",
             margin: 0,
-            lineHeight: 1.6,
+            lineHeight: 1.7,
           }}>
             To place a catering order, please call{" "}
             <a href="tel:3154098848" style={{ color: "#fff", textDecoration: "underline" }}>315-409-8848</a>
