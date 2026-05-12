@@ -136,39 +136,125 @@ export default function HomeA() {
       </section>
 
       {/* ─── WELCOME SECTION ─── */}
-      <section style={{ padding: "6rem 0", background: "var(--charcoal)", textAlign: "center" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto", padding: "0 2rem" }}>
-          <h2
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontWeight: 600,
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              color: "var(--ivory)",
+      <section style={{ background: "#0d0c0a", padding: "5rem 0" }}>
+        <div style={{
+          maxWidth: "1280px", margin: "0 auto", padding: "0 2rem",
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr",
+          gap: "4rem",
+          alignItems: "center",
+        }}
+        className="welcome-grid"
+        >
+          {/* Left: text */}
+          <div>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.65rem",
+              fontWeight: 500,
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
               marginBottom: "1.5rem",
-              lineHeight: 1.1,
+            }}>Welcome</p>
+
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
+              color: "var(--ivory)",
+              lineHeight: 1.15,
+              marginBottom: "1.5rem",
               letterSpacing: "-0.01em",
-            }}
-          >
-            Welcome to Francesca's
-          </h2>
-          <div style={{ width: "50px", height: "1px", background: "var(--gold)", margin: "0 auto 2rem" }} />
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: "1rem",
-            color: "var(--ivory-muted)",
-            lineHeight: 1.9,
+            }}>
+              A Syracuse Italian tradition with a warm, modern soul.
+            </h2>
+
+            <div style={{ width: "48px", height: "1px", background: "var(--gold)", marginBottom: "2rem" }} />
+
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: "0.95rem",
+              color: "var(--ivory-muted)",
+              lineHeight: 1.85,
+              marginBottom: "1.5rem",
+            }}>
+              Francesca's Cucina has been serving the community for over 20 years with handcrafted pastas, premium seafood, steaks, and seasonal specialties in a warm, inviting atmosphere.
+            </p>
+
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: "0.95rem",
+              color: "var(--ivory-muted)",
+              lineHeight: 1.85,
+            }}>
+              From intimate dinners to summer nights on the patio, every experience is centered around food, family, and hospitality.
+            </p>
+          </div>
+
+          {/* Right: 2×2 photo grid */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
+            gap: "4px",
+            aspectRatio: "1.4 / 1",
           }}>
-            We are a family-owned Italian restaurant proudly serving the community for over 20 years.
-            Voted one of Syracuse's best Italian restaurants year after year, we're known for our
-            handcrafted pastas, fresh seafood, premium steaks, and unique weekly specials inspired by
-            the seasons. Our warm, welcoming atmosphere is perfect for date nights, family dinners, and
-            special celebrations. During the warmer months, guests can enjoy one of{" "}
-            <strong style={{ color: "var(--ivory)", fontWeight: 500 }}>Syracuse's favorite outdoor dining patios</strong>
-            {" "}— perfect for dining al fresco, cocktails with friends, and unforgettable summer nights.
-            At Francesca's, every meal is made with care because when you dine with us, you're part of the family.
-          </p>
+            {[
+              { src: CATERING2, label: "Patio Dining" },
+              { src: CATERING1, label: "Bar & Cocktails" },
+              { src: CATERING3, label: "Summer Nights" },
+              { src: CATERING4, label: "Candlelit Rooms" },
+            ].map(({ src, label }) => (
+              <div key={label} style={{ position: "relative", overflow: "hidden" }}>
+                <img
+                  src={src}
+                  alt={label}
+                  style={{
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                    transition: "transform 0.6s ease",
+                  }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+                />
+                {/* Dark gradient at bottom */}
+                <div style={{
+                  position: "absolute", inset: 0,
+                  background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
+                  pointerEvents: "none",
+                }} />
+                {/* Label */}
+                <div style={{
+                  position: "absolute", bottom: "1rem", left: "1rem",
+                }}>
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.6rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.3em",
+                    textTransform: "uppercase",
+                    color: "var(--ivory)",
+                    marginBottom: "0.4rem",
+                  }}>{label}</p>
+                  <div style={{ width: "28px", height: "1px", background: "var(--gold)" }} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        <style>{`
+          @media (max-width: 768px) {
+            .welcome-grid {
+              grid-template-columns: 1fr !important;
+              gap: 2.5rem !important;
+            }
+          }
+        `}</style>
       </section>
 
       {/* ─── MENU SECTION — photo grid ─── */}
