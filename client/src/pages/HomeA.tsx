@@ -71,8 +71,7 @@ export default function HomeA() {
               textShadow: "0 2px 24px rgba(0,0,0,0.5)",
             }}
           >
-            Francesca's{" "}
-            <span style={{ color: "var(--gold)" }}>Cucina</span>
+            Francesca's Cucina
           </h1>
 
           {/* Tagline + small decorative line */}
@@ -96,12 +95,39 @@ export default function HomeA() {
               href="https://resy.com/cities/syr/francescas-cucina"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline-ivory"
+              style={{
+                display: "inline-block",
+                padding: "0.85rem 2rem",
+                background: "var(--gold)",
+                color: "#fff",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.7rem",
+                fontWeight: 500,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                border: "1px solid var(--gold)",
+              }}
             >
               Reservations
             </a>
-            <Link href="/menu" className="btn-outline-ivory">
-              Menu
+            <Link
+              href="/menu"
+              style={{
+                display: "inline-block",
+                padding: "0.85rem 2rem",
+                background: "rgba(10,10,10,0.75)",
+                color: "#fff",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.7rem",
+                fontWeight: 500,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                border: "1px solid rgba(245,240,228,0.5)",
+              }}
+            >
+              View Menu
             </Link>
           </div>
         </div>
