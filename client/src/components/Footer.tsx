@@ -97,8 +97,9 @@ export default function Footer() {
     whiteSpace: "nowrap" as const,
   };
 
-  const divV = "1px solid rgba(184,160,90,0.2)";
-  const divH = "1px solid rgba(184,160,90,0.2)";
+  const divider = "1px solid rgba(184,160,90,0.2)";
+  // Icon circle 42px + gap 0.85rem ≈ 56px — aligns body text under the label word
+  const LABEL_INDENT = "56px";
 
   return (
     <footer style={{ position: "relative", overflow: "hidden", background: "#0a0907" }}>
@@ -116,7 +117,7 @@ export default function Footer() {
           <span style={{
             fontFamily: "'Big Shoulders Display', sans-serif",
             fontWeight: 700,
-            fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
+            fontSize: "clamp(1rem, 2.2vw, 1.45rem)",
             letterSpacing: "0.35em",
             textTransform: "uppercase",
             color: "var(--gold)",
@@ -129,12 +130,12 @@ export default function Footer() {
 
         {/* Ornament */}
         <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-          <svg width="64" height="16" viewBox="0 0 64 16" fill="none">
-            <line x1="0" y1="8" x2="22" y2="8" stroke="rgba(184,160,90,0.4)" strokeWidth="1"/>
-            <circle cx="25" cy="8" r="2" stroke="rgba(184,160,90,0.55)" strokeWidth="1" fill="none"/>
-            <circle cx="32" cy="8" r="3.5" stroke="rgba(184,160,90,0.65)" strokeWidth="1" fill="none"/>
-            <circle cx="39" cy="8" r="2" stroke="rgba(184,160,90,0.55)" strokeWidth="1" fill="none"/>
-            <line x1="42" y1="8" x2="64" y2="8" stroke="rgba(184,160,90,0.4)" strokeWidth="1"/>
+          <svg width="100" height="22" viewBox="0 0 100 22" fill="none">
+            <line x1="0" y1="11" x2="34" y2="11" stroke="rgba(184,160,90,0.4)" strokeWidth="1"/>
+            <circle cx="38" cy="11" r="2.5" stroke="rgba(184,160,90,0.55)" strokeWidth="1" fill="none"/>
+            <circle cx="50" cy="11" r="5" stroke="rgba(184,160,90,0.65)" strokeWidth="1" fill="none"/>
+            <circle cx="62" cy="11" r="2.5" stroke="rgba(184,160,90,0.55)" strokeWidth="1" fill="none"/>
+            <line x1="66" y1="11" x2="100" y2="11" stroke="rgba(184,160,90,0.4)" strokeWidth="1"/>
           </svg>
         </div>
 
@@ -143,44 +144,43 @@ export default function Footer() {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gridTemplateRows: "auto auto",
-          borderTop: divH,
-          borderLeft: divV,
         }}>
 
           {/* TOP-LEFT: Address */}
           <div style={{
             padding: "2.25rem 2.5rem",
-            borderRight: divV,
-            borderBottom: divH,
+            borderRight: divider,
+            borderBottom: divider,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", marginBottom: "1.1rem" }}>
               <div style={iconCircle}><PinIcon /></div>
               <span style={sectionLabel}>Address</span>
             </div>
-            <a
-              href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
-              target="_blank" rel="noopener noreferrer"
-              style={{ ...bodyText, textDecoration: "none", display: "block" }}
-            >
-              545 North Salina Street<br />
-              Syracuse, NY 13208
-            </a>
-            <a href="tel:+13154251556" style={{ ...bodyText, textDecoration: "none", display: "block", marginTop: "0.2rem" }}>
-              (315) 425–1556
-            </a>
+            <div style={{ paddingLeft: LABEL_INDENT }}>
+              <a
+                href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
+                target="_blank" rel="noopener noreferrer"
+                style={{ ...bodyText, textDecoration: "none", display: "block" }}
+              >
+                545 North Salina Street<br />
+                Syracuse, NY 13208
+              </a>
+              <a href="tel:+13154251556" style={{ ...bodyText, textDecoration: "none", display: "block", marginTop: "0.1rem" }}>
+                (315) 425–1556
+              </a>
+            </div>
           </div>
 
           {/* TOP-RIGHT: Hours */}
           <div style={{
             padding: "2.25rem 2.5rem",
-            borderRight: divV,
-            borderBottom: divH,
+            borderBottom: divider,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", marginBottom: "1.1rem" }}>
               <div style={iconCircle}><ClockIcon /></div>
               <span style={sectionLabel}>Hours</span>
             </div>
-            <div style={{ ...bodyText }}>
+            <div style={{ paddingLeft: LABEL_INDENT, ...bodyText }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: "2rem", maxWidth: "360px" }}>
                 <span>Monday – Thursday</span><span>4 – 9 pm</span>
               </div>
@@ -196,14 +196,13 @@ export default function Footer() {
           {/* BOTTOM-LEFT: Follow Us */}
           <div style={{
             padding: "2.25rem 2.5rem",
-            borderRight: divV,
-            borderBottom: divV,
+            borderRight: divider,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", marginBottom: "1.1rem" }}>
               <div style={iconCircle}><FbIcon /></div>
               <span style={sectionLabel}>Follow Us</span>
             </div>
-            <div style={{ display: "flex", gap: "1.5rem" }}>
+            <div style={{ paddingLeft: LABEL_INDENT, display: "flex", gap: "1.5rem" }}>
               {[
                 { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
                 { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
@@ -225,8 +224,6 @@ export default function Footer() {
           {/* BOTTOM-RIGHT: Buttons */}
           <div style={{
             padding: "2.25rem 2.5rem",
-            borderRight: divV,
-            borderBottom: divV,
             display: "flex",
             alignItems: "center",
             gap: "1rem",
