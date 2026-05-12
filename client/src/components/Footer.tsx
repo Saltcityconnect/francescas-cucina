@@ -182,21 +182,22 @@ export default function Footer() {
       <style>{`
         /* ── Shared cell padding ── */
         .footer-cell {
-          padding: 1.6rem 1.5rem;
+          padding: 1.2rem 0.75rem;
           box-sizing: border-box;
+          overflow: hidden;
         }
 
         /* ── Icon + label row ── */
         .footer-label-row {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
-          margin-bottom: 0.75rem;
+          gap: 0.4rem;
+          margin-bottom: 0.6rem;
         }
         .footer-icon-circle {
-          width: 34px;
-          height: 34px;
-          min-width: 34px;
+          width: 26px;
+          height: 26px;
+          min-width: 26px;
           border-radius: 50%;
           border: 1px solid rgba(184,160,90,0.45);
           display: inline-flex;
@@ -207,23 +208,23 @@ export default function Footer() {
         .footer-label {
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.52rem;
-          letter-spacing: 0.28em;
+          font-size: 0.48rem;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--gold);
+          white-space: nowrap;
         }
 
         /* ── Body text ── */
         .footer-body {
           font-family: 'DM Sans', sans-serif;
           font-weight: 300;
-          font-size: 0.78rem;
+          font-size: 0.65rem;
           color: rgba(245,240,228,0.78);
-          line-height: 1.75;
+          line-height: 1.7;
         }
-        /* 34px icon + 0.65rem gap ≈ 44px indent */
         .footer-indent {
-          padding-left: 44px;
+          padding-left: 0;
         }
         .footer-link {
           color: rgba(245,240,228,0.78);
@@ -231,8 +232,9 @@ export default function Footer() {
           display: block;
           font-family: 'DM Sans', sans-serif;
           font-weight: 300;
-          font-size: 0.78rem;
-          line-height: 1.75;
+          font-size: 0.65rem;
+          line-height: 1.7;
+          white-space: nowrap;
         }
         .footer-link:hover { color: var(--gold); }
 
@@ -241,12 +243,13 @@ export default function Footer() {
         .footer-hour-row {
           display: flex;
           justify-content: space-between;
-          gap: 0.5rem;
+          gap: 0.25rem;
           font-family: 'DM Sans', sans-serif;
           font-weight: 300;
-          font-size: 0.78rem;
+          font-size: 0.65rem;
           color: rgba(245,240,228,0.78);
-          line-height: 1.75;
+          line-height: 1.7;
+          white-space: nowrap;
         }
 
         /* ── Buttons quadrant ── */
@@ -254,27 +257,28 @@ export default function Footer() {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          gap: 0.65rem;
+          gap: 0.5rem;
         }
         .footer-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
+          gap: 0.35rem;
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.52rem;
-          letter-spacing: 0.2em;
+          font-size: 0.44rem;
+          letter-spacing: 0.15em;
           text-transform: uppercase;
           color: var(--gold);
           text-decoration: none;
           border: 1px solid rgba(184,160,90,0.5);
           border-radius: 4px;
-          padding: 0.75rem 0.5rem;
+          padding: 0.6rem 0.35rem;
           background: transparent;
           transition: background 0.2s ease;
           width: 100%;
           box-sizing: border-box;
+          white-space: nowrap;
         }
         .footer-btn:hover { background: rgba(184,160,90,0.1); }
 
