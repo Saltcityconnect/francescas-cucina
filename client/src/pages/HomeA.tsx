@@ -11,11 +11,11 @@ const HERO_VIDEO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/Jqc
 const HERO_POSTER = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/exterior_building_fcb6fd3d.webp";
 
 // Real food photos — flat (white vignette removed)
-const FOOD1 = "/manus-storage/flat_food1_2d0f66e0.jpg";
-const FOOD2 = "/manus-storage/flat_food2_555fb32e.jpg";
-const FOOD3 = "/manus-storage/flat_food3_e8c8a58e.jpg";
-const FOOD4 = "/manus-storage/flat_food4_5034f266.jpg";
-const FOOD5 = "/manus-storage/flat_food5_31ae6372.jpg";
+const FOOD1 = "/manus-storage/food_pic1_037a763c.png"; // chicken parm — large left
+const FOOD2 = "/manus-storage/food_pic2_08778a2a.jpg"; // gnocchi — top center
+const FOOD3 = "/manus-storage/food_pic3_33c8d6fc.png"; // brownie/caramel — top right
+const FOOD4 = "/manus-storage/food_pic4_ceaeec18.png"; // surf & turf board — bottom center
+const FOOD5 = "/manus-storage/food_pic5_6e05c036.png"; // scallops — bottom right
 
 // Private dining / catering photos — flat (white vignette removed)
 const CATERING1 = "/manus-storage/flat_catering1_0cfade6e.jpg";
