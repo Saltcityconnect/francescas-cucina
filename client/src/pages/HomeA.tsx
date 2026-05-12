@@ -60,6 +60,7 @@ export default function HomeA() {
           zIndex: 2,
         }}>
           <h1
+            className="hero-title"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 400,
@@ -578,7 +579,7 @@ export default function HomeA() {
 
       <style>{`
         @media (max-width: 640px) {
-          .hero-title { white-space: normal !important; font-size: clamp(2.5rem, 12vw, 5rem) !important; }
+          .hero-title { white-space: nowrap !important; font-size: clamp(1.4rem, 8.5vw, 5rem) !important; }
 
           /* Private Dining: stack text above photos on mobile, center everything */
           .pd-grid {
