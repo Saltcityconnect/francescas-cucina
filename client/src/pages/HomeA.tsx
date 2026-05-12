@@ -306,83 +306,59 @@ export default function HomeA() {
         }}
         className="menu-photo-grid"
         >
-          {/* Large left photo — spans 2 rows */}
+          {/* Large left photo — spans 2 rows, full natural proportions */}
           <div style={{
             gridColumn: "1",
             gridRow: "1 / 3",
-            overflow: "hidden",
-            minHeight: "460px",
+            background: "#0d0c0a",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}>
             <img
               src={FOOD1}
               alt="Francesca's signature dish"
               style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", display: "block",
-                transition: "transform 0.6s ease",
+                width: "100%",
+                height: "auto",
+                display: "block",
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
             />
           </div>
 
           {/* Top-center photo */}
-          <div style={{ gridColumn: "2", gridRow: "1", overflow: "hidden" }}>
+          <div style={{ gridColumn: "2", gridRow: "1", background: "#0d0c0a", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <img
               src={FOOD2}
               alt="Francesca's signature dish"
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", display: "block",
-                transition: "transform 0.6s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
 
           {/* Top-right photo */}
-          <div style={{ gridColumn: "3", gridRow: "1", overflow: "hidden" }}>
+          <div style={{ gridColumn: "3", gridRow: "1", background: "#0d0c0a", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <img
               src={FOOD3}
               alt="Francesca's signature dish"
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", display: "block",
-                transition: "transform 0.6s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
 
           {/* Bottom-center photo */}
-          <div style={{ gridColumn: "2", gridRow: "2", overflow: "hidden" }}>
+          <div style={{ gridColumn: "2", gridRow: "2", background: "#0d0c0a", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <img
               src={FOOD4}
               alt="Francesca's signature dish"
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", display: "block",
-                transition: "transform 0.6s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
 
           {/* Bottom-right photo */}
-          <div style={{ gridColumn: "3", gridRow: "2", overflow: "hidden" }}>
+          <div style={{ gridColumn: "3", gridRow: "2", background: "#0d0c0a", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <img
               src={FOOD5}
               alt="Francesca's signature dish"
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", display: "block",
-                transition: "transform 0.6s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
         </div>
