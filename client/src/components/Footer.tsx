@@ -115,11 +115,11 @@ export default function Footer() {
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.5rem" }}>
           <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
           <span style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 700,
-            fontSize: "clamp(1rem, 2.2vw, 1.45rem)",
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 400,
+            fontStyle: "italic",
+            fontSize: "clamp(1.1rem, 2.4vw, 1.6rem)",
+            letterSpacing: "0.18em",
             color: "var(--gold)",
             whiteSpace: "nowrap",
           }}>
@@ -130,12 +130,25 @@ export default function Footer() {
 
         {/* Ornament */}
         <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-          <svg width="100" height="22" viewBox="0 0 100 22" fill="none">
-            <line x1="0" y1="11" x2="34" y2="11" stroke="rgba(184,160,90,0.4)" strokeWidth="1"/>
-            <circle cx="38" cy="11" r="2.5" stroke="rgba(184,160,90,0.55)" strokeWidth="1" fill="none"/>
-            <circle cx="50" cy="11" r="5" stroke="rgba(184,160,90,0.65)" strokeWidth="1" fill="none"/>
-            <circle cx="62" cy="11" r="2.5" stroke="rgba(184,160,90,0.55)" strokeWidth="1" fill="none"/>
-            <line x1="66" y1="11" x2="100" y2="11" stroke="rgba(184,160,90,0.4)" strokeWidth="1"/>
+          {/* Decorative flourish: lines + diamond + leaf-like curves, centered */}
+          <svg width="180" height="28" viewBox="0 0 180 28" fill="none" style={{ display: "inline-block" }}>
+            {/* Left line */}
+            <line x1="0" y1="14" x2="62" y2="14" stroke="rgba(184,160,90,0.45)" strokeWidth="0.75"/>
+            {/* Left small curl */}
+            <path d="M62 14 Q68 8 74 14" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
+            <path d="M62 14 Q68 20 74 14" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
+            {/* Left dot */}
+            <circle cx="77" cy="14" r="1.2" fill="rgba(184,160,90,0.6)"/>
+            {/* Center diamond */}
+            <polygon points="90,7 96,14 90,21 84,14" stroke="rgba(184,160,90,0.75)" strokeWidth="0.75" fill="none"/>
+            <circle cx="90" cy="14" r="1.5" fill="rgba(184,160,90,0.65)"/>
+            {/* Right dot */}
+            <circle cx="103" cy="14" r="1.2" fill="rgba(184,160,90,0.6)"/>
+            {/* Right small curl */}
+            <path d="M106 14 Q112 8 118 14" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
+            <path d="M106 14 Q112 20 118 14" stroke="rgba(184,160,90,0.55)" strokeWidth="0.75" fill="none"/>
+            {/* Right line */}
+            <line x1="118" y1="14" x2="180" y2="14" stroke="rgba(184,160,90,0.45)" strokeWidth="0.75"/>
           </svg>
         </div>
 
