@@ -287,7 +287,8 @@ export default function HomeA() {
             marginBottom: "1.5rem",
             letterSpacing: "-0.01em",
           }}>
-            Classic Italian, beautifully done.
+            Classic Italian, beautifully<br />
+            done.
           </h2>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
@@ -302,21 +303,51 @@ export default function HomeA() {
           </p>
         </div>
 
-        {/* Composite food photo — full-width, natural proportions */}
+        {/* Food photo grid with hover zoom */}
         <div style={{
           maxWidth: "1400px",
           margin: "0 auto",
           padding: "0 2rem",
-        }}>
-          <img
-            src="/manus-storage/food_composite_e7b235b5.png"
-            alt="Francesca's Cucina signature dishes"
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-            }}
-          />
+          display: "grid",
+          gridTemplateColumns: "1.6fr 1fr 1fr",
+          gridTemplateRows: "280px 280px",
+          gap: "4px",
+        }} className="menu-photo-grid">
+          {[
+            { src: "/manus-storage/food_pic1_037a763c.png", alt: "Chicken Parmesan", row: "1 / 3", col: "1" },
+            { src: "/manus-storage/food_pic2_08778a2a.jpg", alt: "Gnocchi", row: "1", col: "2" },
+            { src: "/manus-storage/food_pic3_33c8d6fc.png", alt: "Dessert", row: "1", col: "3" },
+            { src: "/manus-storage/food_pic4_ceaeec18.png", alt: "Surf & Turf", row: "2", col: "2" },
+            { src: "/manus-storage/food_pic5_6e05c036.png", alt: "Scallops", row: "2", col: "3" },
+          ].map(({ src, alt, row, col }) => (
+            <div
+              key={alt}
+              style={{
+                overflow: "hidden",
+                gridRow: row,
+                gridColumn: col,
+              }}
+            >
+              <img
+                src={src}
+                alt={alt}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  display: "block",
+                  transition: "transform 0.6s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.transform = "scale(1.07)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.transform = "scale(1)";
+                }}
+              />
+            </div>
+          ))}
         </div>
 
         {/* VIEW FULL MENU button */}
