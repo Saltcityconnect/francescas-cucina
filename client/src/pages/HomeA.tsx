@@ -107,6 +107,7 @@ export default function HomeA() {
                 textTransform: "uppercase",
                 textDecoration: "none",
                 border: "1px solid var(--gold)",
+                borderRadius: "6px",
               }}
             >
               Reservations
@@ -125,6 +126,7 @@ export default function HomeA() {
                 textTransform: "uppercase",
                 textDecoration: "none",
                 border: "1px solid rgba(245,240,228,0.5)",
+                borderRadius: "6px",
               }}
             >
               View Menu

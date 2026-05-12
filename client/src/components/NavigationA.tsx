@@ -138,6 +138,7 @@ export default function NavigationA() {
                   textDecoration: "none",
                   padding: "0.5rem 1.1rem",
                   border: "1px solid rgba(245,240,228,0.5)",
+                  borderRadius: "6px",
                   transition: "all 0.3s ease",
                 }}
                 onMouseEnter={(e) => {
@@ -163,6 +164,7 @@ export default function NavigationA() {
                   textDecoration: "none",
                   padding: "0.5rem 1.1rem",
                   border: "1px solid rgba(245,240,228,0.5)",
+                  borderRadius: "6px",
                   transition: "all 0.3s ease",
                 }}
                 onMouseEnter={(e) => {
