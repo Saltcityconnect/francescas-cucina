@@ -76,20 +76,23 @@ export default function NavigationA() {
               }} />
             </button>
 
-            {/* Wordmark — Center (hidden on mobile) */}
-            <Link href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", textDecoration: "none", display: "var(--nav-wordmark-display, block)" }} className="nav-wordmark">
-              <div style={{ textAlign: "center", lineHeight: 1 }}>
-                <div style={{
-                  fontFamily: "'Big Shoulders Display', sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-                  letterSpacing: "0.06em",
-                  textTransform: "none",
-                  color: "var(--ivory)",
-                }}>
-                  Francesca's Cucina
-                </div>
-              </div>
+            {/* Home icon — Center */}
+            <Link
+              href="/"
+              aria-label="Return to homepage"
+              style={{
+                position: "absolute", left: "50%", transform: "translateX(-50%)",
+                textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center",
+                color: "var(--ivory)", opacity: 0.85, transition: "opacity 0.2s ease",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
+            >
+              {/* Simple house SVG icon */}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 9.75L12 3l9 6.75V21a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.75z" />
+                <path d="M9 22V12h6v10" />
+              </svg>
             </Link>
 
             {/* Right CTAs */}
