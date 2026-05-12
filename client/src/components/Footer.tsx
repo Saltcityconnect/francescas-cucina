@@ -49,22 +49,26 @@ const divider = "1px solid rgba(184,160,90,0.22)";
 
 export default function Footer() {
   return (
-    <footer style={{ position: "relative", overflow: "hidden" }}>
+    <footer style={{ background: "#0d0c0a", padding: "4rem 2rem 2rem" }}>
 
-      {/* Background photo */}
+      {/* Constrained inner container with background photo */}
       <div style={{
-        position: "absolute", inset: 0, zIndex: 0,
+        maxWidth: "1200px",
+        margin: "0 auto",
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: "4px",
         backgroundImage: `url(${FOOTER_BG})`,
         backgroundSize: "cover",
         backgroundPosition: "center 30%",
-      }} />
+      }}>
       {/* Dark mask — patio photo visible but text stays legible */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
         background: "rgba(6,5,3,0.80)",
       }} />
 
-      <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 2.5rem 1.5rem" }}>
+      <div style={{ position: "relative", zIndex: 2, padding: "2.5rem 2.5rem 1.5rem" }}>
 
         {/* ── Header: spaced caps matching reference ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.35rem" }}>
@@ -187,6 +191,7 @@ export default function Footer() {
         }}>
           © {new Date().getFullYear()} Francesca's Cucina · 545 North Salina Street, Syracuse, NY
         </p>
+      </div>
       </div>
 
       <style>{`
