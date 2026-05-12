@@ -31,6 +31,7 @@ export default function NavigationA() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
+  const isHome = location === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -89,14 +90,34 @@ export default function NavigationA() {
                 }} />
               </button>
 
-              {/* Home icon — always visible on mobile, hidden on desktop (desktop uses center position) */}
+              {/* Home icon — hidden on home page, visible on sub-pages */}
+              {!isHome && (
+                <Link
+                  href="/"
+                  aria-label="Return to homepage"
+                  className="nav-home-mobile"
+                  style={{
+                    textDecoration: "none",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: "var(--ivory)", opacity: 0.85, transition: "opacity 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
+                >
+                  <HomeIcon />
+                </Link>
+              )}
+            </div>
+
+            {/* Home icon — Center on desktop, hidden on home page */}
+            {!isHome && (
               <Link
                 href="/"
                 aria-label="Return to homepage"
-                className="nav-home-mobile"
+                className="nav-home-desktop"
                 style={{
-                  textDecoration: "none",
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  position: "absolute", left: "50%", transform: "translateX(-50%)",
+                  textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center",
                   color: "var(--ivory)", opacity: 0.85, transition: "opacity 0.2s ease",
                 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
@@ -104,23 +125,7 @@ export default function NavigationA() {
               >
                 <HomeIcon />
               </Link>
-            </div>
-
-            {/* Home icon — Center on desktop only */}
-            <Link
-              href="/"
-              aria-label="Return to homepage"
-              className="nav-home-desktop"
-              style={{
-                position: "absolute", left: "50%", transform: "translateX(-50%)",
-                textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center",
-                color: "var(--ivory)", opacity: 0.85, transition: "opacity 0.2s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
-            >
-              <HomeIcon />
-            </Link>
+            )}
 
             {/* Right CTAs */}
             <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
