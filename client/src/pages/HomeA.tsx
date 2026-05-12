@@ -370,7 +370,7 @@ export default function HomeA() {
         background: "#1a1714",
         backgroundImage: "url('/manus-storage/food_catering_b865b2cb.jpg')",
         backgroundSize: "cover",
-        backgroundPosition: "center 40%",
+        backgroundPosition: "center center",
         padding: "6rem 2rem",
         textAlign: "center",
         position: "relative",
@@ -378,10 +378,11 @@ export default function HomeA() {
         {/* Dark mask — food photo visible but text stays legible */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "rgba(10,8,6,0.70)",
+          background: "rgba(10,8,6,0.80)",
           pointerEvents: "none",
         }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "700px", margin: "0 auto" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1400px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontSize: "0.65rem",
@@ -433,6 +434,7 @@ export default function HomeA() {
           >
             Book Your Order
           </Link>
+        </div>
         </div>
       </section>
 
