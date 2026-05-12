@@ -14,6 +14,7 @@ const STEAK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX
 const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
 const CHEF_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/chef_special_8863e660.jpg";
 const EVENT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events1_8d038c07.jpg";
+const CATERING_HERO_IMG = "/manus-storage/catering_hero_panoramic_9e80d04e.jpg";
 
 const cateringMenu = [
   {
@@ -121,39 +122,45 @@ export default function Catering() {
       <NavigationA />
 
       {/* ─── HERO ─── */}
-      <div style={{ position: "relative", height: "340px", overflow: "hidden", marginTop: "72px" }}>
+      <div style={{ position: "relative", height: "clamp(220px, 35vw, 420px)", overflow: "hidden", marginTop: "72px" }}>
         <img
-          src={EVENT_IMG}
-          alt="Francesca's Cucina catering"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }}
+          src={CATERING_HERO_IMG}
+          alt="Francesca's Cucina catering spread"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
         />
+        {/* Gradient overlay — heavier at bottom for text legibility */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.6) 100%)",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          textAlign: "center", padding: "2rem",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.72) 100%)",
+        }} />
+        {/* Mandolin-style: name top-left, contact bottom-left */}
+        <div style={{
+          position: "absolute", inset: 0,
+          display: "flex", flexDirection: "column", justifyContent: "flex-end",
+          padding: "clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)",
+          zIndex: 2,
         }}>
           <h1 style={{
             fontFamily: "'Big Shoulders Display', sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(3.5rem, 10vw, 8rem)",
+            fontSize: "clamp(3rem, 9vw, 7rem)",
             letterSpacing: "0.06em",
             textTransform: "uppercase",
             color: "#fff",
-            lineHeight: 0.9,
-            marginBottom: "1.25rem",
+            lineHeight: 0.88,
+            margin: "0 0 0.6rem",
           }}>
             Catering
           </h1>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 300,
-            fontSize: "0.95rem",
-            color: "rgba(255,255,255,0.85)",
-            maxWidth: "520px",
-            lineHeight: 1.7,
+            fontSize: "clamp(0.78rem, 1.8vw, 0.95rem)",
+            color: "rgba(255,255,255,0.82)",
+            margin: 0,
+            lineHeight: 1.6,
           }}>
-            For questions or to place a catering order, please call{" "}
+            To place a catering order, please call{" "}
             <a href="tel:3154098848" style={{ color: "#fff", textDecoration: "underline" }}>315-409-8848</a>
             {" "}or email{" "}
             <a href="mailto:catering@francescas-cucina.com" style={{ color: "#fff", textDecoration: "underline" }}>
@@ -239,9 +246,8 @@ export default function Catering() {
             <div style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "1px",
-              background: "#e8e2d8",
-              border: "1px solid #e8e2d8",
+              gap: "0",
+              background: "#f9f6f0",
             }}
             className="catering-grid"
             >
@@ -254,6 +260,7 @@ export default function Catering() {
                     display: "flex",
                     gap: "1.25rem",
                     alignItems: "flex-start",
+                    margin: "0 0 1px 0",
                   }}
                 >
                   {/* Text */}
@@ -312,7 +319,9 @@ export default function Catering() {
           padding: "3rem",
           background: "#1a1a18",
           textAlign: "center",
-        }}>
+        }}
+        className="catering-cta"
+        >
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontStyle: "italic",
@@ -343,7 +352,7 @@ export default function Catering() {
           }}>
             All catering orders are priced at market rate. Please contact us at least 48 hours in advance.
           </p>
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }} className="catering-cta-btns">
             <a
               href="tel:3154098848"
               style={{
@@ -388,6 +397,16 @@ export default function Catering() {
       <style>{`
         @media (max-width: 640px) {
           .catering-grid { grid-template-columns: 1fr !important; }
+          .catering-cta {
+            padding: 2.5rem 1.5rem !important;
+          }
+          .catering-cta-btns {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .catering-cta-btns a {
+            text-align: center !important;
+          }
         }
       `}</style>
     </div>

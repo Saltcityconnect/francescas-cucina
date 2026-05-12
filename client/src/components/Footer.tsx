@@ -1,12 +1,27 @@
 /*
  * FOOTER — Dark Charcoal
- * Bordered box: FRANCESCA'S CUCINA header, Address + Hours columns,
- * Follow Us social icons, Reservations + Gift Cards buttons bottom-right
+ * Bordered box: FRANCESCA'S CUCINA header
+ * Left column: Address + Follow Us
+ * Right column: Hours label + hours rows + Reservations/Gift Cards buttons (all vertically stacked)
  */
 
 import { Link } from "wouter";
 
 export default function Footer() {
+  const btnStyle: React.CSSProperties = {
+    fontFamily: "'Big Shoulders Display', sans-serif",
+    fontWeight: 600,
+    fontSize: "0.7rem",
+    letterSpacing: "0.18em",
+    textTransform: "uppercase",
+    color: "var(--ivory)",
+    textDecoration: "none",
+    border: "1px solid rgba(245,240,228,0.5)",
+    padding: "0.55rem 1.25rem",
+    transition: "background 0.2s ease",
+    display: "inline-block",
+  };
+
   return (
     <footer style={{ background: "var(--charcoal)", padding: "3rem 2rem 2rem" }}>
       {/* ── Branded header with decorative lines ── */}
@@ -29,7 +44,7 @@ export default function Footer() {
         <div style={{ flex: 1, height: "1px", background: "rgba(184,160,90,0.4)" }} />
       </div>
 
-      {/* ── Bordered content box ── */}
+      {/* ── Bordered content box: 2 columns ── */}
       <div style={{
         maxWidth: "860px",
         margin: "0 auto",
@@ -38,161 +53,153 @@ export default function Footer() {
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         gap: "2rem 3rem",
+        alignItems: "start",
       }}>
-        {/* ── ADDRESS (top-left) ── */}
-        <div>
-          <p style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 600,
-            fontSize: "0.7rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "var(--gold)",
-            marginBottom: "0.6rem",
-          }}>
-            Address
-          </p>
-          <a
-            href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
+
+        {/* ── LEFT COLUMN: Address + Follow Us ── */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          {/* Address */}
+          <div>
+            <p style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 600,
+              fontSize: "0.7rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: "0.6rem",
+            }}>
+              Address
+            </p>
+            <a
+              href="https://maps.google.com/?q=545+North+Salina+Street+Syracuse+NY"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 300,
+                fontSize: "0.875rem",
+                color: "var(--ivory-muted)",
+                textDecoration: "none",
+                lineHeight: 1.8,
+                display: "block",
+              }}
+            >
+              545 North Salina Street<br />
+              Syracuse, NY 13208
+            </a>
+            <a
+              href="tel:+13154251556"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 300,
+                fontSize: "0.875rem",
+                color: "var(--ivory-muted)",
+                textDecoration: "none",
+                display: "block",
+                marginTop: "0.4rem",
+              }}
+            >
+              (315) 425-1556
+            </a>
+          </div>
+
+          {/* Follow Us */}
+          <div>
+            <p style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 600,
+              fontSize: "0.7rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: "0.6rem",
+            }}>
+              Follow Us
+            </p>
+            <div style={{ display: "flex", gap: "1.25rem" }}>
+              {[
+                { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
+                { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 300,
+                    fontSize: "0.8rem",
+                    color: "var(--ivory-muted)",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--gold)")}
+                  onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--ivory-muted)")}
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── RIGHT COLUMN: Hours + Buttons ── */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
+          {/* Hours */}
+          <div>
+            <p style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 600,
+              fontSize: "0.7rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: "0.6rem",
+            }}>
+              Hours
+            </p>
+            <div style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 300,
               fontSize: "0.875rem",
               color: "var(--ivory-muted)",
-              textDecoration: "none",
-              lineHeight: 1.8,
-              display: "block",
-            }}
-          >
-            545 North Salina Street<br />
-            Syracuse, NY 13208
-          </a>
-          <a
-            href="tel:+13154251556"
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "0.875rem",
-              color: "var(--ivory-muted)",
-              textDecoration: "none",
-              display: "block",
-              marginTop: "0.4rem",
-            }}
-          >
-            (315) 425-1556
-          </a>
-        </div>
-
-        {/* ── HOURS (top-right) ── */}
-        <div>
-          <p style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 600,
-            fontSize: "0.7rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "var(--gold)",
-            marginBottom: "0.6rem",
-          }}>
-            Hours
-          </p>
-          <div style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: "0.875rem",
-            color: "var(--ivory-muted)",
-            lineHeight: 2,
-          }}>
-            <div>Monday – Thursday &nbsp; 4 – 9 pm</div>
-            <div>Friday – Saturday &nbsp;&nbsp;&nbsp; 4 – 10 pm</div>
-            <div>Sunday &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Closed</div>
+              lineHeight: 2,
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                <span>Monday – Thursday</span><span>4 – 9 pm</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                <span>Friday – Saturday</span><span>4 – 10 pm</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                <span>Sunday</span><span>Closed</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* ── FOLLOW US (bottom-left) ── */}
-        <div>
-          <p style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 600,
-            fontSize: "0.7rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "var(--gold)",
-            marginBottom: "0.6rem",
-          }}>
-            Follow Us
-          </p>
-          <div style={{ display: "flex", gap: "1.25rem" }}>
-            {[
-              { label: "Facebook", href: "https://www.facebook.com/share/17EEV4KgJh/?mibextid=wwXIfr" },
-              { label: "Instagram", href: "https://www.instagram.com/francescascucina" },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 300,
-                  fontSize: "0.8rem",
-                  color: "var(--ivory-muted)",
-                  textDecoration: "none",
-                  transition: "color 0.2s ease",
-                }}
-                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--gold)")}
-                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--ivory-muted)")}
-              >
-                {s.label}
-              </a>
-            ))}
+          {/* Reservations + Gift Cards */}
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <a
+              href="https://resy.com/cities/syr/francescas-cucina"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={btnStyle}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+            >
+              Reservations
+            </a>
+            <Link
+              href="/gift-cards"
+              style={btnStyle}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+            >
+              Gift Cards
+            </Link>
           </div>
-        </div>
-
-        {/* ── RESERVATIONS + GIFT CARDS buttons (bottom-right) ── */}
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-end", justifyContent: "flex-end" }}>
-          <a
-            href="https://resy.com/cities/syr/francescas-cucina"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "'Big Shoulders Display', sans-serif",
-              fontWeight: 600,
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--ivory)",
-              textDecoration: "none",
-              border: "1px solid rgba(245,240,228,0.5)",
-              padding: "0.55rem 1.25rem",
-              transition: "background 0.2s ease",
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
-          >
-            Reservations
-          </a>
-          <Link
-            href="/gift-cards"
-            style={{
-              fontFamily: "'Big Shoulders Display', sans-serif",
-              fontWeight: 600,
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--ivory)",
-              textDecoration: "none",
-              border: "1px solid rgba(245,240,228,0.5)",
-              padding: "0.55rem 1.25rem",
-              transition: "background 0.2s ease",
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
-          >
-            Gift Cards
-          </Link>
         </div>
       </div>
 
@@ -222,11 +229,16 @@ export default function Footer() {
         </p>
       </div>
 
-      {/* Responsive: stack grid on mobile */}
+      {/* Responsive: on mobile keep 2-col but tighten padding */}
       <style>{`
-        @media (max-width: 600px) {
+        @media (max-width: 540px) {
           footer > div:nth-child(2) {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr 1fr !important;
+            padding: 1.5rem 1.25rem !important;
+            gap: 1.5rem 1.5rem !important;
+          }
+          footer > div:nth-child(2) > div > div[style*="justify-content: space-between"] {
+            gap: 0.5rem !important;
           }
         }
       `}</style>
