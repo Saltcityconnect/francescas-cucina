@@ -201,6 +201,7 @@ export default function HomeA() {
             gridTemplateRows: "1fr 1fr",
             gap: "4px",
             aspectRatio: "1.4 / 1",
+            background: "#0d0c0a",
           }}>
             {[
               { src: CATERING1, label: "Patio Dining" },
@@ -215,7 +216,9 @@ export default function HomeA() {
                   style={{
                     width: "100%", height: "100%",
                     objectFit: "cover",
+                    objectPosition: "center",
                     display: "block",
+                    transform: "scale(1.05)",
                     transition: "transform 0.6s ease",
                   }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
