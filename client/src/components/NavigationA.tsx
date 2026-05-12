@@ -134,10 +134,10 @@ export default function NavigationA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: "'Big Shoulders Display', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.15em",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   color: "var(--ivory)",
                   textDecoration: "none",
@@ -160,10 +160,10 @@ export default function NavigationA() {
               <Link
                 href="/gift-cards"
                 style={{
-                  fontFamily: "'Big Shoulders Display', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.15em",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   color: "var(--ivory)",
                   textDecoration: "none",

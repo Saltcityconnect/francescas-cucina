@@ -80,10 +80,10 @@ export default function HomeA() {
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(0.65rem, 1.4vw, 0.8rem)",
-              letterSpacing: "0.4em",
+              fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
+              letterSpacing: "0.35em",
               textTransform: "uppercase",
-              color: "rgba(245,240,228,0.75)",
+              color: "rgba(245,240,228,0.85)",
               marginBottom: "0.75rem",
             }}>
               Celebrating Food and Family
@@ -100,10 +100,10 @@ export default function HomeA() {
                 display: "inline-block",
                 padding: "0.85rem 2rem",
                 background: "var(--gold)",
-                color: "#fff",
+                color: "#000",
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: "0.7rem",
-                fontWeight: 500,
+                fontWeight: 600,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
@@ -111,7 +111,7 @@ export default function HomeA() {
                 borderRadius: "6px",
               }}
             >
-              Reservations
+              Reserve a Table
             </a>
             <Link
               href="/menu"
@@ -151,7 +151,7 @@ export default function HomeA() {
           <div>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.65rem",
+              fontSize: "0.85rem",
               fontWeight: 500,
               letterSpacing: "0.35em",
               textTransform: "uppercase",
@@ -271,7 +271,7 @@ export default function HomeA() {
         <div style={{ textAlign: "center", marginBottom: "3rem", padding: "0 2rem" }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.65rem",
+            fontSize: "0.85rem",
             fontWeight: 500,
             letterSpacing: "0.35em",
             textTransform: "uppercase",
@@ -390,7 +390,7 @@ export default function HomeA() {
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.65rem",
+            fontSize: "0.85rem",
             fontWeight: 500,
             letterSpacing: "0.35em",
             textTransform: "uppercase",
@@ -463,7 +463,7 @@ export default function HomeA() {
           }}>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.6rem",
+              fontSize: "0.85rem",
               fontWeight: 600,
               letterSpacing: "0.35em",
               textTransform: "uppercase",
