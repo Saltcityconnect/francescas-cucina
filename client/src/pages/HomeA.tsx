@@ -18,10 +18,10 @@ const FOOD4 = "/manus-storage/food_pic4_ceaeec18.png"; // surf & turf board — 
 const FOOD5 = "/manus-storage/food_pic5_6e05c036.png"; // scallops — bottom right
 
 // Private dining / catering photos — flat (white vignette removed)
-const CATERING1 = "/manus-storage/welcome_patio_b44f4d73.jpg";
-const CATERING2 = "/manus-storage/welcome_bar_d6105d37.jpg";
-const CATERING3 = "/manus-storage/welcome_summer_0291fe75.jpg";
-const CATERING4 = "/manus-storage/welcome_candlelit_a4618e47.jpg";
+const CATERING1 = "/manus-storage/w_patio_5bd6a92e.jpg";
+const CATERING2 = "/manus-storage/w_bar_29067af7.jpg";
+const CATERING3 = "/manus-storage/w_summer_6a3d268e.jpg";
+const CATERING4 = "/manus-storage/w_candlelit_59776707.jpg";
 
 export default function HomeA() {
   return (
