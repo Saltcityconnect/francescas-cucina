@@ -428,116 +428,102 @@ export default function HomeA() {
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
-      <section style={{ background: "var(--charcoal)", padding: "0 0 6rem" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 2rem", textAlign: "center" }}>
+      <section style={{ background: "var(--charcoal)", padding: "0" }}>
+        <div style={{
 
-          {/* Heading with decorative lines */}
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr",
+          minHeight: "520px",
+        }}>
+          {/* Left: dark panel with text */}
           <div style={{
-            display: "flex", alignItems: "center", gap: "1.5rem",
-            marginBottom: "1.25rem",
+            background: "#0d0c0a",
+            padding: "5rem 3.5rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}>
-            <div style={{ flex: 1, height: "1px", background: "var(--gold)", opacity: 0.5 }} />
-            <h2
-              className="display-condensed"
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.6rem",
+              fontWeight: 600,
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: "1rem",
+            }}>Private Dining</p>
+            {/* Gold decorative line */}
+            <div style={{ width: "48px", height: "1px", background: "var(--gold)", marginBottom: "1.75rem" }} />
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+              lineHeight: 1.15,
+              color: "var(--ivory)",
+              marginBottom: "1.5rem",
+            }}>Celebrate the moments that matter.</h2>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.95rem",
+              color: "rgba(245,240,228,0.72)",
+              lineHeight: 1.8,
+              marginBottom: "2.5rem",
+              maxWidth: "340px",
+            }}>Host unforgettable gatherings with warm hospitality and authentic Italian cuisine.</p>
+            <Link
+              href="/events"
               style={{
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                color: "var(--ivory)",
-                letterSpacing: "0.12em",
-                lineHeight: 1,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "1rem 2rem",
+                background: "var(--gold)",
+                border: "1px solid var(--gold)",
+                borderRadius: "6px",
+                color: "#1a1410",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                alignSelf: "flex-start",
+                transition: "background 0.3s ease, color 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "var(--gold)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "var(--gold)";
+                (e.currentTarget as HTMLElement).style.color = "#1a1410";
               }}
             >
-              Private Dining
-            </h2>
-            <div style={{ flex: 1, height: "1px", background: "var(--gold)", opacity: 0.5 }} />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              Book Your Event
+            </Link>
           </div>
 
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: "0.95rem",
-            color: "var(--ivory-muted)",
-            lineHeight: 1.85,
-            maxWidth: "580px",
-            margin: "0 auto 1.75rem",
-          }}>
-            Francesca's Cucina events feature thoughtfully curated menus inspired by classic Italian cuisine
-            and seasonal specialties. Our private dining room accommodates up to 50 guests, with our outdoor
-            patio available for larger celebrations.
-          </p>
-
-          <Link
-            href="/events"
-            style={{
-              display: "inline-block",
-              fontFamily: "'Big Shoulders Display', sans-serif",
-              fontWeight: 600,
-              fontSize: "0.75rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--ivory)",
-              textDecoration: "none",
-              border: "1px solid rgba(245,240,228,0.5)",
-              padding: "0.75rem 2rem",
-              marginBottom: "2.5rem",
-              transition: "background 0.2s ease, color 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "rgba(245,240,228,0.1)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-            }}
-          >
-            Book Your Event
-          </Link>
-
-          {/* 4-photo mosaic: 1 large left + 3 right (1 wide top + 2 small bottom) */}
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "6px" }}>
-            {/* Left: large tall photo */}
-            <div style={{ overflow: "hidden", gridRow: "span 2" }}>
+          {/* Right: 2 photos side by side */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
+            <div style={{ overflow: "hidden" }}>
               <img
-                src={CATERING1}
+                src="/manus-storage/pd_indoor_59b8bd65.png"
                 alt="Private dining room at Francesca's Cucina"
-                style={{
-                  width: "100%", height: "100%",
-                  objectFit: "cover", display: "block",
-                  transition: "transform 0.6s ease",
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.03)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </div>
-            {/* Right top: wide photo */}
-            <div style={{ overflow: "hidden", aspectRatio: "4/3" }}>
+            <div style={{ overflow: "hidden" }}>
               <img
-                src={CATERING2}
-                alt="Event space at Francesca's Cucina"
-                style={{
-                  width: "100%", height: "100%",
-                  objectFit: "cover", display: "block",
-                  transition: "transform 0.6s ease",
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.03)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+                src="/manus-storage/pd_patio_b33b592b.png"
+                alt="Outdoor patio at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
-            </div>
-            {/* Right bottom: 2 small photos side by side */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
-              {[CATERING3, CATERING4].map((src, i) => (
-                <div key={i} style={{ overflow: "hidden", aspectRatio: "1/1" }}>
-                  <img
-                    src={src}
-                    alt={`Private dining detail ${i + 3}`}
-                    style={{
-                      width: "100%", height: "100%",
-                      objectFit: "cover", display: "block",
-                      transition: "transform 0.6s ease",
-                    }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
-                  />
-                </div>
-              ))}
             </div>
           </div>
         </div>
