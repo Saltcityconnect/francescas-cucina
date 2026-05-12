@@ -7,7 +7,7 @@
 
 import { Link } from "wouter";
 
-const FOOTER_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/outdoor_patio_b821681f.jpeg";
+const FOOTER_BG = "/manus-storage/outdoor_patio_d9367ed7.jpeg";
 
 const PinIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

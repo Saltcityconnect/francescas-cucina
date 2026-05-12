@@ -368,7 +368,7 @@ export default function HomeA() {
       {/* ─── CATERING BANNER SECTION ─── */}
       <section style={{
         background: "#1a1714",
-        backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/food_catering_cc35bb59.jpg')",
+        backgroundImage: "url('/manus-storage/food_catering_b865b2cb.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center 40%",
         padding: "6rem 2rem",
