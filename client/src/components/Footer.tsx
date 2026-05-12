@@ -58,10 +58,10 @@ export default function Footer() {
         backgroundSize: "cover",
         backgroundPosition: "center 30%",
       }} />
-      {/* Very heavy dark mask — patio photo barely visible as texture */}
+      {/* Dark mask — patio photo visible but text stays legible */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
-        background: "rgba(6,5,3,0.88)",
+        background: "rgba(6,5,3,0.70)",
       }} />
 
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 2.5rem 1.5rem" }}>

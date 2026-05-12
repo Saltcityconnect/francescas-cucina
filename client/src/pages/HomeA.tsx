@@ -375,10 +375,10 @@ export default function HomeA() {
         textAlign: "center",
         position: "relative",
       }}>
-        {/* Very heavy dark mask — photo barely visible for texture */}
+        {/* Dark mask — food photo visible but text stays legible */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "rgba(10,8,6,0.88)",
+          background: "rgba(10,8,6,0.70)",
           pointerEvents: "none",
         }} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "700px", margin: "0 auto" }}>
