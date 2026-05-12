@@ -258,7 +258,7 @@ export default function HomeA() {
       </section>
 
       {/* ─── MENU SECTION ─── */}
-      <section style={{ background: "#0d0c0a", padding: "5rem 0 4rem" }}>
+      <section style={{ background: "#13110f", padding: "5rem 0 4rem" }}>
         {/* Centered header text */}
         <div style={{ textAlign: "center", marginBottom: "3rem", padding: "0 2rem" }}>
           <p style={{
