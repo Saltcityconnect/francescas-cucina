@@ -196,7 +196,10 @@ export default function NavigationA() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: "2.5rem",
+          gap: "clamp(0.6rem, 2.5vh, 2rem)",
+          overflowY: "auto",
+          padding: "5rem 2rem 3rem",
+          boxSizing: "border-box",
         }}
       >
         {/* Close button */}
@@ -219,7 +222,7 @@ export default function NavigationA() {
           style={{
             fontFamily: "'Big Shoulders Display', sans-serif",
             fontWeight: 700,
-            fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+            fontSize: "clamp(1.4rem, 4vh, 3rem)",
             letterSpacing: "0.06em",
             textTransform: "uppercase",
             color: "var(--ivory)",
@@ -244,7 +247,7 @@ export default function NavigationA() {
               style={{
                 fontFamily: "'Big Shoulders Display', sans-serif",
                 fontWeight: 700,
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                fontSize: "clamp(1.4rem, 4vh, 3rem)",
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 color: "var(--ivory)",
@@ -265,7 +268,7 @@ export default function NavigationA() {
               style={{
                 fontFamily: "'Big Shoulders Display', sans-serif",
                 fontWeight: 700,
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                fontSize: "clamp(1.4rem, 4vh, 3rem)",
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 color: "var(--ivory)",
