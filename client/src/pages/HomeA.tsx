@@ -18,10 +18,10 @@ const FOOD4 = "/manus-storage/food_pic4_ceaeec18.png"; // surf & turf board — 
 const FOOD5 = "/manus-storage/food_pic5_6e05c036.png"; // scallops — bottom right
 
 // Private dining / catering photos — flat (white vignette removed)
-const CATERING1 = "/manus-storage/flat_catering1_0cfade6e.jpg";
-const CATERING2 = "/manus-storage/flat_catering2_72e0ae75.jpg";
-const CATERING3 = "/manus-storage/flat_catering3_5178cb0b.jpg";
-const CATERING4 = "/manus-storage/flat_catering4_81137e06.jpg";
+const CATERING1 = "/manus-storage/welcome_patio_b44f4d73.jpg";
+const CATERING2 = "/manus-storage/welcome_bar_d6105d37.jpg";
+const CATERING3 = "/manus-storage/welcome_summer_0291fe75.jpg";
+const CATERING4 = "/manus-storage/welcome_candlelit_a4618e47.jpg";
 
 export default function HomeA() {
   return (
@@ -203,8 +203,8 @@ export default function HomeA() {
             aspectRatio: "1.4 / 1",
           }}>
             {[
-              { src: CATERING2, label: "Patio Dining" },
-              { src: CATERING1, label: "Bar & Cocktails" },
+              { src: CATERING1, label: "Patio Dining" },
+              { src: CATERING2, label: "Bar & Cocktails" },
               { src: CATERING3, label: "Summer Nights" },
               { src: CATERING4, label: "Candlelit Rooms" },
             ].map(({ src, label }) => (
