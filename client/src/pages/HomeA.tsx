@@ -404,7 +404,7 @@ export default function HomeA() {
             lineHeight: 1.15,
             color: "var(--ivory)",
             marginBottom: "1.5rem",
-          }}>Bring Francesca&rsquo;s to the table.</h2>
+          }}>Bring Francesca&rsquo;s to your table.</h2>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontSize: "1rem",
