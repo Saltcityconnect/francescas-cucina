@@ -257,98 +257,180 @@ export default function HomeA() {
         `}</style>
       </section>
 
-      {/* ─── MENU SECTION — photo grid ─── */}
-      <section style={{ background: "var(--charcoal)", padding: "0 0 6rem" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 2rem", textAlign: "center" }}>
-
-          {/* Heading with decorative lines */}
-          <div style={{
-            display: "flex", alignItems: "center", gap: "1.5rem",
-            marginBottom: "1rem",
+      {/* ─── MENU SECTION ─── */}
+      <section style={{ background: "#0d0c0a", padding: "5rem 0 4rem" }}>
+        {/* Centered header text */}
+        <div style={{ textAlign: "center", marginBottom: "3rem", padding: "0 2rem" }}>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.65rem",
+            fontWeight: 500,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: "1.2rem",
+          }}>Menu</p>
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 400,
+            fontSize: "clamp(2.4rem, 5vw, 4rem)",
+            color: "var(--ivory)",
+            lineHeight: 1.15,
+            marginBottom: "1.5rem",
+            letterSpacing: "-0.01em",
           }}>
-            <div style={{ flex: 1, height: "1px", background: "var(--gold)", opacity: 0.5 }} />
-            <h2
-              className="display-condensed"
+            Classic Italian, beautifully done.
+          </h2>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: "0.95rem",
+            color: "var(--ivory-muted)",
+            lineHeight: 1.8,
+            maxWidth: "560px",
+            margin: "0 auto",
+          }}>
+            Housemade pastas, fresh seafood, premium steaks, and seasonal chef-inspired features served with Francesca's signature warmth.
+          </p>
+        </div>
+
+        {/* 5-photo grid: 1 large left spanning 2 rows + 2×2 right */}
+        <div style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+          padding: "0 2rem",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gridTemplateRows: "auto auto",
+          gap: "4px",
+        }}
+        className="menu-photo-grid"
+        >
+          {/* Large left photo — spans 2 rows */}
+          <div style={{
+            gridColumn: "1",
+            gridRow: "1 / 3",
+            overflow: "hidden",
+            minHeight: "460px",
+          }}>
+            <img
+              src={FOOD1}
+              alt="Francesca's signature dish"
               style={{
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                color: "var(--ivory)",
-                letterSpacing: "0.12em",
-                lineHeight: 1,
+                width: "100%", height: "100%",
+                objectFit: "cover", display: "block",
+                transition: "transform 0.6s ease",
               }}
-            >
-              Menu
-            </h2>
-            <div style={{ flex: 1, height: "1px", background: "var(--gold)", opacity: 0.5 }} />
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+            />
           </div>
 
-          <div style={{ marginBottom: "2.5rem" }}>
-            <Link
-              href="/menu"
+          {/* Top-center photo */}
+          <div style={{ gridColumn: "2", gridRow: "1", overflow: "hidden" }}>
+            <img
+              src={FOOD2}
+              alt="Francesca's signature dish"
               style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 400,
-                fontSize: "0.7rem",
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                color: "var(--ivory-muted)",
-                textDecoration: "none",
-                borderBottom: "1px solid rgba(245,240,228,0.3)",
-                paddingBottom: "2px",
-                transition: "color 0.2s ease, border-color 0.2s ease",
+                width: "100%", height: "100%",
+                objectFit: "cover", display: "block",
+                transition: "transform 0.6s ease",
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "var(--gold)";
-                (e.currentTarget as HTMLElement).style.borderBottomColor = "var(--gold)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "var(--ivory-muted)";
-                (e.currentTarget as HTMLElement).style.borderBottomColor = "rgba(245,240,228,0.3)";
-              }}
-            >
-              View Full Menu →
-            </Link>
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+            />
           </div>
 
-          {/* 5-photo grid: 2 top + 3 bottom */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            {/* Top row: 2 photos */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
-              {[FOOD1, FOOD2].map((src, i) => (
-                <div key={i} style={{ overflow: "hidden", aspectRatio: "4/3" }}>
-                  <img
-                    src={src}
-                    alt={`Francesca's Cucina signature dish ${i + 1}`}
-                    style={{
-                      width: "100%", height: "100%",
-                      objectFit: "cover", display: "block",
-                      transition: "transform 0.6s ease",
-                    }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
-                  />
-                </div>
-              ))}
-            </div>
-            {/* Bottom row: 3 photos */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px" }}>
-              {[FOOD3, FOOD4, FOOD5].map((src, i) => (
-                <div key={i} style={{ overflow: "hidden", aspectRatio: "1/1" }}>
-                  <img
-                    src={src}
-                    alt={`Francesca's Cucina signature dish ${i + 3}`}
-                    style={{
-                      width: "100%", height: "100%",
-                      objectFit: "cover", display: "block",
-                      transition: "transform 0.6s ease",
-                    }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
-                  />
-                </div>
-              ))}
-            </div>
+          {/* Top-right photo */}
+          <div style={{ gridColumn: "3", gridRow: "1", overflow: "hidden" }}>
+            <img
+              src={FOOD3}
+              alt="Francesca's signature dish"
+              style={{
+                width: "100%", height: "100%",
+                objectFit: "cover", display: "block",
+                transition: "transform 0.6s ease",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+            />
+          </div>
+
+          {/* Bottom-center photo */}
+          <div style={{ gridColumn: "2", gridRow: "2", overflow: "hidden" }}>
+            <img
+              src={FOOD4}
+              alt="Francesca's signature dish"
+              style={{
+                width: "100%", height: "100%",
+                objectFit: "cover", display: "block",
+                transition: "transform 0.6s ease",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+            />
+          </div>
+
+          {/* Bottom-right photo */}
+          <div style={{ gridColumn: "3", gridRow: "2", overflow: "hidden" }}>
+            <img
+              src={FOOD5}
+              alt="Francesca's signature dish"
+              style={{
+                width: "100%", height: "100%",
+                objectFit: "cover", display: "block",
+                transition: "transform 0.6s ease",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+            />
           </div>
         </div>
+
+        {/* VIEW FULL MENU button */}
+        <div style={{ textAlign: "center", marginTop: "3rem", padding: "0 2rem" }}>
+          <Link
+            href="/menu"
+            style={{
+              display: "inline-block",
+              padding: "1rem 3rem",
+              border: "1px solid var(--ivory)",
+              borderRadius: "4px",
+              color: "var(--ivory)",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.65rem",
+              fontWeight: 500,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "background 0.3s ease, color 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "var(--ivory)";
+              (e.currentTarget as HTMLElement).style.color = "var(--charcoal)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "var(--ivory)";
+            }}
+          >
+            View Full Menu
+          </Link>
+        </div>
+
+        <style>{`
+          @media (max-width: 768px) {
+            .menu-photo-grid {
+              grid-template-columns: 1fr !important;
+              grid-template-rows: auto !important;
+            }
+            .menu-photo-grid > div {
+              grid-column: 1 !important;
+              grid-row: auto !important;
+              min-height: 240px !important;
+            }
+          }
+        `}</style>
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
