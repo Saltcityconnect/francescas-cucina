@@ -429,7 +429,7 @@ export default function HomeA() {
 
       {/* ─── PRIVATE DINING SECTION ─── */}
       <section style={{ background: "var(--charcoal)", padding: "0" }}>
-        <div style={{
+        <div className="pd-grid" style={{
           maxWidth: "1400px",
           margin: "0 auto",
           display: "grid",
@@ -511,7 +511,7 @@ export default function HomeA() {
           </div>
 
           {/* Right: 2 photos side by side */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
+          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
             <div style={{ overflow: "hidden" }}>
               <img
                 src="/manus-storage/pd_indoor_59b8bd65.png"
@@ -535,6 +535,25 @@ export default function HomeA() {
       <style>{`
         @media (max-width: 640px) {
           .hero-title { white-space: normal !important; font-size: clamp(2.5rem, 12vw, 5rem) !important; }
+
+          /* Private Dining: stack text above photos on mobile */
+          .pd-grid {
+            grid-template-columns: 1fr !important;
+            min-height: unset !important;
+          }
+          .pd-grid > div:first-child {
+            padding: 2.5rem 1.5rem !important;
+          }
+          .pd-grid > div:first-child h2 {
+            font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
+          }
+          .pd-photos {
+            height: 220px;
+          }
+          .pd-photos img {
+            height: 220px !important;
+            object-fit: cover !important;
+          }
         }
       `}</style>
     </div>
