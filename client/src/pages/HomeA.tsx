@@ -62,8 +62,8 @@ export default function HomeA() {
           <h1
             style={{
               fontFamily: "'Playfair Display', serif",
-              fontWeight: 700,
-              fontSize: "clamp(3.2rem, 9vw, 8.5rem)",
+              fontWeight: 400,
+              fontSize: "clamp(3rem, 9vw, 8.5rem)",
               color: "var(--ivory)",
               lineHeight: 1.0,
               marginBottom: "1.25rem",
@@ -71,20 +71,25 @@ export default function HomeA() {
               textShadow: "0 2px 24px rgba(0,0,0,0.5)",
             }}
           >
-            Francesca's Cucina
+            Francesca's{" "}
+            <span style={{ color: "var(--gold)" }}>Cucina</span>
           </h1>
 
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 400,
-            fontSize: "clamp(0.65rem, 1.4vw, 0.8rem)",
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            color: "rgba(245,240,228,0.75)",
-            marginBottom: "2.5rem",
-          }}>
-            Celebrating Food and Family
-          </p>
+          {/* Tagline + small decorative line */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "2.5rem" }}>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(0.65rem, 1.4vw, 0.8rem)",
+              letterSpacing: "0.4em",
+              textTransform: "uppercase",
+              color: "rgba(245,240,228,0.75)",
+              marginBottom: "0.75rem",
+            }}>
+              Celebrating Food and Family
+            </p>
+            <div style={{ width: "48px", height: "1px", background: "var(--gold)", opacity: 0.8 }} />
+          </div>
 
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
             <a
