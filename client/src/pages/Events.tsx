@@ -4,7 +4,7 @@
  */
 
 import { useState } from "react";
-import NavigationB from "@/components/NavigationB";
+import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
 const EVENT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events1_8d038c07.jpg";
@@ -48,8 +48,8 @@ export default function Events() {
   };
 
   return (
-    <div style={{ background: "var(--hunter-green)", minHeight: "100vh", color: "var(--ivory)" }}>
-      <NavigationB />
+    <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
+      <NavigationA />
 
       {/* HERO */}
       <section style={{ position: "relative", height: "80vh", overflow: "hidden" }}>
@@ -73,7 +73,7 @@ export default function Events() {
       </section>
 
       {/* INTRO */}
-      <section style={{ padding: "6rem 0 4rem", background: "var(--hunter-green)" }}>
+      <section style={{ padding: "6rem 0 4rem", background: "var(--charcoal)" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto", padding: "0 2rem", textAlign: "center" }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "1.05rem", color: "var(--ivory-muted)", lineHeight: 1.9 }}>
             Francesca's Cucina events feature thoughtfully curated menus inspired by classic Italian cuisine and seasonal specialties. Whether you're planning an intimate dinner for 20 or a grand celebration for 130, our dedicated events team will work with you to create an experience that exceeds every expectation.
@@ -82,7 +82,7 @@ export default function Events() {
       </section>
 
       {/* VENUE CARDS */}
-      <section style={{ padding: "2rem 0 6rem", background: "var(--hunter-green)" }}>
+      <section style={{ padding: "2rem 0 6rem", background: "var(--charcoal)" }}>
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 3rem" }}>
           {venues.map((venue, i) => (
             <div key={venue.name} style={{
@@ -95,10 +95,10 @@ export default function Events() {
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")} />
                   </div>
-                  <div style={{ background: "var(--hunter-green-dark)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 3.5rem" }}>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--sage)", marginBottom: "1rem" }}>{venue.capacity}</p>
+                  <div style={{ background: "var(--charcoal-mid)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 3.5rem" }}>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>{venue.capacity}</p>
                     <h2 className="display-condensed" style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "var(--ivory)", marginBottom: "1.5rem", lineHeight: 0.95 }}>{venue.name}</h2>
-                    <div style={{ width: "40px", height: "1px", background: "var(--sage)", marginBottom: "1.5rem" }} />
+                    <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "1.5rem" }} />
                     <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: "var(--ivory-muted)", lineHeight: 1.85, marginBottom: "1.5rem" }}>{venue.desc}</p>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
                       {venue.features.map((f) => (
@@ -110,10 +110,10 @@ export default function Events() {
                 </>
               ) : (
                 <>
-                  <div style={{ background: "var(--hunter-green-dark)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 3.5rem" }}>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--sage)", marginBottom: "1rem" }}>{venue.capacity}</p>
+                  <div style={{ background: "var(--charcoal-mid)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 3.5rem" }}>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1rem" }}>{venue.capacity}</p>
                     <h2 className="display-condensed" style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "var(--ivory)", marginBottom: "1.5rem", lineHeight: 0.95 }}>{venue.name}</h2>
-                    <div style={{ width: "40px", height: "1px", background: "var(--sage)", marginBottom: "1.5rem" }} />
+                    <div style={{ width: "40px", height: "1px", background: "var(--gold)", marginBottom: "1.5rem" }} />
                     <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: "var(--ivory-muted)", lineHeight: 1.85, marginBottom: "1.5rem" }}>{venue.desc}</p>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
                       {venue.features.map((f) => (
@@ -135,16 +135,16 @@ export default function Events() {
       </section>
 
       {/* INQUIRY FORM */}
-      <section id="inquire" style={{ padding: "7rem 0", background: "var(--hunter-green-dark)", scrollMarginTop: "72px" }}>
+      <section id="inquire" style={{ padding: "7rem 0", background: "var(--charcoal-mid)", scrollMarginTop: "72px" }}>
         <div style={{ maxWidth: "760px", margin: "0 auto", padding: "0 2rem" }}>
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "var(--sage)", marginBottom: "1.25rem" }}>Get in Touch</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "1.25rem" }}>Get in Touch</p>
             <h2 className="display-condensed" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "var(--ivory)", lineHeight: 0.92, marginBottom: "1.5rem" }}>Plan Your Event</h2>
-            <div style={{ width: "50px", height: "1px", background: "var(--sage)", margin: "0 auto 1.5rem" }} />
+            <div style={{ width: "50px", height: "1px", background: "var(--gold)", margin: "0 auto 1.5rem" }} />
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: "var(--ivory-muted)", lineHeight: 1.8 }}>
               Contact our events team at{" "}
-              <a href="mailto:catering@francescas-cucina.com" style={{ color: "var(--sage)", textDecoration: "none" }}>catering@francescas-cucina.com</a>{" "}
-              or <a href="tel:+13154098848" style={{ color: "var(--sage)", textDecoration: "none" }}>(315) 409-8848</a>, or fill out the form below.
+              <a href="mailto:catering@francescas-cucina.com" style={{ color: "var(--gold)", textDecoration: "none" }}>catering@francescas-cucina.com</a>{" "}
+              or <a href="tel:+13154098848" style={{ color: "var(--gold)", textDecoration: "none" }}>(315) 409-8848</a>, or fill out the form below.
             </p>
           </div>
 

@@ -8,7 +8,7 @@
  * Colors: White card, dark charcoal text, hunter green outer bg
  */
 
-import NavigationB from "@/components/NavigationB";
+import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
 interface MenuItem {
@@ -130,22 +130,22 @@ const menuData: MenuSection[] = [
 
 export default function Menu() {
   return (
-    <div style={{ background: "var(--hunter-green)", minHeight: "100vh" }}>
-      <NavigationB />
+    <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
+      <NavigationA />
 
       {/* ─── PAGE HEADER ─── */}
       <div style={{
         paddingTop: "7rem",
         paddingBottom: "2rem",
         textAlign: "center",
-        background: "var(--hunter-green)",
+        background: "var(--charcoal)",
       }}>
         <p style={{
           fontFamily: "'DM Sans', sans-serif",
           fontSize: "0.7rem",
           letterSpacing: "0.35em",
           textTransform: "uppercase",
-          color: "var(--sage)",
+          color: "var(--gold)",
           marginBottom: "0.5rem",
         }}>
           Francesca's Cucina · Syracuse, New York
@@ -156,7 +156,7 @@ export default function Menu() {
           fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "var(--cream)",
+          color: "var(--ivory)",
           margin: 0,
           lineHeight: 1,
         }}>
@@ -310,7 +310,7 @@ export default function Menu() {
             fontSize: "0.7rem",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
-            color: "var(--sage)",
+            color: "var(--gold)",
             marginBottom: "1rem",
           }}>
             Explore Our Cellar
@@ -319,9 +319,9 @@ export default function Menu() {
             href="https://francescas.securetree.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-green-pill"
+            className="btn-outline-ivory"
           >
-            🍷 Wine List
+            Wine List
           </a>
         </div>
       </div>

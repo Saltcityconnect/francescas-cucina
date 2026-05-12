@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import NavigationB from "@/components/NavigationB";
+import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
 const PASTA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
@@ -118,7 +118,7 @@ export default function Catering() {
 
   return (
     <div style={{ background: "#f9f6f0", minHeight: "100vh", color: "#1a1a18" }}>
-      <NavigationB />
+      <NavigationA />
 
       {/* ─── HERO ─── */}
       <div style={{ position: "relative", height: "340px", overflow: "hidden", marginTop: "72px" }}>
@@ -133,24 +133,17 @@ export default function Catering() {
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
           textAlign: "center", padding: "2rem",
         }}>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.65rem", letterSpacing: "0.4em",
-            textTransform: "uppercase", color: "rgba(255,255,255,0.7)",
-            marginBottom: "0.75rem",
-          }}>
-            Catering
-          </p>
           <h1 style={{
             fontFamily: "'Big Shoulders Display', sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(2.5rem, 6vw, 5rem)",
-            letterSpacing: "0.02em",
+            fontSize: "clamp(3.5rem, 10vw, 8rem)",
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
             color: "#fff",
-            lineHeight: 0.95,
+            lineHeight: 0.9,
             marginBottom: "1.25rem",
           }}>
-            Francesca's Cucina
+            Catering
           </h1>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
