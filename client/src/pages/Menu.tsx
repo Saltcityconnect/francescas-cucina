@@ -316,9 +316,7 @@ export default function Menu() {
             Explore Our Cellar
           </p>
           <a
-            href="https://francescas.securetree.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/wine-list"
             className="btn-outline-ivory"
           >
             Wine List

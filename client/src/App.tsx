@@ -9,6 +9,7 @@ import GiftCards from "./pages/GiftCards";
 import Menu from "./pages/Menu";
 import Events from "./pages/Events";
 import Catering from "./pages/Catering";
+import WineList from "./pages/WineList";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/events" component={Events} />
       <Route path="/catering" component={Catering} />
       <Route path="/gift-cards" component={GiftCards} />
+      <Route path="/wine-list" component={WineList} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
