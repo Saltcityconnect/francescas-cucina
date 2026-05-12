@@ -218,11 +218,7 @@ export default function HomeA() {
                     objectFit: "cover",
                     objectPosition: "center",
                     display: "block",
-                    transform: "scale(1.05)",
-                    transition: "transform 0.6s ease",
                   }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.04)")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
                 />
                 {/* Dark gradient at bottom */}
                 <div style={{
