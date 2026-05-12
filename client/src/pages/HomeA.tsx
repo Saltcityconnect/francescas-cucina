@@ -250,7 +250,15 @@ export default function HomeA() {
           @media (max-width: 768px) {
             .welcome-grid {
               grid-template-columns: 1fr !important;
-              gap: 2.5rem !important;
+              gap: 2rem !important;
+            }
+            /* Center all text in welcome section on mobile */
+            .welcome-grid > div:first-child {
+              text-align: center;
+            }
+            .welcome-grid > div:first-child > div {
+              margin-left: auto;
+              margin-right: auto;
             }
           }
         `}</style>
@@ -473,6 +481,7 @@ export default function HomeA() {
             }}>Host unforgettable gatherings with warm hospitality and authentic Italian cuisine.</p>
             <Link
               href="/events"
+              className="pd-book-btn-panel"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -528,6 +537,41 @@ export default function HomeA() {
             </div>
           </div>
         </div>
+
+        {/* Mobile-only: Book Your Event button below photos, centered */}
+        <div className="pd-book-btn-mobile" style={{
+          justifyContent: "center",
+          padding: "1.5rem 1.5rem 2.5rem",
+          background: "#0d0c0a",
+        }}>
+          <Link
+            href="/events"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "1rem 2.5rem",
+              background: "var(--gold)",
+              border: "1px solid var(--gold)",
+              borderRadius: "6px",
+              color: "#1a1410",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.65rem",
+              fontWeight: 700,
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Book Your Event
+          </Link>
+        </div>
       </section>
 
       <Footer />
@@ -536,16 +580,23 @@ export default function HomeA() {
         @media (max-width: 640px) {
           .hero-title { white-space: normal !important; font-size: clamp(2.5rem, 12vw, 5rem) !important; }
 
-          /* Private Dining: stack text above photos on mobile */
+          /* Private Dining: stack text above photos on mobile, center everything */
           .pd-grid {
             grid-template-columns: 1fr !important;
             min-height: unset !important;
           }
           .pd-grid > div:first-child {
-            padding: 2.5rem 1.5rem !important;
+            padding: 2.5rem 1.5rem 1.5rem !important;
+            text-align: center;
+            align-items: center !important;
           }
-          .pd-grid > div:first-child h2 {
-            font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
+          .pd-grid > div:first-child > div[style] {
+            margin-left: auto;
+            margin-right: auto;
+          }
+          /* Hide the button inside the text panel on mobile */
+          .pd-book-btn-panel {
+            display: none !important;
           }
           .pd-photos {
             height: 220px;
@@ -554,6 +605,14 @@ export default function HomeA() {
             height: 220px !important;
             object-fit: cover !important;
           }
+          /* Show the mobile-only button below photos */
+          .pd-book-btn-mobile {
+            display: flex !important;
+          }
+        }
+        /* Desktop: hide the mobile button */
+        .pd-book-btn-mobile {
+          display: none;
         }
       `}</style>
     </div>
