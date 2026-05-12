@@ -138,10 +138,10 @@ export default function HomeA() {
       {/* ─── WELCOME SECTION ─── */}
       <section style={{ background: "#0d0c0a", padding: "5rem 0" }}>
         <div style={{
-          maxWidth: "1280px", margin: "0 auto", padding: "0 2rem",
+          maxWidth: "1400px", margin: "0 auto", padding: "0 2rem",
           display: "grid",
-          gridTemplateColumns: "1fr 1.4fr",
-          gap: "4rem",
+          gridTemplateColumns: "1fr 1.8fr",
+          gap: "5rem",
           alignItems: "center",
         }}
         className="welcome-grid"
