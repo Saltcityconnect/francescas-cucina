@@ -28,8 +28,8 @@ export default function HomeA() {
     <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
       <NavigationA />
 
-      {/* ─── HERO: Shorter video banner ─── */}
-      <section style={{ position: "relative", height: "60vh", minHeight: "420px", overflow: "hidden" }}>
+      {/* ─── HERO: Full-viewport video banner ─── */}
+      <section style={{ position: "relative", height: "100vh", minHeight: "560px", overflow: "hidden" }}>
         <video
           autoPlay
           muted
@@ -59,41 +59,31 @@ export default function HomeA() {
           textAlign: "center", padding: "0 1.5rem",
           zIndex: 2,
         }}>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: "0.65rem",
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            color: "rgba(245,240,228,0.7)",
-            marginBottom: "1rem",
-          }}>
-            Syracuse, New York · Est. 2003
-          </p>
-
           <h1
-            className="display-condensed"
             style={{
-              fontSize: "clamp(3rem, 10vw, 8rem)",
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 700,
+              fontSize: "clamp(3.2rem, 9vw, 8.5rem)",
               color: "var(--ivory)",
-              lineHeight: 0.9,
-              marginBottom: "1.5rem",
-              whiteSpace: "nowrap",
+              lineHeight: 1.0,
+              marginBottom: "1.25rem",
+              letterSpacing: "-0.01em",
+              textShadow: "0 2px 24px rgba(0,0,0,0.5)",
             }}
           >
             Francesca's Cucina
           </h1>
 
           <p style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontStyle: "italic",
+            fontFamily: "'DM Sans', sans-serif",
             fontWeight: 400,
-            fontSize: "clamp(1rem, 2vw, 1.35rem)",
-            color: "rgba(245,240,228,0.8)",
-            marginBottom: "2rem",
-            letterSpacing: "0.02em",
+            fontSize: "clamp(0.65rem, 1.4vw, 0.8rem)",
+            letterSpacing: "0.4em",
+            textTransform: "uppercase",
+            color: "rgba(245,240,228,0.75)",
+            marginBottom: "2.5rem",
           }}>
-            Celebrating Food &amp; Family
+            Celebrating Food and Family
           </p>
 
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
@@ -115,21 +105,15 @@ export default function HomeA() {
       {/* ─── WELCOME SECTION ─── */}
       <section style={{ padding: "6rem 0", background: "var(--charcoal)", textAlign: "center" }}>
         <div style={{ maxWidth: "760px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.65rem", letterSpacing: "0.35em",
-            textTransform: "uppercase", color: "var(--gold)",
-            marginBottom: "1.25rem",
-          }}>
-            Welcome to Francesca's
-          </p>
           <h2
-            className="display-condensed"
             style={{
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 600,
+              fontSize: "clamp(2rem, 5vw, 3.5rem)",
               color: "var(--ivory)",
               marginBottom: "1.5rem",
-              lineHeight: 0.95,
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
             }}
           >
             Welcome to Francesca's
