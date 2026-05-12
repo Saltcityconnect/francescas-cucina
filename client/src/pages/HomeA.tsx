@@ -10,18 +10,18 @@ import Footer from "@/components/Footer";
 const HERO_VIDEO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/hero_video_f84b0e80.mp4";
 const HERO_POSTER = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/exterior_building_fcb6fd3d.webp";
 
-// Real food photos (uploaded by owner)
-const FOOD1 = "/manus-storage/food_pic1_6ec29d96.png";
-const FOOD2 = "/manus-storage/food_pic2_44b8fb88.jpg";
-const FOOD3 = "/manus-storage/food_pic3_9ff5478f.png";
-const FOOD4 = "/manus-storage/food_pic4_9e428792.png";
-const FOOD5 = "/manus-storage/food_pic5_84fc586f.png";
+// Real food photos — flat (white vignette removed)
+const FOOD1 = "/manus-storage/flat_food1_2d0f66e0.jpg";
+const FOOD2 = "/manus-storage/flat_food2_555fb32e.jpg";
+const FOOD3 = "/manus-storage/flat_food3_e8c8a58e.jpg";
+const FOOD4 = "/manus-storage/flat_food4_5034f266.jpg";
+const FOOD5 = "/manus-storage/flat_food5_31ae6372.jpg";
 
-// Private dining / catering photos (uploaded by owner)
-const CATERING1 = "/manus-storage/catering1_728d87a9.jpg";
-const CATERING2 = "/manus-storage/catering2_3bcb833a.jpg";
-const CATERING3 = "/manus-storage/catering3_3cb16bdd.jpg";
-const CATERING4 = "/manus-storage/catering4_03359069.jpg";
+// Private dining / catering photos — flat (white vignette removed)
+const CATERING1 = "/manus-storage/flat_catering1_0cfade6e.jpg";
+const CATERING2 = "/manus-storage/flat_catering2_72e0ae75.jpg";
+const CATERING3 = "/manus-storage/flat_catering3_5178cb0b.jpg";
+const CATERING4 = "/manus-storage/flat_catering4_81137e06.jpg";
 
 export default function HomeA() {
   return (

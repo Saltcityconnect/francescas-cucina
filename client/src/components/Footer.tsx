@@ -180,7 +180,7 @@ export default function Footer() {
           </div>
 
           {/* Reservations + Gift Cards */}
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }} className="footer-buttons">
             <a
               href="https://resy.com/cities/syr/francescas-cucina"
               target="_blank"
@@ -231,14 +231,14 @@ export default function Footer() {
 
       {/* Responsive: on mobile keep 2-col but tighten padding */}
       <style>{`
-        @media (max-width: 540px) {
+        @media (max-width: 600px) {
           footer > div:nth-child(2) {
-            grid-template-columns: 1fr 1fr !important;
+            grid-template-columns: 1fr !important;
             padding: 1.5rem 1.25rem !important;
-            gap: 1.5rem 1.5rem !important;
+            gap: 1.5rem !important;
           }
-          footer > div:nth-child(2) > div > div[style*="justify-content: space-between"] {
-            gap: 0.5rem !important;
+          .footer-buttons {
+            justify-content: flex-start !important;
           }
         }
       `}</style>
