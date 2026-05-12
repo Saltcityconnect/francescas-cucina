@@ -7,7 +7,7 @@
 
 import { Link } from "wouter";
 
-const FOOTER_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/exterior_building_fcb6fd3d.webp";
+const FOOTER_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/outdoor_patio_b821681f.jpeg";
 
 const PinIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -58,10 +58,10 @@ export default function Footer() {
         backgroundSize: "cover",
         backgroundPosition: "center 30%",
       }} />
-      {/* Dark overlay — heavier than hero so text is legible */}
+      {/* Very heavy dark mask — patio photo barely visible as texture */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
-        background: "rgba(6,5,3,0.82)",
+        background: "rgba(6,5,3,0.88)",
       }} />
 
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 2.5rem 1.5rem" }}>

@@ -368,17 +368,17 @@ export default function HomeA() {
       {/* ─── CATERING BANNER SECTION ─── */}
       <section style={{
         background: "#1a1714",
-        backgroundImage: "url('/manus-storage/catering_hero_panoramic_8e6a4a0a.jpg')",
+        backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/food_catering_cc35bb59.jpg')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center 40%",
         padding: "6rem 2rem",
         textAlign: "center",
         position: "relative",
       }}>
-        {/* Dark overlay */}
+        {/* Very heavy dark mask — photo barely visible for texture */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "rgba(15,12,10,0.78)",
+          background: "rgba(10,8,6,0.88)",
           pointerEvents: "none",
         }} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "700px", margin: "0 auto" }}>
