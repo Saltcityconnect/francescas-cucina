@@ -430,7 +430,8 @@ export default function HomeA() {
       {/* ─── PRIVATE DINING SECTION ─── */}
       <section style={{ background: "var(--charcoal)", padding: "0" }}>
         <div style={{
-
+          maxWidth: "1400px",
+          margin: "0 auto",
           display: "grid",
           gridTemplateColumns: "1fr 1.4fr",
           minHeight: "520px",
