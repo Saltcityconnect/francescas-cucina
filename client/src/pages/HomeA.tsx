@@ -632,20 +632,21 @@ export default function HomeA() {
           maxWidth: "1400px",
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "1fr 1.2fr",
+          gridTemplateColumns: "minmax(0,auto) 1fr",
           minHeight: "560px",
           position: "relative",
           background: "#0d0c0a",
         }}>
-          {/* Left: dark panel with text */}
+          {/* Left: dark panel with text — width driven by content, no extra right space */}
           <div style={{
             background: "#0d0c0a",
-            padding: "5rem 0.5rem 5rem 3.5rem",
+            padding: "5rem 2.5rem 5rem 3.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             position: "relative",
             zIndex: 2,
+            width: "max-content",
           }}>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -719,7 +720,7 @@ export default function HomeA() {
             </Link>
           </div>
 
-          {/* Right: 2 photos — dining room (left, blends with text panel) + new ivy/chandelier (right) */}
+          {/* Right: 2 photos — dining room (left) + fireplace/ivy (right) */}
           <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", position: "relative", zIndex: 1 }}>
             <div style={{ overflow: "hidden", position: "relative" }}>
               <img
@@ -727,10 +728,10 @@ export default function HomeA() {
                 alt="Private dining room at Francesca's Cucina"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
-              {/* Gradient overlay: left edge fades to match the dark panel */}
+              {/* Gradient: strong fade on left so photo black matches panel black */}
               <div style={{
                 position: "absolute", inset: 0,
-                background: "linear-gradient(to right, #0d0c0a 0%, rgba(13,12,10,0.55) 30%, transparent 60%)",
+                background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 15%, rgba(13,12,10,0.7) 35%, transparent 65%)",
                 pointerEvents: "none",
               }} />
             </div>
@@ -738,7 +739,7 @@ export default function HomeA() {
               <img
                 src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
                 alt="Enchanted patio dining at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "62% center", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
               />
             </div>
           </div>
