@@ -110,48 +110,43 @@ function WelcomePhotos() {
         </div>
       </div>
 
-      {/* Controls bar below image: ‹  1 / 4  › */}
+      {/* Controls bar below image: counter LEFT | diamond buttons RIGHT */}
       <div className="welcome-photos-mobile" style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        gap: "1.25rem",
-        padding: "0.75rem 0 0.5rem",
+        justifyContent: "space-between",
+        padding: "0.7rem 1.25rem 0.5rem",
         background: "#0d0c0a",
       }}>
-        <button onClick={prev} aria-label="Previous" style={{
-          background: "transparent",
-          border: "1px solid rgba(185,148,83,0.5)",
-          color: "var(--gold)",
-          width: "34px", height: "34px",
-          borderRadius: "50%",
-          fontSize: "1.3rem", lineHeight: 1,
-          cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>‹</button>
-
+        {/* Counter — left */}
         <span style={{
           fontFamily: "'DM Sans', sans-serif",
           fontSize: "0.78rem",
           fontWeight: 500,
           letterSpacing: "0.15em",
           color: "var(--ivory-muted)",
-          minWidth: "3.5rem",
-          textAlign: "center",
         }}>
           {active + 1} / {WELCOME_PHOTOS.length}
         </span>
 
-        <button onClick={next} aria-label="Next" style={{
-          background: "transparent",
-          border: "1px solid rgba(185,148,83,0.5)",
-          color: "var(--gold)",
-          width: "34px", height: "34px",
-          borderRadius: "50%",
-          fontSize: "1.3rem", lineHeight: 1,
-          cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>›</button>
+        {/* Diamond buttons — right */}
+        <div style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
+          {[{label: "Previous", onClick: prev, symbol: "‹"}, {label: "Next", onClick: next, symbol: "›"}].map(({label, onClick, symbol}) => (
+            <button key={label} onClick={onClick} aria-label={label} style={{
+              background: "transparent",
+              border: "1px solid rgba(185,148,83,0.55)",
+              color: "var(--gold)",
+              width: "32px", height: "32px",
+              transform: "rotate(45deg)",
+              fontSize: "1.2rem", lineHeight: 1,
+              cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: 0,
+            }}>
+              <span style={{ transform: "rotate(-45deg)", display: "flex", alignItems: "center", justifyContent: "center" }}>{symbol}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       <style>{`
