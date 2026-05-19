@@ -112,7 +112,6 @@ function WelcomePhotos() {
 
       {/* Controls bar below image: counter LEFT | diamond buttons RIGHT */}
       <div className="welcome-photos-controls" style={{
-        display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0.7rem 1.25rem 0.5rem",
