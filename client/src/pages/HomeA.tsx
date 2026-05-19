@@ -645,7 +645,7 @@ export default function HomeA() {
               src="/manus-storage/pd_indoor_59b8bd65.png"
               alt=""
               aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block", flexShrink: 0 }}
+              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "60% center", display: "block", flexShrink: 0 }}
             />
             <img
               src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
