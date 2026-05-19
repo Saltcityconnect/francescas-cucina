@@ -631,12 +631,13 @@ export default function HomeA() {
         <div className="pd-grid" style={{
           maxWidth: "1400px",
           margin: "0 auto",
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: "minmax(0,auto) 1fr",
           minHeight: "560px",
           position: "relative",
           background: "#0d0c0a",
         }}>
-          {/* Left: dark panel with text — shrinks to fit content exactly */}
+          {/* Left: dark panel with text — width driven by content, no extra right space */}
           <div style={{
             background: "#0d0c0a",
             padding: "5rem 2.5rem 5rem 3.5rem",
@@ -645,8 +646,7 @@ export default function HomeA() {
             justifyContent: "center",
             position: "relative",
             zIndex: 2,
-            flexShrink: 0,
-            width: "fit-content",
+            width: "max-content",
           }}>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -721,17 +721,17 @@ export default function HomeA() {
           </div>
 
           {/* Right: 2 photos — dining room (left) + fireplace/ivy (right) */}
-          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", position: "relative", zIndex: 1, flex: 1 }}>
+          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", position: "relative", zIndex: 1 }}>
             <div style={{ overflow: "hidden", position: "relative" }}>
               <img
                 src="/manus-storage/pd_indoor_59b8bd65.png"
                 alt="Private dining room at Francesca's Cucina"
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block" }}
               />
-              {/* Thin fade on very left edge only — just enough to hide the hard seam */}
+              {/* Gradient: strong fade on left so photo black matches panel black */}
               <div style={{
                 position: "absolute", inset: 0,
-                background: "linear-gradient(to right, #0d0c0a 0%, transparent 12%)",
+                background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 15%, rgba(13,12,10,0.7) 35%, transparent 65%)",
                 pointerEvents: "none",
               }} />
             </div>
