@@ -111,7 +111,7 @@ function WelcomePhotos() {
       </div>
 
       {/* Controls bar below image: counter LEFT | diamond buttons RIGHT */}
-      <div className="welcome-photos-mobile" style={{
+      <div className="welcome-photos-controls" style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -151,9 +151,11 @@ function WelcomePhotos() {
 
       <style>{`
         .welcome-photos-mobile { display: none; }
+        .welcome-photos-controls { display: none; }
         @media (max-width: 768px) {
           .welcome-photos-desktop { display: none !important; }
           .welcome-photos-mobile  { display: block !important; }
+          .welcome-photos-controls { display: flex !important; }
         }
       `}</style>
     </>
