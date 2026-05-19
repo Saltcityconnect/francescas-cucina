@@ -633,13 +633,13 @@ export default function HomeA() {
           margin: "0 auto",
           minHeight: "560px",
           display: "grid",
-          gridTemplateColumns: "42% 58%",
+          gridTemplateColumns: "38% 62%",
           overflow: "hidden",
         }}>
           {/* Left: solid black text panel */}
           <div style={{
             background: "#0d0c0a",
-            padding: "5rem 3.5rem",
+            padding: "4rem 3rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -658,8 +658,8 @@ export default function HomeA() {
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 400,
-              fontSize: "clamp(2rem, 3vw, 3.2rem)",
-              lineHeight: 1.08,
+              fontSize: "clamp(2.6rem, 3.8vw, 4.2rem)",
+              lineHeight: 1.1,
               color: "var(--ivory)",
               marginBottom: "1.5rem",
             }}>Celebrate<br />the moments<br />that matter.</h2>
