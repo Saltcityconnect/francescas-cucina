@@ -724,7 +724,7 @@ export default function HomeA() {
               <img
                 src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
                 alt="Outdoor patio with fireplace at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "55% center", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
               />
             </div>
           </div>
