@@ -626,191 +626,147 @@ export default function HomeA() {
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
-      {/* Layout: solid black text panel (35%) | two photos side by side (65%) */}
-      <section style={{ background: "#0d0c0a", padding: "0" }}>
-        <div className="pd-grid" style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          minHeight: "560px",
-          display: "grid",
-          gridTemplateColumns: "38% 62%",
-          overflow: "hidden",
-        }}>
-          {/* Left: solid black text panel */}
-          <div style={{
-            background: "#0d0c0a",
-            padding: "4rem 3rem",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}>
-            <p style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.85rem",
-              fontWeight: 600,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: "var(--gold)",
-              marginBottom: "1rem",
-            }}>Private Dining</p>
-            {/* Gold decorative line */}
-            <div style={{ width: "48px", height: "1px", background: "var(--gold)", marginBottom: "1.75rem" }} />
-            <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontWeight: 400,
-              fontSize: "clamp(2.6rem, 3.8vw, 4.2rem)",
-              lineHeight: 1.1,
-              color: "var(--ivory)",
-              marginBottom: "1.5rem",
-            }}>Celebrate<br />the moments<br />that matter.</h2>
-            <p style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.95rem",
-              color: "rgba(245,240,228,0.72)",
-              lineHeight: 1.8,
-              marginBottom: "2.5rem",
-              maxWidth: "340px",
-            }}>Host unforgettable gatherings with warm hospitality and authentic Italian cuisine.</p>
-            <Link
-              href="/events"
-              className="pd-book-btn-panel"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.75rem",
-                padding: "1rem 2rem",
-                background: "var(--gold)",
-                border: "1px solid var(--gold)",
-                borderRadius: "6px",
-                color: "#1a1410",
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                alignSelf: "flex-start",
-                transition: "background 0.3s ease, color 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-                (e.currentTarget as HTMLElement).style.color = "var(--gold)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "var(--gold)";
-                (e.currentTarget as HTMLElement).style.color = "#1a1410";
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-              Book Your Event
-            </Link>
-          </div>
-
-          {/* Right: two photos side by side */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="/manus-storage/pd_indoor_59b8bd65.png"
-                alt="Private dining room at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% center", display: "block" }}
-              />
-            </div>
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
-                alt="Outdoor patio with fireplace at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
-              />
-            </div>
-          </div>
-
-        </div>
-
-        {/* Mobile-only: Book Your Event button below photos, centered */}
-        <div className="pd-book-btn-mobile" style={{
-          justifyContent: "center",
-          padding: "1.5rem 1.5rem 2.5rem",
-          background: "#0d0c0a",
-        }}>
+      {/* ─── PRIVATE DINING HERO ─── 3-column full-width grid: text(41%) | dining(30%) | fireplace(29%) */}
+      <section className="private-dining-hero">
+        {/* Column 1: Text overlay */}
+        <div className="pd-hero-copy">
+          <p className="pd-eyebrow">PRIVATE DINING</p>
+          <div style={{ width: "48px", height: "1px", background: "#d4a64f", marginBottom: "2rem" }} />
+          <h2 className="pd-hero-h2">Celebrate<br />the moments<br />that matter.</h2>
+          <p className="pd-subtext">Host unforgettable gatherings with warm hospitality and authentic Italian cuisine.</p>
           <Link
             href="/events"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              padding: "1rem 2.5rem",
-              background: "var(--gold)",
-              border: "1px solid var(--gold)",
-              borderRadius: "6px",
-              color: "#1a1410",
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.65rem",
-              fontWeight: 700,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              textDecoration: "none",
+            className="pd-hero-btn"
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "#d7ad5a";
+              (e.currentTarget as HTMLElement).style.border = "1px solid #d7ad5a";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#d7ad5a";
+              (e.currentTarget as HTMLElement).style.color = "#111111";
+              (e.currentTarget as HTMLElement).style.border = "1px solid #d7ad5a";
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "0.5rem" }}>
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <line x1="16" y1="2" x2="16" y2="6"/>
               <line x1="8" y1="2" x2="8" y2="6"/>
               <line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
-            Book Your Event
+            BOOK YOUR EVENT
           </Link>
+        </div>
+
+        {/* Column 2: Indoor dining room photo */}
+        <div className="pd-hero-image">
+          <img
+            src="/manus-storage/pd_indoor_59b8bd65.png"
+            alt="Private dining room at Francesca's Cucina"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% center", display: "block" }}
+          />
+        </div>
+
+        {/* Column 3: Fireplace / outdoor patio photo */}
+        <div className="pd-hero-image">
+          <img
+            src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
+            alt="Outdoor patio with fireplace at Francesca's Cucina"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
+          />
         </div>
       </section>
 
       <Footer />
 
       <style>{`
-        @media (max-width: 640px) {
-          .hero-title { white-space: nowrap !important; font-size: clamp(1.4rem, 8.5vw, 5rem) !important; }
+        .hero-title { white-space: nowrap; }
 
-          /* Private Dining: stack text above photos on mobile, center everything */
-          .pd-grid {
-            grid-template-columns: 1fr !important;
-            min-height: unset !important;
-          }
-          .pd-grid > div:first-child {
-            padding: 2.5rem 1.5rem 1.5rem !important;
-            text-align: center;
-            align-items: center !important;
-          }
-          .pd-grid > div:first-child > div[style] {
-            margin-left: auto;
-            margin-right: auto;
-          }
-          /* Reduce headline size on mobile so 3 lines fit without word-wrapping */
-          .pd-grid h2 {
-            font-size: 2.4rem !important;
-            line-height: 1.12 !important;
-          }
-          /* Hide the button inside the text panel on mobile */
-          .pd-book-btn-panel {
-            display: none !important;
-          }
-          .pd-photos {
-            height: 220px;
-          }
-          .pd-photos img {
-            height: 220px !important;
-            object-fit: cover !important;
-          }
-          /* Show the mobile-only button below photos */
-          .pd-book-btn-mobile {
-            display: flex !important;
-          }
+        /* ── Private Dining Hero ── */
+        .private-dining-hero {
+          width: 100%;
+          min-height: 600px;
+          display: grid;
+          grid-template-columns: 41% 30% 29%;
+          background: #050505;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
         }
-        /* Desktop: hide the mobile button */
-        .pd-book-btn-mobile {
-          display: none;
+        .pd-hero-copy {
+          position: relative;
+          z-index: 2;
+          padding: 5rem 3.5rem 5rem 5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background: linear-gradient(90deg, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0.35) 100%);
+        }
+        .pd-eyebrow {
+          color: #d4a64f;
+          letter-spacing: 0.5rem;
+          font-size: 0.85rem;
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          font-family: 'DM Sans', sans-serif;
+          font-weight: 600;
+        }
+        .pd-hero-h2 {
+          color: #ffffff;
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(3rem, 4.5vw, 4.5rem);
+          line-height: 1.08;
+          font-weight: 400;
+          margin: 0 0 2rem;
+        }
+        .pd-subtext {
+          color: rgba(255,255,255,0.85);
+          font-size: 1rem;
+          line-height: 1.65;
+          max-width: 400px;
+          margin-bottom: 2.5rem;
+          font-family: 'DM Sans', sans-serif;
+        }
+        .pd-hero-btn {
+          display: inline-flex;
+          align-items: center;
+          width: fit-content;
+          background: #d7ad5a;
+          color: #111111;
+          padding: 1rem 2rem;
+          border-radius: 6px;
+          letter-spacing: 0.2rem;
+          font-size: 0.7rem;
+          font-weight: 700;
+          text-decoration: none;
+          font-family: 'DM Sans', sans-serif;
+          border: 1px solid #d7ad5a;
+          transition: background 0.3s ease, color 0.3s ease;
+        }
+        .pd-hero-image {
+          height: 100%;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+          .hero-title { white-space: nowrap !important; font-size: clamp(1.4rem, 8.5vw, 5rem) !important; }
+          .private-dining-hero {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+          }
+          .pd-hero-copy {
+            padding: 4rem 2rem !important;
+            background: rgba(0,0,0,0.92) !important;
+          }
+          .pd-hero-h2 {
+            font-size: 2.8rem !important;
+          }
+          .pd-hero-image {
+            height: 320px;
+          }
         }
       `}</style>
     </div>
