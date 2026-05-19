@@ -645,7 +645,7 @@ export default function HomeA() {
               src="/manus-storage/pd_indoor_59b8bd65.png"
               alt=""
               aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "60% center", display: "block", flexShrink: 0 }}
+              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "80% center", display: "block", flexShrink: 0 }}
             />
             <img
               src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
@@ -657,7 +657,7 @@ export default function HomeA() {
           {/* Gradient: solid black left → transparent right */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 30%, rgba(13,12,10,0.85) 44%, rgba(13,12,10,0.35) 58%, transparent 72%)",
+            background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 22%, rgba(13,12,10,0.75) 36%, rgba(13,12,10,0.2) 50%, transparent 62%)",
             pointerEvents: "none",
             zIndex: 1,
           }} />
