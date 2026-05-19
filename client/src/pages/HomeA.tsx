@@ -557,17 +557,25 @@ export default function HomeA() {
 
       {/* ─── CATERING BANNER SECTION ─── */}
       <section style={{ background: "#0d0c0a", padding: "4rem 2rem" }}>
-        {/* Constrained container — no background image */}
+        {/* Constrained photo container matching other sections */}
         <div style={{
           maxWidth: "1400px",
           margin: "0 auto",
           position: "relative",
           overflow: "hidden",
           borderRadius: "4px",
-          background: "#0d0c0a",
+          backgroundImage: "url('/manus-storage/food_catering_b865b2cb.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
           padding: "6rem 2rem",
           textAlign: "center",
         }}>
+        {/* Dark mask — food photo visible but text stays legible */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "rgba(10,8,6,0.80)",
+          pointerEvents: "none",
+        }} />
         <div style={{ position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
           <p style={{
@@ -631,22 +639,17 @@ export default function HomeA() {
         <div className="pd-grid" style={{
           maxWidth: "1400px",
           margin: "0 auto",
-          display: "flex",
-          minHeight: "560px",
-          position: "relative",
-          background: "#0d0c0a",
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr",
+          minHeight: "520px",
         }}>
-          {/* Left: dark panel with text — shrinks to fit content exactly */}
+          {/* Left: dark panel with text */}
           <div style={{
             background: "#0d0c0a",
-            padding: "5rem 2.5rem 5rem 3.5rem",
+            padding: "5rem 3.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            position: "relative",
-            zIndex: 2,
-            flexShrink: 0,
-            width: "fit-content",
           }}>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -661,17 +664,12 @@ export default function HomeA() {
             <div style={{ width: "48px", height: "1px", background: "var(--gold)", marginBottom: "1.75rem" }} />
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
-              fontStyle: "normal",
               fontWeight: 400,
-              fontSize: "clamp(2.8rem, 4.5vw, 4.6rem)",
-              lineHeight: 1.08,
+              fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+              lineHeight: 1.15,
               color: "var(--ivory)",
               marginBottom: "1.5rem",
-            }}>
-              Celebrate<br />
-              the moments<br />
-              that matter.
-            </h2>
+            }}>Celebrate the moments that matter.</h2>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
               fontSize: "0.95rem",
@@ -720,26 +718,20 @@ export default function HomeA() {
             </Link>
           </div>
 
-          {/* Right: 2 photos — dining room (left) + fireplace/ivy (right) */}
-          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", position: "relative", zIndex: 1, flex: 1 }}>
-            <div style={{ overflow: "hidden", position: "relative" }}>
+          {/* Right: 2 photos side by side */}
+          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
+            <div style={{ overflow: "hidden" }}>
               <img
                 src="/manus-storage/pd_indoor_59b8bd65.png"
                 alt="Private dining room at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
-              {/* Gradient: strong fade on left so photo black matches panel black */}
-              <div style={{
-                position: "absolute", inset: 0,
-                background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 15%, rgba(13,12,10,0.7) 35%, transparent 65%)",
-                pointerEvents: "none",
-              }} />
             </div>
             <div style={{ overflow: "hidden" }}>
               <img
-                src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
-                alt="Enchanted patio dining at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
+                src="/manus-storage/pd_patio_b33b592b.png"
+                alt="Outdoor patio at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </div>
           </div>
