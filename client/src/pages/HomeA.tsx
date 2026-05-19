@@ -564,19 +564,10 @@ export default function HomeA() {
           position: "relative",
           overflow: "hidden",
           borderRadius: "4px",
-          backgroundImage: "url('/manus-storage/food_catering_b865b2cb.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
           padding: "6rem 2rem",
           textAlign: "center",
         }}>
-        {/* Dark mask — food photo visible but text stays legible */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "rgba(10,8,6,0.80)",
-          pointerEvents: "none",
-        }} />
-        <div style={{ position: "relative", zIndex: 1 }}>
+        <div>
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
