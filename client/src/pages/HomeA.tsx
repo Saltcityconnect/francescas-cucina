@@ -726,7 +726,7 @@ export default function HomeA() {
               <img
                 src="/manus-storage/pd_indoor_59b8bd65.png"
                 alt="Private dining room at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block" }}
               />
               {/* Gradient: strong fade on left so photo black matches panel black */}
               <div style={{
