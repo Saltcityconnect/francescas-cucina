@@ -130,7 +130,7 @@ function WelcomePhotos() {
         </span>
 
         {/* Diamond buttons — right */}
-        <div style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "1.4rem", alignItems: "center" }}>
           {[{label: "Previous", onClick: prev, symbol: "‹"}, {label: "Next", onClick: next, symbol: "›"}].map(({label, onClick, symbol}) => (
             <button key={label} onClick={onClick} aria-label={label} style={{
               background: "transparent",
