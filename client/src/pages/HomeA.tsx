@@ -200,9 +200,16 @@ function MenuFoodCarousel() {
           transform: `translateX(-${active * (100 / total)}%)`,
           transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
         }}>
-          {MENU_FOOD_PHOTOS.map(p => (
+          {MENU_FOOD_PHOTOS.map((p, idx) => (
             <div key={p.alt} style={{ width: `${100 / total}%`, flexShrink: 0, height: "100%" }}>
-              <img src={p.src} alt={p.alt} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
+              <img
+                src={p.src}
+                alt={p.alt}
+                style={{
+                  width: "100%", height: "100%", objectFit: "cover", display: "block",
+                  objectPosition: idx === 2 ? "center 60%" : "center center",
+                }}
+              />
             </div>
           ))}
         </div>
