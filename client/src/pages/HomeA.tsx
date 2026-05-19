@@ -633,7 +633,7 @@ export default function HomeA() {
           margin: "0 auto",
           minHeight: "560px",
           display: "grid",
-          gridTemplateColumns: "35% 65%",
+          gridTemplateColumns: "42% 58%",
           overflow: "hidden",
         }}>
           {/* Left: solid black text panel */}
@@ -658,7 +658,7 @@ export default function HomeA() {
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 400,
-              fontSize: "clamp(2.8rem, 4.5vw, 4.6rem)",
+              fontSize: "clamp(2rem, 3vw, 3.2rem)",
               lineHeight: 1.08,
               color: "var(--ivory)",
               marginBottom: "1.5rem",
@@ -786,6 +786,11 @@ export default function HomeA() {
           .pd-grid > div:first-child > div[style] {
             margin-left: auto;
             margin-right: auto;
+          }
+          /* Reduce headline size on mobile so 3 lines fit without word-wrapping */
+          .pd-grid h2 {
+            font-size: 2.4rem !important;
+            line-height: 1.12 !important;
           }
           /* Hide the button inside the text panel on mobile */
           .pd-book-btn-panel {
