@@ -645,13 +645,13 @@ export default function HomeA() {
               src="/manus-storage/pd_indoor_59b8bd65.png"
               alt=""
               aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "80% center", display: "block", flexShrink: 0 }}
+              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block", flexShrink: 0 }}
             />
             <img
               src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
               alt=""
               aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block", flexShrink: 0 }}
+              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "55% center", display: "block", flexShrink: 0 }}
             />
           </div>
           {/* Gradient: solid black left → transparent right */}
