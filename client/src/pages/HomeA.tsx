@@ -161,6 +161,98 @@ function WelcomePhotos() {
   );
 }
 
+const MENU_FOOD_PHOTOS = [
+  { src: "/manus-storage/menu-food-1_bdd48938.png", alt: "Chicken Parmigiana" },
+  { src: "/manus-storage/menu-food-2_765ecf7c.jpg", alt: "Gnocchi with Shrimp" },
+  { src: "/manus-storage/menu-food-3_fdf02553.png", alt: "Brownie with Caramel" },
+  { src: "/manus-storage/menu-food-4_071cecc5.png", alt: "Surf & Turf Board" },
+  { src: "/manus-storage/menu-food-5_03d696f7.png", alt: "Seared Scallops" },
+];
+
+function MenuFoodCarousel() {
+  const [active, setActive] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const total = MENU_FOOD_PHOTOS.length;
+
+  const prev = () => setActive(i => (i - 1 + total) % total);
+  const next = () => setActive(i => (i + 1) % total);
+
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd   = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (dx > 40) prev(); else if (dx < -40) next();
+    touchStartX.current = null;
+  };
+
+  return (
+    <div className="menu-food-mobile">
+      {/* Image track */}
+      <div
+        style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", background: "#0d0c0a" }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div style={{
+          display: "flex",
+          width: `${total * 100}%`,
+          height: "100%",
+          transform: `translateX(-${active * (100 / total)}%)`,
+          transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
+        }}>
+          {MENU_FOOD_PHOTOS.map(p => (
+            <div key={p.alt} style={{ width: `${100 / total}%`, flexShrink: 0, height: "100%" }}>
+              <img src={p.src} alt={p.alt} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Controls bar: counter LEFT | diamond buttons RIGHT */}
+      <div className="menu-food-controls" style={{
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0.7rem 1.25rem 0.5rem",
+        background: "#0d0c0a",
+      }}>
+        <span style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "0.78rem", fontWeight: 500,
+          letterSpacing: "0.15em",
+          color: "var(--ivory-muted)",
+        }}>{active + 1} / {total}</span>
+        <div style={{ display: "flex", gap: "1.4rem", alignItems: "center" }}>
+          {[{label: "Previous", onClick: prev, symbol: "\u2039"}, {label: "Next", onClick: next, symbol: "\u203a"}].map(({label, onClick, symbol}) => (
+            <button key={label} onClick={onClick} aria-label={label} style={{
+              background: "transparent",
+              border: "1px solid rgba(185,148,83,0.55)",
+              color: "var(--gold)",
+              width: "32px", height: "32px",
+              transform: "rotate(45deg)",
+              fontSize: "1.2rem", lineHeight: 1,
+              cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: 0,
+            }}>
+              <span style={{ transform: "rotate(-45deg)", display: "flex", alignItems: "center", justifyContent: "center" }}>{symbol}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        .menu-food-mobile { display: none; }
+        .menu-food-controls { display: none; }
+        @media (max-width: 768px) {
+          .menu-food-desktop { display: none !important; }
+          .menu-food-mobile  { display: block !important; }
+          .menu-food-controls { display: flex !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function HomeA() {
   return (
     <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
@@ -392,8 +484,8 @@ export default function HomeA() {
           </p>
         </div>
 
-        {/* Composite food photo — full-width, natural proportions */}
-        <div style={{
+        {/* Desktop: composite food photo */}
+        <div className="menu-food-desktop" style={{
           maxWidth: "1400px",
           margin: "0 auto",
           padding: "0 2rem",
@@ -401,13 +493,12 @@ export default function HomeA() {
           <img
             src="/manus-storage/food_composite_e7b235b5.png"
             alt="Francesca's Cucina signature dishes"
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-            }}
+            style={{ width: "100%", height: "auto", display: "block" }}
           />
         </div>
+
+        {/* Mobile: food photo carousel */}
+        <MenuFoodCarousel />
 
         {/* VIEW FULL MENU button */}
         <div style={{ textAlign: "center", marginTop: "3rem", padding: "0 2rem" }}>
