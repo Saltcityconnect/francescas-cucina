@@ -88,13 +88,13 @@ function WelcomePhotos() {
       </div>
 
       {/* ── Mobile: full-width carousel ── */}
+      {/* Image track */}
       <div
         className="welcome-photos-mobile"
         style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", background: "#0d0c0a" }}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        {/* Slides */}
         <div style={{
           display: "flex",
           width: `${WELCOME_PHOTOS.length * 100}%`,
@@ -108,37 +108,50 @@ function WelcomePhotos() {
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Prev / Next arrows */}
-        {[{dir: "prev", onClick: prev, symbol: "‹", side: "left"}, {dir: "next", onClick: next, symbol: "›", side: "right"}].map(({dir, onClick, symbol, side}) => (
-          <button key={dir} onClick={onClick} aria-label={dir} style={{
-            position: "absolute", top: "50%", [side]: "0.75rem",
-            transform: "translateY(-50%)",
-            background: "rgba(0,0,0,0.45)", border: "1px solid rgba(185,148,83,0.4)",
-            color: "var(--gold)", width: "36px", height: "36px",
-            borderRadius: "50%", fontSize: "1.4rem", lineHeight: 1,
-            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-            zIndex: 3,
-          }}>{symbol}</button>
-        ))}
+      {/* Controls bar below image: ‹  1 / 4  › */}
+      <div className="welcome-photos-mobile" style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1.25rem",
+        padding: "0.75rem 0 0.5rem",
+        background: "#0d0c0a",
+      }}>
+        <button onClick={prev} aria-label="Previous" style={{
+          background: "transparent",
+          border: "1px solid rgba(185,148,83,0.5)",
+          color: "var(--gold)",
+          width: "34px", height: "34px",
+          borderRadius: "50%",
+          fontSize: "1.3rem", lineHeight: 1,
+          cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>‹</button>
 
-        {/* Dot indicators */}
-        <div style={{
-          position: "absolute", bottom: "0.75rem", left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex", gap: "6px", zIndex: 3,
+        <span style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "0.78rem",
+          fontWeight: 500,
+          letterSpacing: "0.15em",
+          color: "var(--ivory-muted)",
+          minWidth: "3.5rem",
+          textAlign: "center",
         }}>
-          {WELCOME_PHOTOS.map((_, i) => (
-            <button key={i} onClick={() => setActive(i)} aria-label={`Slide ${i+1}`} style={{
-              width: i === active ? "20px" : "6px",
-              height: "6px",
-              borderRadius: "3px",
-              background: i === active ? "var(--gold)" : "rgba(255,255,255,0.35)",
-              border: "none", padding: 0, cursor: "pointer",
-              transition: "width 0.3s ease, background 0.3s ease",
-            }} />
-          ))}
-        </div>
+          {active + 1} / {WELCOME_PHOTOS.length}
+        </span>
+
+        <button onClick={next} aria-label="Next" style={{
+          background: "transparent",
+          border: "1px solid rgba(185,148,83,0.5)",
+          color: "var(--gold)",
+          width: "34px", height: "34px",
+          borderRadius: "50%",
+          fontSize: "1.3rem", lineHeight: 1,
+          cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>›</button>
       </div>
 
       <style>{`
