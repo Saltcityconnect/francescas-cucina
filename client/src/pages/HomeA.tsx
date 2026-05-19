@@ -640,7 +640,7 @@ export default function HomeA() {
           {/* Left: dark panel with text */}
           <div style={{
             background: "#0d0c0a",
-            padding: "5rem 3rem 5rem 3.5rem",
+            padding: "5rem 0.5rem 5rem 3.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -738,7 +738,7 @@ export default function HomeA() {
               <img
                 src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
                 alt="Enchanted patio dining at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "70% center", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "62% center", display: "block" }}
               />
             </div>
           </div>
