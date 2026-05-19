@@ -626,50 +626,23 @@ export default function HomeA() {
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
-      {/*
-        Both photos span the full section width as an absolute background.
-        A gradient fades solid #0d0c0a on the left (behind text) → transparent on the right.
-        The dining room photo bleeds naturally under the words.
-      */}
+      {/* Layout: solid black text panel (35%) | two photos side by side (65%) */}
       <section style={{ background: "#0d0c0a", padding: "0" }}>
         <div className="pd-grid" style={{
           maxWidth: "1400px",
           margin: "0 auto",
           minHeight: "560px",
-          position: "relative",
+          display: "grid",
+          gridTemplateColumns: "35% 65%",
           overflow: "hidden",
         }}>
-          {/* Background: two photos filling full width */}
-          <div style={{ position: "absolute", inset: 0, display: "flex" }}>
-            <img
-              src="/manus-storage/pd_indoor_59b8bd65.png"
-              alt=""
-              aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block", flexShrink: 0 }}
-            />
-            <img
-              src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
-              alt=""
-              aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "55% center", display: "block", flexShrink: 0 }}
-            />
-          </div>
-          {/* Gradient: solid black left → transparent right */}
+          {/* Left: solid black text panel */}
           <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 22%, rgba(13,12,10,0.75) 36%, rgba(13,12,10,0.2) 50%, transparent 62%)",
-            pointerEvents: "none",
-            zIndex: 1,
-          }} />
-          {/* Text sits above gradient */}
-          <div style={{
-            position: "relative",
-            zIndex: 2,
+            background: "#0d0c0a",
             padding: "5rem 3.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            width: "fit-content",
           }}>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -736,6 +709,24 @@ export default function HomeA() {
               </svg>
               Book Your Event
             </Link>
+          </div>
+
+          {/* Right: two photos side by side */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
+            <div style={{ overflow: "hidden" }}>
+              <img
+                src="/manus-storage/pd_indoor_59b8bd65.png"
+                alt="Private dining room at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% center", display: "block" }}
+              />
+            </div>
+            <div style={{ overflow: "hidden" }}>
+              <img
+                src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
+                alt="Outdoor patio with fireplace at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "55% center", display: "block" }}
+              />
+            </div>
           </div>
 
         </div>
