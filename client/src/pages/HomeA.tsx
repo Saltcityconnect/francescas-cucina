@@ -264,86 +264,128 @@ function MenuFoodCarousel() {
 
 export default function HomeA() {
   return (
-    <div style={{ background: "#0d0c0a", minHeight: "100vh", color: "var(--ivory)" }}>
+    <div style={{ background: "var(--charcoal)", minHeight: "100vh", color: "var(--ivory)" }}>
       <NavigationA />
 
-      {/* ─── HERO ─── */}
-      <section style={{ position: "relative", height: "100svh", overflow: "hidden" }}>
+      {/* ─── HERO: Full-viewport video banner ─── */}
+      <section style={{ position: "relative", height: "100vh", minHeight: "560px", overflow: "hidden" }}>
         <video
-          autoPlay muted loop playsInline
+          autoPlay
+          muted
+          loop
+          playsInline
           poster={HERO_POSTER}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-        />
+          style={{
+            position: "absolute", inset: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover",
+          }}
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+
+        {/* Subtle dark overlay — keep video visible */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(10,8,6,0.35) 0%, rgba(10,8,6,0.55) 100%)",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.45) 70%, rgba(13,12,10,0.85) 100%)",
         }} />
+
+        {/* Hero text — centered */}
         <div style={{
-          position: "relative", zIndex: 1,
-          height: "100%", display: "flex", flexDirection: "column",
+          position: "absolute", inset: 0,
+          display: "flex", flexDirection: "column",
           alignItems: "center", justifyContent: "center",
           textAlign: "center", padding: "0 1.5rem",
+          zIndex: 2,
         }}>
-          <h1 className="hero-title" style={{
-            fontFamily: "'Playfair Display', serif",
-            fontWeight: 400,
-            fontSize: "clamp(2.8rem, 9vw, 9rem)",
-            lineHeight: 1,
-            color: "var(--ivory)",
-            letterSpacing: "-0.01em",
-            marginBottom: "1.25rem",
-          }}>Francesca&rsquo;s Cucina</h1>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "clamp(0.75rem, 1.8vw, 1rem)",
-            fontWeight: 400,
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
-            color: "rgba(245,240,228,0.8)",
-            marginBottom: "2.5rem",
-          }}>Celebrating Food and Family</p>
+          <h1
+            className="hero-title"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontSize: "clamp(3rem, 9vw, 8.5rem)",
+              color: "var(--ivory)",
+              lineHeight: 1.0,
+              marginBottom: "1.25rem",
+              letterSpacing: "-0.01em",
+              textShadow: "0 2px 24px rgba(0,0,0,0.5)",
+            }}
+          >
+            Francesca's Cucina
+          </h1>
+
+          {/* Tagline + small decorative line */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "2.5rem" }}>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "rgba(245,240,228,0.85)",
+              marginBottom: "0.75rem",
+            }}>
+              Celebrating Food and Family
+            </p>
+            <div style={{ width: "48px", height: "1px", background: "var(--gold)", opacity: 0.8 }} />
+          </div>
+
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
-            <Link
-              href="/reservations"
+            <a
+              href="https://resy.com/cities/syr/francescas-cucina"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "inline-block",
-                padding: "1rem 2.5rem",
+                padding: "0.85rem 2rem",
                 background: "var(--gold)",
-                border: "1px solid var(--gold)",
-                borderRadius: "4px",
                 color: "#000",
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.25em",
+                fontSize: "0.7rem",
+                fontWeight: 600,
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
+                border: "1px solid var(--gold)",
+                borderRadius: "6px",
               }}
-            >Reserve a Table</Link>
+            >
+              Reserve a Table
+            </a>
             <Link
               href="/menu"
               style={{
                 display: "inline-block",
-                padding: "1rem 2.5rem",
-                background: "transparent",
-                border: "1px solid rgba(245,240,228,0.6)",
-                borderRadius: "4px",
-                color: "var(--ivory)",
+                padding: "0.85rem 2rem",
+                background: "rgba(10,10,10,0.75)",
+                color: "#fff",
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: "0.65rem",
+                fontSize: "0.7rem",
                 fontWeight: 500,
-                letterSpacing: "0.25em",
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
+                border: "1px solid rgba(245,240,228,0.5)",
+                borderRadius: "6px",
               }}
-            >View Menu</Link>
+            >
+              View Menu
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ─── WELCOME SECTION ─── */}
-      <section style={{ background: "#0d0c0a", padding: "6rem 2rem" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }}>
+      <section style={{ background: "#0d0c0a", padding: "5rem 0" }}>
+        <div style={{
+          maxWidth: "1400px", margin: "0 auto", padding: "0 2rem",
+          display: "grid",
+          gridTemplateColumns: "1fr 1.8fr",
+          gap: "5rem",
+          alignItems: "center",
+        }}
+        className="welcome-grid"
+        >
           {/* Left: text */}
           <div>
             <p style={{
@@ -355,78 +397,107 @@ export default function HomeA() {
               color: "var(--gold)",
               marginBottom: "1.5rem",
             }}>Welcome</p>
+
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 400,
-              fontSize: "clamp(1.8rem, 3vw, 2.8rem)",
-              lineHeight: 1.2,
+              fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
               color: "var(--ivory)",
+              lineHeight: 1.15,
               marginBottom: "1.5rem",
-            }}>A Syracuse Italian tradition with a warm, modern soul.</h2>
+              letterSpacing: "-0.01em",
+            }}>
+              A Syracuse Italian tradition with a warm, modern soul.
+            </h2>
+
+            <div style={{ width: "48px", height: "1px", background: "var(--gold)", marginBottom: "2rem" }} />
+
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
               fontSize: "0.95rem",
-              color: "rgba(245,240,228,0.72)",
-              lineHeight: 1.8,
-              marginBottom: "1rem",
-            }}>Francesca&rsquo;s Cucina has been serving the community for over 20 years with handcrafted pastas, premium seafood, steaks, and seasonal specialties in a warm, inviting atmosphere.</p>
+              color: "var(--ivory-muted)",
+              lineHeight: 1.85,
+              marginBottom: "1.5rem",
+            }}>
+              Francesca's Cucina has been serving the community for over 20 years with handcrafted pastas, premium seafood, steaks, and seasonal specialties in a warm, inviting atmosphere.
+            </p>
+
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
               fontSize: "0.95rem",
-              color: "rgba(245,240,228,0.72)",
-              lineHeight: 1.8,
-            }}>From intimate dinners to summer nights on the patio, every experience is centered around food, family, and hospitality.</p>
+              color: "var(--ivory-muted)",
+              lineHeight: 1.85,
+            }}>
+              From intimate dinners to summer nights on the patio, every experience is centered around food, family, and hospitality.
+            </p>
           </div>
-          {/* Right: photos */}
+
+          {/* Right: 2×2 photo grid (desktop) / carousel (mobile) */}
           <WelcomePhotos />
         </div>
 
         <style>{`
           @media (max-width: 768px) {
-            .welcome-section-grid {
+            .welcome-grid {
               grid-template-columns: 1fr !important;
+              gap: 2rem !important;
+            }
+            /* Center all text in welcome section on mobile */
+            .welcome-grid > div:first-child {
+              text-align: center;
+            }
+            .welcome-grid > div:first-child > div {
+              margin-left: auto;
+              margin-right: auto;
             }
           }
         `}</style>
       </section>
 
       {/* ─── MENU SECTION ─── */}
-      <section style={{ background: "#0d0c0a", padding: "6rem 2rem 5rem" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ marginBottom: "3rem" }}>
-            <p style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.85rem",
-              fontWeight: 500,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: "var(--gold)",
-              marginBottom: "1rem",
-            }}>Menu</p>
-            <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontWeight: 400,
-              fontSize: "clamp(1.8rem, 3vw, 2.8rem)",
-              lineHeight: 1.2,
-              color: "var(--ivory)",
-              marginBottom: "1rem",
-            }}>Classic Italian,<br />beautifully done.</h2>
-            <p style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.95rem",
-              color: "rgba(245,240,228,0.72)",
-              lineHeight: 1.8,
-              maxWidth: "520px",
-            }}>Housemade pastas, fresh seafood, premium steaks, and seasonal chef-inspired features served with Francesca&rsquo;s signature warmth.</p>
-          </div>
+      <section style={{ background: "#13110f", padding: "5rem 0 4rem" }}>
+        {/* Centered header text */}
+        <div style={{ textAlign: "center", marginBottom: "3rem", padding: "0 2rem" }}>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.85rem",
+            fontWeight: 500,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: "1.2rem",
+          }}>Menu</p>
+          <h2 style={{
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 400,
+            fontSize: "clamp(2.4rem, 5vw, 4rem)",
+            color: "var(--ivory)",
+            lineHeight: 1.15,
+            marginBottom: "1.5rem",
+            letterSpacing: "-0.01em",
+          }}>
+            Classic Italian, beautifully done.
+          </h2>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: "0.95rem",
+            color: "var(--ivory-muted)",
+            lineHeight: 1.8,
+            maxWidth: "560px",
+            margin: "0 auto",
+          }}>
+            Housemade pastas, fresh seafood, premium steaks, and seasonal chef-inspired features served with Francesca's signature warmth.
+          </p>
         </div>
 
-        {/* Desktop: composite photo grid */}
+        {/* Desktop: composite food photo */}
         <div className="menu-food-desktop" style={{
-          maxWidth: "1200px",
+          maxWidth: "1400px",
           margin: "0 auto",
-          overflow: "hidden",
-          borderRadius: "4px",
+          padding: "0 2rem",
         }}>
           <img
             src="/manus-storage/food_composite_e7b235b5.png"
@@ -556,55 +627,25 @@ export default function HomeA() {
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
-      {/*
-        Layout: both photos span the full section width as a background layer.
-        A gradient overlay fades from solid #0d0c0a on the left (covering the text area)
-        to transparent on the right so the dining room photo bleeds under the words.
-        The fireplace/ivy photo fills the right half of the background.
-      */}
-      <section style={{ background: "#0d0c0a", padding: "0" }}>
+      <section style={{ background: "var(--charcoal)", padding: "0" }}>
         <div className="pd-grid" style={{
           maxWidth: "1400px",
           margin: "0 auto",
+          display: "flex",
           minHeight: "560px",
           position: "relative",
-          overflow: "hidden",
+          background: "#0d0c0a",
         }}>
-          {/* Background layer: two photos side by side filling full width */}
+          {/* Left: dark panel with text — shrinks to fit content exactly */}
           <div style={{
-            position: "absolute", inset: 0,
-            display: "flex",
-          }}>
-            <img
-              src="/manus-storage/pd_indoor_59b8bd65.png"
-              alt=""
-              aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block", flexShrink: 0 }}
-            />
-            <img
-              src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
-              alt=""
-              aria-hidden="true"
-              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block", flexShrink: 0 }}
-            />
-          </div>
-
-          {/* Gradient overlay: solid black on left fading to transparent — text stays readable */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 28%, rgba(13,12,10,0.82) 42%, rgba(13,12,10,0.35) 58%, transparent 72%)",
-            pointerEvents: "none",
-            zIndex: 1,
-          }} />
-
-          {/* Text content sits above the gradient */}
-          <div style={{
-            position: "relative",
-            zIndex: 2,
+            background: "#0d0c0a",
             padding: "5rem 2.5rem 5rem 3.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            position: "relative",
+            zIndex: 2,
+            flexShrink: 0,
             width: "fit-content",
           }}>
             <p style={{
@@ -678,6 +719,30 @@ export default function HomeA() {
               Book Your Event
             </Link>
           </div>
+
+          {/* Right: 2 photos — dining room (left) + fireplace/ivy (right) */}
+          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden", position: "relative", zIndex: 1, flex: 1 }}>
+            <div style={{ overflow: "hidden", position: "relative" }}>
+              <img
+                src="/manus-storage/pd_indoor_59b8bd65.png"
+                alt="Private dining room at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block" }}
+              />
+              {/* Thin fade on very left edge only — just enough to hide the hard seam */}
+              <div style={{
+                position: "absolute", inset: 0,
+                background: "linear-gradient(to right, #0d0c0a 0%, transparent 12%)",
+                pointerEvents: "none",
+              }} />
+            </div>
+            <div style={{ overflow: "hidden" }}>
+              <img
+                src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
+                alt="Enchanted patio dining at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Mobile-only: Book Your Event button below photos, centered */}
@@ -724,17 +789,28 @@ export default function HomeA() {
 
           /* Private Dining: stack text above photos on mobile, center everything */
           .pd-grid {
+            grid-template-columns: 1fr !important;
             min-height: unset !important;
           }
-          .pd-grid > div:last-of-type {
+          .pd-grid > div:first-child {
             padding: 2.5rem 1.5rem 1.5rem !important;
             text-align: center;
             align-items: center !important;
-            width: 100% !important;
+          }
+          .pd-grid > div:first-child > div[style] {
+            margin-left: auto;
+            margin-right: auto;
           }
           /* Hide the button inside the text panel on mobile */
           .pd-book-btn-panel {
             display: none !important;
+          }
+          .pd-photos {
+            height: 220px;
+          }
+          .pd-photos img {
+            height: 220px !important;
+            object-fit: cover !important;
           }
           /* Show the mobile-only button below photos */
           .pd-book-btn-mobile {
