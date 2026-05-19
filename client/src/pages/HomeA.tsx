@@ -626,21 +626,50 @@ export default function HomeA() {
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
-      <section style={{ background: "var(--charcoal)", padding: "0" }}>
+      {/*
+        Both photos span the full section width as an absolute background.
+        A gradient fades solid #0d0c0a on the left (behind text) → transparent on the right.
+        The dining room photo bleeds naturally under the words.
+      */}
+      <section style={{ background: "#0d0c0a", padding: "0" }}>
         <div className="pd-grid" style={{
           maxWidth: "1400px",
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1.4fr",
-          minHeight: "520px",
+          minHeight: "560px",
+          position: "relative",
+          overflow: "hidden",
         }}>
-          {/* Left: dark panel with text */}
+          {/* Background: two photos filling full width */}
+          <div style={{ position: "absolute", inset: 0, display: "flex" }}>
+            <img
+              src="/manus-storage/pd_indoor_59b8bd65.png"
+              alt=""
+              aria-hidden="true"
+              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block", flexShrink: 0 }}
+            />
+            <img
+              src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
+              alt=""
+              aria-hidden="true"
+              style={{ width: "50%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block", flexShrink: 0 }}
+            />
+          </div>
+          {/* Gradient: solid black left → transparent right */}
           <div style={{
-            background: "#0d0c0a",
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 30%, rgba(13,12,10,0.85) 44%, rgba(13,12,10,0.35) 58%, transparent 72%)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }} />
+          {/* Text sits above gradient */}
+          <div style={{
+            position: "relative",
+            zIndex: 2,
             padding: "5rem 3.5rem",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            width: "fit-content",
           }}>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -656,11 +685,11 @@ export default function HomeA() {
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 400,
-              fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
-              lineHeight: 1.15,
+              fontSize: "clamp(2.8rem, 4.5vw, 4.6rem)",
+              lineHeight: 1.08,
               color: "var(--ivory)",
               marginBottom: "1.5rem",
-            }}>Celebrate the moments that matter.</h2>
+            }}>Celebrate<br />the moments<br />that matter.</h2>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
               fontSize: "0.95rem",
@@ -709,23 +738,6 @@ export default function HomeA() {
             </Link>
           </div>
 
-          {/* Right: 2 photos side by side */}
-          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="/manus-storage/pd_indoor_59b8bd65.png"
-                alt="Private dining room at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-            </div>
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="/manus-storage/pd_patio_b33b592b.png"
-                alt="Outdoor patio at Francesca's Cucina"
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-            </div>
-          </div>
         </div>
 
         {/* Mobile-only: Book Your Event button below photos, centered */}
