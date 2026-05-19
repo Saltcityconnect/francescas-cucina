@@ -662,7 +662,7 @@ export default function HomeA() {
               lineHeight: 1.08,
               color: "var(--ivory)",
               marginBottom: "1.5rem",
-            }}>Celebrate<br />the moments<br />that matter.</h2>
+            }}>Celebrate<br />The Moments<br />that matter.</h2>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
               fontSize: "0.95rem",
