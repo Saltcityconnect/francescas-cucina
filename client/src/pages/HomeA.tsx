@@ -4,6 +4,7 @@
  */
 
 import { Link } from "wouter";
+import { useState, useRef } from "react";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
@@ -18,10 +19,138 @@ const FOOD4 = "/manus-storage/food_pic4_ceaeec18.png"; // surf & turf board — 
 const FOOD5 = "/manus-storage/food_pic5_6e05c036.png"; // scallops — bottom right
 
 // Private dining / catering photos — flat (white vignette removed)
-const CATERING1 = "/manus-storage/w_patio_5bd6a92e.jpg";
-const CATERING2 = "/manus-storage/w_bar_29067af7.jpg";
-const CATERING3 = "/manus-storage/w_summer_6a3d268e.jpg";
-const CATERING4 = "/manus-storage/w_candlelit_59776707.jpg";
+// Welcome section photos — order: Bar, Dining Room, Patio, Summer Nights
+const W_BAR      = "/manus-storage/w_bar_29067af7.jpg";
+const W_DINING   = "/manus-storage/w_candlelit_59776707.jpg";
+const W_PATIO    = "/manus-storage/w_patio_5bd6a92e.jpg";
+const W_SUMMER   = "/manus-storage/summer-nights-new_2f848c6f.png";
+
+const WELCOME_PHOTOS = [
+  { src: W_BAR,    label: "Bar & Cocktails" },
+  { src: W_DINING, label: "Dining Room" },
+  { src: W_PATIO,  label: "Patio Dining" },
+  { src: W_SUMMER, label: "Summer Nights" },
+];
+
+function PhotoCell({ src, label }: { src: string; label: string }) {
+  return (
+    <div style={{ position: "relative", overflow: "hidden", width: "100%", height: "100%" }}>
+      <img
+        src={src}
+        alt={label}
+        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+      />
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
+        pointerEvents: "none",
+      }} />
+      <div style={{ position: "absolute", bottom: "1rem", left: "1rem" }}>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "0.6rem", fontWeight: 500,
+          letterSpacing: "0.3em", textTransform: "uppercase",
+          color: "var(--ivory)", marginBottom: "0.4rem",
+        }}>{label}</p>
+        <div style={{ width: "28px", height: "1px", background: "var(--gold)" }} />
+      </div>
+    </div>
+  );
+}
+
+function WelcomePhotos() {
+  const [active, setActive] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  const prev = () => setActive(i => (i - 1 + WELCOME_PHOTOS.length) % WELCOME_PHOTOS.length);
+  const next = () => setActive(i => (i + 1) % WELCOME_PHOTOS.length);
+
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd   = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (dx > 40) prev(); else if (dx < -40) next();
+    touchStartX.current = null;
+  };
+
+  return (
+    <>
+      {/* ── Desktop: 2×2 grid ── */}
+      <div className="welcome-photos-desktop" style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gridTemplateRows: "1fr 1fr",
+        gap: "4px",
+        aspectRatio: "1.4 / 1",
+        background: "#0d0c0a",
+      }}>
+        {WELCOME_PHOTOS.map(p => <PhotoCell key={p.label} {...p} />)}
+      </div>
+
+      {/* ── Mobile: full-width carousel ── */}
+      <div
+        className="welcome-photos-mobile"
+        style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", background: "#0d0c0a" }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        {/* Slides */}
+        <div style={{
+          display: "flex",
+          width: `${WELCOME_PHOTOS.length * 100}%`,
+          height: "100%",
+          transform: `translateX(-${active * (100 / WELCOME_PHOTOS.length)}%)`,
+          transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
+        }}>
+          {WELCOME_PHOTOS.map(p => (
+            <div key={p.label} style={{ width: `${100 / WELCOME_PHOTOS.length}%`, flexShrink: 0, height: "100%" }}>
+              <PhotoCell {...p} />
+            </div>
+          ))}
+        </div>
+
+        {/* Prev / Next arrows */}
+        {[{dir: "prev", onClick: prev, symbol: "‹", side: "left"}, {dir: "next", onClick: next, symbol: "›", side: "right"}].map(({dir, onClick, symbol, side}) => (
+          <button key={dir} onClick={onClick} aria-label={dir} style={{
+            position: "absolute", top: "50%", [side]: "0.75rem",
+            transform: "translateY(-50%)",
+            background: "rgba(0,0,0,0.45)", border: "1px solid rgba(185,148,83,0.4)",
+            color: "var(--gold)", width: "36px", height: "36px",
+            borderRadius: "50%", fontSize: "1.4rem", lineHeight: 1,
+            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+            zIndex: 3,
+          }}>{symbol}</button>
+        ))}
+
+        {/* Dot indicators */}
+        <div style={{
+          position: "absolute", bottom: "0.75rem", left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex", gap: "6px", zIndex: 3,
+        }}>
+          {WELCOME_PHOTOS.map((_, i) => (
+            <button key={i} onClick={() => setActive(i)} aria-label={`Slide ${i+1}`} style={{
+              width: i === active ? "20px" : "6px",
+              height: "6px",
+              borderRadius: "3px",
+              background: i === active ? "var(--gold)" : "rgba(255,255,255,0.35)",
+              border: "none", padding: 0, cursor: "pointer",
+              transition: "width 0.3s ease, background 0.3s ease",
+            }} />
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        .welcome-photos-mobile { display: none; }
+        @media (max-width: 768px) {
+          .welcome-photos-desktop { display: none !important; }
+          .welcome-photos-mobile  { display: block !important; }
+        }
+      `}</style>
+    </>
+  );
+}
 
 export default function HomeA() {
   return (
@@ -195,56 +324,8 @@ export default function HomeA() {
             </p>
           </div>
 
-          {/* Right: 2×2 photo grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gridTemplateRows: "1fr 1fr",
-            gap: "4px",
-            aspectRatio: "1.4 / 1",
-            background: "#0d0c0a",
-          }}>
-            {[
-              { src: CATERING1, label: "Patio Dining" },
-              { src: CATERING2, label: "Bar & Cocktails" },
-              { src: CATERING3, label: "Summer Nights" },
-              { src: CATERING4, label: "Candlelit Rooms" },
-            ].map(({ src, label }) => (
-              <div key={label} style={{ position: "relative", overflow: "hidden" }}>
-                <img
-                  src={src}
-                  alt={label}
-                  style={{
-                    width: "100%", height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                    display: "block",
-                  }}
-                />
-                {/* Dark gradient at bottom */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
-                  pointerEvents: "none",
-                }} />
-                {/* Label */}
-                <div style={{
-                  position: "absolute", bottom: "1rem", left: "1rem",
-                }}>
-                  <p style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "0.6rem",
-                    fontWeight: 500,
-                    letterSpacing: "0.3em",
-                    textTransform: "uppercase",
-                    color: "var(--ivory)",
-                    marginBottom: "0.4rem",
-                  }}>{label}</p>
-                  <div style={{ width: "28px", height: "1px", background: "var(--gold)" }} />
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Right: 2×2 photo grid (desktop) / carousel (mobile) */}
+          <WelcomePhotos />
         </div>
 
         <style>{`
