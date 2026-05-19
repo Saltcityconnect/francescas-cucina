@@ -728,10 +728,10 @@ export default function HomeA() {
                 alt="Private dining room at Francesca's Cucina"
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "30% center", display: "block" }}
               />
-              {/* Gradient: strong fade on left so photo black matches panel black */}
+              {/* Thin fade on very left edge only — just enough to hide the hard seam */}
               <div style={{
                 position: "absolute", inset: 0,
-                background: "linear-gradient(to right, #0d0c0a 0%, #0d0c0a 15%, rgba(13,12,10,0.7) 35%, transparent 65%)",
+                background: "linear-gradient(to right, #0d0c0a 0%, transparent 12%)",
                 pointerEvents: "none",
               }} />
             </div>
