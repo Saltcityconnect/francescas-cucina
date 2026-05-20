@@ -568,7 +568,7 @@ export default function HomeA() {
             textTransform: "uppercase",
             color: "var(--gold)",
             marginBottom: "2rem",
-          }}>Catering &amp; Private Events</p>
+          }}>Catering</p>
 
           {/* Gold ornamental divider */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.5rem" }}>
