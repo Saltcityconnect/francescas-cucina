@@ -51,24 +51,16 @@ export default function Footer() {
   return (
     <footer style={{ background: "#0d0c0a", padding: "4rem 2rem 2rem" }}>
 
-      {/* Constrained inner container with background photo */}
+      {/* Constrained inner container — clean dark panel, no photo */}
       <div style={{
         maxWidth: "1200px",
         margin: "0 auto",
-        position: "relative",
-        overflow: "hidden",
         borderRadius: "4px",
-        backgroundImage: `url(${FOOTER_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center 30%",
+        background: "rgba(18,16,13,0.95)",
+        border: "1px solid rgba(184,160,90,0.12)",
       }}>
-      {/* Dark mask — patio photo visible but text stays legible */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1,
-        background: "rgba(6,5,3,0.80)",
-      }} />
 
-      <div style={{ position: "relative", zIndex: 2, padding: "2.5rem 2.5rem 1.5rem" }}>
+      <div style={{ padding: "2.5rem 2.5rem 1.5rem" }}>
 
         {/* ── Header: spaced caps matching reference ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.35rem" }}>
