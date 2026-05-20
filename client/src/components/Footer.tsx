@@ -49,16 +49,11 @@ const divider = "1px solid rgba(184,160,90,0.22)";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#0d0c0a", padding: "4rem 2rem 2rem" }}>
+    <footer style={{ background: "#0d0c0a", padding: "0" }}>
 
-      {/* Constrained inner container — clean dark panel, no photo */}
-      <div style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        background: "#0d0c0a",
-      }}>
+      <div style={{ background: "#0d0c0a", maxWidth: "1200px", margin: "0 auto" }}>
 
-      <div style={{ padding: "2.5rem 2.5rem 1.5rem" }}>
+      <div className="footer-outer-pad">
 
         {/* ── Header: spaced caps matching reference ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.35rem" }}>
@@ -185,6 +180,8 @@ export default function Footer() {
       </div>
 
       <style>{`
+        .footer-outer-pad { padding: 1.5rem 0.5rem 1rem; }
+
         /* ── Mobile base (default) – keep 2×2 grid ── */
         .footer-grid {
           grid-template-columns: 1fr 1fr;
@@ -272,6 +269,7 @@ export default function Footer() {
 
         /* ── Desktop overrides ── */
         @media (min-width: 640px) {
+          .footer-outer-pad { padding: 2.5rem 2.5rem 1.5rem; }
           .footer-grid { grid-template-columns: 1fr 1fr; }
           .footer-cell { overflow: hidden; padding: 1.8rem 2.2rem; }
           .footer-icon-circle { width: 36px; height: 36px; min-width: 36px; }
