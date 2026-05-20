@@ -217,7 +217,7 @@ export default function Footer() {
         .footer-label {
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.48rem;
+          font-size: 0.72rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--gold);
@@ -225,12 +225,12 @@ export default function Footer() {
         }
         .footer-indent { padding-left: 0; }
         .footer-link {
-          color: rgba(245,240,228,0.78);
+          color: rgba(245,240,228,0.85);
           text-decoration: none;
           display: block;
           font-family: 'DM Sans', sans-serif;
-          font-weight: 300;
-          font-size: 0.65rem;
+          font-weight: 400;
+          font-size: 0.88rem;
           line-height: 1.7;
           white-space: nowrap;
         }
@@ -239,11 +239,11 @@ export default function Footer() {
         .footer-hour-row {
           display: flex;
           justify-content: space-between;
-          gap: 0.25rem;
+          gap: 0.5rem;
           font-family: 'DM Sans', sans-serif;
-          font-weight: 300;
-          font-size: 0.65rem;
-          color: rgba(245,240,228,0.78);
+          font-weight: 400;
+          font-size: 0.88rem;
+          color: rgba(245,240,228,0.85);
           line-height: 1.7;
           white-space: nowrap;
         }
@@ -258,17 +258,17 @@ export default function Footer() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.35rem;
+          gap: 0.4rem;
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.44rem;
-          letter-spacing: 0.15em;
+          font-size: 0.68rem;
+          letter-spacing: 0.18em;
           text-transform: uppercase;
           color: var(--gold);
           text-decoration: none;
-          border: 1px solid rgba(184,160,90,0.5);
+          border: 1px solid rgba(184,160,90,0.6);
           border-radius: 3px;
-          padding: 0.55rem 0.3rem;
+          padding: 0.65rem 0.5rem;
           background: transparent;
           transition: background 0.2s ease;
           width: 100%;
@@ -279,18 +279,18 @@ export default function Footer() {
 
         /* ── Desktop overrides ── */
         @media (min-width: 640px) {
-          .footer-cell { padding: 1.6rem 2rem; }
+          .footer-cell { padding: 1.8rem 2.2rem; }
           .footer-icon-circle { width: 36px; height: 36px; min-width: 36px; }
-          .footer-label { font-size: 0.58rem; letter-spacing: 0.28em; }
+          .footer-label { font-size: 0.72rem; letter-spacing: 0.28em; }
           .footer-indent { padding-left: 50px; }
-          .footer-link { font-size: 0.82rem; white-space: normal; }
-          .footer-hour-row { font-size: 0.82rem; white-space: normal; }
+          .footer-link { font-size: 1rem; white-space: normal; font-weight: 400; }
+          .footer-hour-row { font-size: 1rem; white-space: normal; font-weight: 400; }
           .footer-social { flex-direction: row; gap: 1.5rem; }
           .footer-btns { flex-direction: row; gap: 0.75rem; align-items: center; }
           .footer-btn {
-            font-size: 0.58rem;
-            letter-spacing: 0.2em;
-            padding: 0.7rem 1.4rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            padding: 0.8rem 1.6rem;
             width: auto;
             flex: 1;
           }
