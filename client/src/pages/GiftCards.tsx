@@ -7,7 +7,7 @@
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const GIFTCARD_HERO_IMG = "/manus-storage/giftcard_hero_8e2ea87e.png";
+const GIFTCARD_HERO_IMG = "/manus-storage/giftcard_hero2_ad4a2ea7.png";
 
 export default function GiftCards() {
   return (
