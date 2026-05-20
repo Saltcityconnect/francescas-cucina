@@ -1,6 +1,6 @@
 /*
  * DESIGN: Contemporary Italian — Cinematic Dark with Gold Accents
- * Gift Cards page: Split hero (blurred bg + crisp card image), gift card options, check balance
+ * Gift Cards page: Catering-style split hero (text left, photo right 60%)
  * Theme: Charcoal (matches Menu, Catering, Events, Wine List)
  */
 
@@ -11,110 +11,155 @@ const GIFTCARD_HERO_IMG = "/manus-storage/giftcard_hero_cc83cbd9.png";
 
 export default function GiftCards() {
   return (
-    <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
+    <div style={{ background: "#0a0a08", minHeight: "100vh", color: "#f0ece4" }}>
       <NavigationA />
 
       {/* ═══════════════════════════════════════════════════════════════
-          HERO — full-bleed photo with vignette, left-aligned text
+          HERO — catering-style split: text left 40%, photo right 60%
       ═══════════════════════════════════════════════════════════════ */}
-      <section style={{
+      <div style={{
         position: "relative",
-        minHeight: "clamp(480px, 55vw, 640px)",
-        display: "flex",
-        alignItems: "center",
-        overflow: "hidden",
+        minHeight: "clamp(520px, 55vw, 680px)",
         background: "#0a0a08",
-      }}>
-        {/* Full-bleed photo */}
-        <img
-          src={GIFTCARD_HERO_IMG}
-          alt=""
-          aria-hidden="true"
-          style={{
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "stretch",
+      }} className="catering-hero">
+
+        {/* Photo — right 60%, shifted up so gift card + awning are visible */}
+        <div className="catering-hero-photo" style={{
+          position: "absolute",
+          top: 0, right: 0,
+          width: "62%",
+          height: "100%",
+          zIndex: 1,
+        }}>
+          <img
+            src={GIFTCARD_HERO_IMG}
+            alt="Francesca's Cucina Gift Card"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center 15%",
+            }}
+          />
+          {/* Left-edge gradient: black → transparent */}
+          <div style={{
             position: "absolute",
             inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 30%",
-            zIndex: 1,
-          }}
-        />
-        {/* Vignette: dark edges all around, heavier on left for text legibility */}
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          background: [
-            "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%)",
-            "linear-gradient(to right, rgba(10,10,8,0.88) 0%, rgba(10,10,8,0.55) 45%, rgba(10,10,8,0.15) 100%)",
-          ].join(", "),
-          zIndex: 2,
-        }} />
+            background: "linear-gradient(to right, #0a0a08 0%, #0a0a08 8%, rgba(10,10,8,0.85) 22%, rgba(10,10,8,0.3) 45%, transparent 70%)",
+            zIndex: 2,
+          }} />
+        </div>
 
-        {/* Text container */}
+        {/* Text column — left side */}
         <div style={{
           position: "relative",
           zIndex: 10,
-          display: "flex",
-          alignItems: "center",
           width: "100%",
-          maxWidth: 1280,
-          margin: "0 auto",
-          padding: "clamp(6rem, 12vw, 10rem) clamp(1.5rem, 5vw, 5rem) 4rem",
+          padding: "clamp(5rem, 10vw, 8rem) 0 4rem clamp(2rem, 5vw, 6rem)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}>
-
-          {/* LEFT — text column */}
-          <div style={{ flex: "0 0 auto", maxWidth: 520 }}>
-            {/* Gold eyebrow */}
+          <div style={{ maxWidth: "none" }}>
+            {/* Eyebrow */}
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 700,
-              fontSize: "1.25rem",
-              letterSpacing: "0.3em",
+              fontSize: "0.78rem",
+              letterSpacing: "0.35em",
               textTransform: "uppercase",
               color: "#c8a96e",
-              margin: "0 0 0.6rem",
-            }}>Gift Cards</p>
+              margin: "0 0 0.5rem",
+            }}>
+              Gift Cards
+            </p>
+            {/* Gold rule + ornament */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.2rem" }}>
+              <div style={{ width: "28px", height: "1px", background: "#c8a96e" }} />
+              <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" stroke="#c8a96e" strokeWidth="0.8" fill="none" /><circle cx="4" cy="4" r="1.2" fill="#c8a96e" /></svg>
+              <div style={{ width: "28px", height: "1px", background: "#c8a96e" }} />
+            </div>
 
-            {/* Gold ornament divider */}
-            <svg width="100" height="14" viewBox="0 0 100 14" fill="none" style={{ display: "block", margin: "0 0 1.4rem" }}>
-              <line x1="0" y1="7" x2="38" y2="7" stroke="#c8a96e" strokeWidth="0.75" />
-              <circle cx="50" cy="7" r="3" stroke="#c8a96e" strokeWidth="0.75" />
-              <circle cx="50" cy="7" r="1.2" fill="#c8a96e" />
-              <line x1="62" y1="7" x2="100" y2="7" stroke="#c8a96e" strokeWidth="0.75" />
-            </svg>
-
-            {/* Main heading */}
+            {/* Headline */}
             <h1 style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 600,
-              fontSize: "clamp(2.8rem, 5vw, 4.5rem)",
+              fontSize: "clamp(2.8rem, 8vw, 100px)",
+              lineHeight: 1.05,
               color: "#f0ece4",
               margin: "0 0 1.2rem",
-              lineHeight: 1.1,
-              letterSpacing: "0.02em",
+              letterSpacing: "-0.01em",
             }}>
-              The Perfect Gift
+              The Perfect Gift.
             </h1>
 
             {/* Subtext */}
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 300,
-              fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
-              color: "rgba(240,236,228,0.72)",
-              maxWidth: 420,
-              margin: "0",
-              lineHeight: 1.75,
+              fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
+              color: "#b8b0a0",
+              margin: "0 0 2.5rem",
+              lineHeight: 1.7,
+              maxWidth: "420px",
             }}>
-              Give the gift of an unforgettable Italian dining experience.
-              Available in any denomination — and shipping is always on us.
+              Give the gift of an unforgettable Italian dining experience.<br />
+              Available in any denomination — shipping always on us.
             </p>
+
+            {/* CTA buttons */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+              <a
+                href="https://francescas.securetree.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "#1a1a18",
+                  background: "#c8a96e",
+                  padding: "0.9rem 2.2rem",
+                  textDecoration: "none",
+                  transition: "background 0.2s ease",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#b8996e")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#c8a96e")}
+              >
+                Order Traditional Card
+              </a>
+              <a
+                href="https://www.toasttab.com/francesca-s-cucina-545-n-salina-st/giftcards"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "#c8a96e",
+                  background: "transparent",
+                  border: "1px solid rgba(200,169,110,0.6)",
+                  padding: "0.9rem 2.2rem",
+                  textDecoration: "none",
+                  transition: "border-color 0.2s ease, color 0.2s ease",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#c8a96e"; e.currentTarget.style.color = "#e0c98e"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(200,169,110,0.6)"; e.currentTarget.style.color = "#c8a96e"; }}
+              >
+                Order Electronic Card
+              </a>
+            </div>
           </div>
-
-
         </div>
-      </section>
+      </div>
 
       {/* Gift Card Options */}
       <section className="py-20 md:py-28">
