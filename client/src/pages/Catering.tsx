@@ -191,7 +191,7 @@ export default function Catering() {
           <img
             src={CATERING_HERO_IMG}
             alt="Francesca's Cucina catering spread"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", transform: "scaleX(-1)" }}
           />
           {/* Left-edge gradient: black → transparent over ~30% of image width */}
           <div style={{
@@ -235,7 +235,7 @@ export default function Catering() {
             <h1 style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 600,
-              fontSize: "clamp(2.4rem, 4vw, 3.8rem)",
+              fontSize: "100px",
               lineHeight: 1.05,
               color: "#f0ece4",
               margin: "0 0 1.2rem",
