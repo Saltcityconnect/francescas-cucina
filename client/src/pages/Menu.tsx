@@ -72,7 +72,7 @@ const menuData: MenuSection[] = [
       { name: "Linguine White Clam Sauce", description: "fresh littleneck clams, garlic, white wine, fresh herbs" },
       { name: "Chicken Riggies", description: "peppers, onions, spicy pink sauce — mild, medium, or hot" },
       { name: "Seafood Riggies", description: "bay scallops, baby shrimp, spicy pink sauce — mild, medium, or hot" },
-      { name: "Homemade Gnocchi Bolognese", description: "Uncle Paulie's famous buccatini pasta, braised veal, beef, pork, carrots, rustic tomato barolo wine sauce" },
+      { name: "Bolognese", description: "Uncle Paulie's famous buccatini pasta, braised veal, beef, pork, carrots, rustic tomato barolo wine sauce" },
       { name: "Homemade Gnocchi Gorgonzola", description: "aged Italian gorgonzola cream sauce, toasted walnuts, fresh basil" },
       { name: "Homemade Gnocchi", description: "available marinara or pink vodka — add grilled chicken or sautéed shrimp" },
     ],
