@@ -658,22 +658,23 @@ export default function HomeA() {
           </Link>
         </div>
 
-        {/* Column 2: Indoor dining room photo */}
-        <div className="pd-hero-image">
-          <img
-            src="/manus-storage/pd_indoor_59b8bd65.png"
-            alt="Private dining room at Francesca's Cucina"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% center", display: "block" }}
-          />
-        </div>
+        {/* Columns 2 & 3: Photos — side by side on mobile via pd-photos-row */}
+        <div className="pd-photos-row" style={{ display: "contents" }}>
+          <div className="pd-hero-image">
+            <img
+              src="/manus-storage/pd_indoor_59b8bd65.png"
+              alt="Private dining room at Francesca's Cucina"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% center", display: "block" }}
+            />
+          </div>
 
-        {/* Column 3: Fireplace / outdoor patio photo */}
-        <div className="pd-hero-image">
-          <img
-            src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
-            alt="Outdoor patio with fireplace at Francesca's Cucina"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
-          />
+          <div className="pd-hero-image">
+            <img
+              src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
+              alt="Outdoor patio with fireplace at Francesca's Cucina"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
+            />
+          </div>
         </div>
       </section>
 
@@ -758,14 +759,19 @@ export default function HomeA() {
             min-height: auto !important;
           }
           .pd-hero-copy {
-            padding: 4rem 2rem !important;
+            padding: 3rem 1.5rem !important;
             background: rgba(0,0,0,0.92) !important;
           }
           .pd-hero-h2 {
-            font-size: 2.8rem !important;
+            font-size: 2.4rem !important;
+          }
+          /* Two photos side by side on mobile */
+          .pd-photos-row {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
           }
           .pd-hero-image {
-            height: 320px;
+            height: 220px;
           }
         }
       `}</style>

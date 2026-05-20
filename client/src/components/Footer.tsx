@@ -186,10 +186,15 @@ export default function Footer() {
 
       <style>{`
         /* ── Mobile base (default) ── */
+        .footer-grid {
+          grid-template-columns: 1fr !important;
+        }
         .footer-cell {
-          padding: 1.1rem 0.7rem;
+          padding: 1.4rem 1.2rem;
           box-sizing: border-box;
-          overflow: hidden;
+          overflow: visible;
+          border-right: none !important;
+          border-bottom: 1px solid rgba(184,160,90,0.15);
         }
         .footer-label-row {
           display: flex;
@@ -222,7 +227,7 @@ export default function Footer() {
           font-weight: 400;
           font-size: 0.88rem;
           line-height: 1.7;
-          white-space: nowrap;
+          white-space: normal;
         }
         .footer-link:hover { color: var(--gold); }
         .footer-hours { display: flex; flex-direction: column; }
@@ -235,7 +240,7 @@ export default function Footer() {
           font-size: 0.88rem;
           color: rgba(245,240,228,0.85);
           line-height: 1.7;
-          white-space: nowrap;
+          white-space: normal;
         }
         .footer-social { display: flex; flex-direction: column; gap: 0; }
         .footer-btns {
@@ -269,7 +274,8 @@ export default function Footer() {
 
         /* ── Desktop overrides ── */
         @media (min-width: 640px) {
-          .footer-cell { padding: 1.8rem 2.2rem; }
+          .footer-grid { grid-template-columns: 1fr 1fr !important; }
+          .footer-cell { border-right: unset; border-bottom: unset; overflow: hidden; padding: 1.8rem 2.2rem; }
           .footer-icon-circle { width: 36px; height: 36px; min-width: 36px; }
           .footer-label { font-size: 0.72rem; letter-spacing: 0.28em; }
           .footer-indent { padding-left: 50px; }
