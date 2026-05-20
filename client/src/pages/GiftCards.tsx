@@ -7,54 +7,148 @@
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
+const GIFTCARD_HERO_IMG = "/manus-storage/giftcard_hero_8e2ea87e.png";
 
 export default function GiftCards() {
   return (
     <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
       <NavigationA />
 
-      {/* Page Header */}
-      <section
-        className="relative overflow-hidden"
-        style={{ paddingTop: "120px", paddingBottom: "80px" }}
-      >
-        <div
-          className="absolute inset-0"
+      {/* ═══════════════════════════════════════════════════════════════
+          HERO — full-bleed photo, dark overlay, centered text (Private Dining style)
+      ═══════════════════════════════════════════════════════════════ */}
+      <section style={{
+        position: "relative",
+        minHeight: "clamp(480px, 55vw, 640px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        background: "#0a0a08",
+      }}>
+        {/* Full-bleed photo */}
+        <img
+          src={GIFTCARD_HERO_IMG}
+          alt="Francesca's Cucina gift card"
           style={{
-            backgroundImage: `url(${DESSERT_IMG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center 40%",
-            opacity: 0.2,
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 30%",
+            zIndex: 1,
           }}
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(12,11,9,0.5), rgba(12,11,9,0.95))" }}
-        />
-        <div className="container relative text-center" style={{ zIndex: 2 }}>
-          <p className="section-label" style={{ marginBottom: "1rem" }}>The Perfect Gift</p>
-          <div style={{ width: "48px", height: "1px", background: "var(--gold)", margin: "0 auto 2rem" }} />
-          <h1
-            className="display-headline"
-            style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "1.5rem", marginBottom: "1rem" }}
-          >
-            Francesca's Gift Cards
+        {/* Dark overlay — bottom-heavy so text is readable */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to bottom, rgba(10,10,8,0.55) 0%, rgba(10,10,8,0.72) 50%, rgba(10,10,8,0.92) 100%)",
+          zIndex: 2,
+        }} />
+
+        {/* Text content — centered */}
+        <div style={{
+          position: "relative",
+          zIndex: 10,
+          textAlign: "center",
+          padding: "clamp(6rem, 12vw, 10rem) 2rem 4rem",
+          maxWidth: 720,
+        }}>
+          {/* Gold eyebrow */}
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: "1.25rem",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: "#c8a96e",
+            margin: "0 0 0.6rem",
+          }}>Gift Cards</p>
+
+          {/* Gold ornament divider */}
+          <svg width="120" height="14" viewBox="0 0 120 14" fill="none" style={{ display: "block", margin: "0 auto 1.4rem" }}>
+            <line x1="0" y1="7" x2="50" y2="7" stroke="#c8a96e" strokeWidth="0.75" />
+            <circle cx="60" cy="7" r="3" stroke="#c8a96e" strokeWidth="0.75" />
+            <circle cx="60" cy="7" r="1.2" fill="#c8a96e" />
+            <line x1="70" y1="7" x2="120" y2="7" stroke="#c8a96e" strokeWidth="0.75" />
+          </svg>
+
+          {/* Main heading */}
+          <h1 style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 600,
+            fontSize: "clamp(2.8rem, 6vw, 5rem)",
+            color: "#f0ece4",
+            margin: "0 0 1.2rem",
+            lineHeight: 1.1,
+            letterSpacing: "0.02em",
+          }}>
+            The Perfect Gift
           </h1>
-          <p
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "1rem",
-              color: "var(--ivory-muted)",
-              maxWidth: "520px",
-              margin: "0 auto",
-              lineHeight: 1.7,
-            }}
-          >
-            Give the gift of an unforgettable Italian dining experience. Available in any
-            denomination — and shipping is on us.
+
+          {/* Subtext */}
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
+            color: "rgba(240,236,228,0.72)",
+            maxWidth: 480,
+            margin: "0 auto 2.5rem",
+            lineHeight: 1.75,
+          }}>
+            Give the gift of an unforgettable Italian dining experience.
+            Available in any denomination — and shipping is always on us.
           </p>
+
+          {/* CTA buttons */}
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <a
+              href="https://francescas.securetree.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 600,
+                fontSize: "0.72rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#f0ece4",
+                border: "1px solid rgba(240,236,228,0.5)",
+                padding: "0.85rem 2rem",
+                textDecoration: "none",
+                transition: "all 0.2s",
+                background: "transparent",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "#c8a96e"; e.currentTarget.style.color = "#c8a96e"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(240,236,228,0.5)"; e.currentTarget.style.color = "#f0ece4"; }}
+            >
+              Order Traditional Card
+            </a>
+            <a
+              href="https://www.toasttab.com/francesca-s-cucina-545-n-salina-st/giftcards"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 600,
+                fontSize: "0.72rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#f0ece4",
+                border: "1px solid rgba(240,236,228,0.5)",
+                padding: "0.85rem 2rem",
+                textDecoration: "none",
+                transition: "all 0.2s",
+                background: "transparent",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "#c8a96e"; e.currentTarget.style.color = "#c8a96e"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(240,236,228,0.5)"; e.currentTarget.style.color = "#f0ece4"; }}
+            >
+              Order Electronic Card
+            </a>
+          </div>
         </div>
       </section>
 
