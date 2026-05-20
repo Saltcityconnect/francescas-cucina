@@ -242,7 +242,8 @@ export default function Catering() {
               letterSpacing: "-0.01em",
               whiteSpace: "nowrap",
             }}>
-              Bring Francesca's to{" "}<em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
+              Bring Francesca's<br />
+              to{" "}<em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
             </h1>
 
             {/* Subtext */}
