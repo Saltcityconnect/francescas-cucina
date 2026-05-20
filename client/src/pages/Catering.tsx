@@ -212,7 +212,7 @@ export default function Catering() {
           flexDirection: "column",
           justifyContent: "center",
         }}>
-          <div style={{ maxWidth: "560px" }}>
+          <div style={{ maxWidth: "none" }}>
             {/* Eyebrow */}
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -240,9 +240,9 @@ export default function Catering() {
               color: "#f0ece4",
               margin: "0 0 1.2rem",
               letterSpacing: "-0.01em",
+              whiteSpace: "nowrap",
             }}>
-              Bring Francesca's<br />
-              to{" "}<em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
+              Bring Francesca's to{" "}<em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
             </h1>
 
             {/* Subtext */}
@@ -253,7 +253,7 @@ export default function Catering() {
               color: "#b8b0a0",
               margin: "0 0 2rem",
               lineHeight: 1.7,
-              maxWidth: "360px",
+              maxWidth: "420px",
             }}>
               Curated Italian catering for gatherings,<br />
               celebrations, and special occasions of all sizes.
