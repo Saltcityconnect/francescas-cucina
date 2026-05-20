@@ -1,90 +1,138 @@
 /*
- * CATERING PAGE — Mandolin Aegean Bistro style
- * Light/cream background, sticky category tabs, two-column item cards
- * Each card: item name + description left, photo right, price below name
+ * CATERING PAGE — Dark luxury theme
+ * Design: Pure black background throughout
+ * Hero: Left 40% text column (eyebrow, headline, subtext, contact box, CTA),
+ *       Right 60% food photo with ~30% left-edge gradient fade from black
+ * Menu: Sticky dark tab bar, 2-column item cards on black bg, gold pricing
+ * Typography: Big Shoulders Display for headers, Cormorant Garamond for item names, DM Sans for body
  */
 
 import { useState, useEffect, useRef } from "react";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const PASTA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
-const SEAFOOD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/seafood_d149e28c.jpg";
-const STEAK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/steak_324fcfb5.jpg";
-const DESSERT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/dessert_81cfe8d6.jpg";
-const CHEF_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/chef_special_8863e660.jpg";
-const EVENT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/events1_8d038c07.jpg";
-const CATERING_HERO_IMG = "/manus-storage/combined_food_table_f4c054cb.png";
+const CATERING_HERO_IMG = "/manus-storage/catering-hero_fcb2e452.png";
 
-const cateringMenu = [
+// ─── CATERING MENU DATA ───────────────────────────────────────────────────────
+interface CateringItem {
+  name: string;
+  desc: string;
+  price: string;
+}
+interface CateringSection {
+  id: string;
+  label: string;
+  items: CateringItem[];
+}
+
+const cateringMenu: CateringSection[] = [
   {
-    id: "appetizers", label: "Appetizers",
+    id: "appetizers",
+    label: "Appetizers",
     items: [
-      { name: "Antipasto Platter", desc: "Assorted cured meats, imported cheeses, olives, roasted peppers, and artisan crackers.", serving: "Serves 10–15", img: CHEF_IMG },
-      { name: "Stuffed Hot Cherry Peppers", desc: "Signature meatball mix baked with marinara and romano cheese.", serving: "Sold by the dozen", img: SEAFOOD_IMG },
-      { name: "Arancini Rice Balls", desc: "Arborio rice, mozzarella, provolone, spicy Italian sausage, roasted peppers, basil, shaved parmesan.", serving: "Sold by the dozen", img: PASTA_IMG },
-      { name: "Fried Calamari", desc: "Lightly breaded, perfectly fried with marinara dipping sauce.", serving: "Serves 8–10", img: SEAFOOD_IMG },
-      { name: "Utica Greens", desc: "Escarole, prosciutto, hot peppers, toasted breadcrumbs and romano.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Bruschetta", desc: "Grilled crostini topped with fresh tomato, basil, garlic, and extra-virgin olive oil.", serving: "Sold by the dozen", img: PASTA_IMG },
+      { name: "Arancini", desc: "Crispy parmigiano risotto balls, marinara", price: "HF-$73(25PC) / FL-$135(50PC)" },
+      { name: "Mini Crabcakes", desc: "Jumbo lump Maryland crab, bang bang sauce", price: "HF-$88(25PC) / FL-$165(50PC)" },
+      { name: "Bacon Wrapped Scallops", desc: "Sea scallops, horseradish-dijon aioli", price: "HF-$88(25PC) / FL-$165(50PC)" },
+      { name: "Mozzarella Sticks", desc: "Whole milk mozzarella, breaded & fried, marinara sauce", price: "HF-$48(25PC) / FL-$85(50PC)" },
+      { name: "Cheese & Fruit Platter", desc: "Assorted artisan cheeses, fresh fruits", price: "$130(25-30PPL)" },
+      { name: "Shrimp Cocktail", desc: "Jumbo shrimp, spicy cocktail sauce", price: "HF-$73(25PC) / FL-$135(50PC)" },
+      { name: "Chicken Tenders", desc: "Ranch & BBQ dipping sauce", price: "HF-$53/FL-$95" },
+      { name: "Tomato & Mozzarella Skewers", desc: "Whole mozzarella ball, heirloom tomatoes, fresh basil, balsamic glaze", price: "HF-$58(25PC) / FL-$105(50PC)" },
+      { name: "Lollipop Lamb Chops", desc: "Balsamic glaze", price: "HF-$88(25PC) / FL-$165(50PC)" },
+      { name: "Utica Greens", desc: "Escarole, prosciutto, hot peppers, toasted breadcrumbs, romano cheese", price: "HF-$58/FL-$105" },
     ],
   },
   {
-    id: "salads", label: "Salads & Soups",
+    id: "salads",
+    label: "Salads",
     items: [
-      { name: "Caesar Salad", desc: "Romaine, housemade Caesar dressing, shaved parmesan, croutons.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "House Salad", desc: "Mixed greens with house Italian dressing.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Heirloom Tomato & Burrata", desc: "Marinated heirloom cherry tomatoes, imported burrata, fresh basil, extra-virgin olive oil, balsamic drizzle.", serving: "Serves 10–12", img: PASTA_IMG },
-      { name: "Italian Wedding Soup", desc: "Classic Italian wedding soup with housemade meatballs.", serving: "Full pan serves 15–20", img: CHEF_IMG },
+      { name: "Caesar Salad", desc: "Romaine, housemade Caesar dressing, shaved parmesan, croutons", price: "HF-$45/FL-$85" },
+      { name: "House Salad", desc: "Mixed greens, house Italian dressing", price: "HF-$40/FL-$75" },
+      { name: "Heirloom Tomato & Burrata", desc: "Marinated heirloom cherry tomatoes, imported burrata, fresh basil, extra-virgin olive oil, balsamic drizzle", price: "HF-$65/FL-$120" },
+      { name: "Italian Wedding Soup", desc: "Classic Italian wedding soup with housemade meatballs", price: "HF-$55/FL-$100" },
     ],
   },
   {
-    id: "pasta", label: "Pasta",
+    id: "sandwiches",
+    label: "Sandwiches",
     items: [
-      { name: "Baked Ziti", desc: "Classic baked ziti with housemade marinara, ricotta, and mozzarella.", serving: "Full pan serves 15–20", img: PASTA_IMG },
-      { name: "Chicken Riggies", desc: "Peppers, onions, spicy pink sauce. Available mild, medium, or hot.", serving: "Full pan serves 15–20", img: PASTA_IMG },
-      { name: "Fettuccine Alfredo", desc: "Creamy housemade Alfredo sauce over ribbon pasta. Available with grilled chicken.", serving: "Full pan serves 15–20", img: PASTA_IMG },
-      { name: "Uncle Paulie's Bolognese", desc: "Gemelli pasta, braised veal, beef, pork, carrots, rustic tomato Barolo wine sauce.", serving: "Full pan serves 15–20", img: PASTA_IMG },
-      { name: "Eggplant Rollatini", desc: "Lightly breaded eggplant, seasoned ricotta, melted mozzarella, marinara.", serving: "Full pan serves 12–15", img: CHEF_IMG },
-      { name: "Cheese Ravioli Marinara", desc: "Housemade cheese ravioli in classic marinara sauce.", serving: "Full pan serves 12–15", img: PASTA_IMG },
+      { name: "Chicken Parmesan Sandwich", desc: "Breaded chicken, fresh mozzarella, marinara, ciabatta roll", price: "HF-$68(12PC) / FL-$125(25PC)" },
+      { name: "Italian Sub", desc: "Prosciutto, capicola, salami, provolone, roasted peppers, oil & vinegar", price: "HF-$65(12PC) / FL-$120(25PC)" },
+      { name: "Meatball Sub", desc: "Housemade meatballs, marinara, fresh mozzarella, hoagie roll", price: "HF-$65(12PC) / FL-$120(25PC)" },
+      { name: "Eggplant Parmesan Sandwich", desc: "Crispy fried eggplant, fresh mozzarella, marinara, ciabatta roll", price: "HF-$60(12PC) / FL-$110(25PC)" },
     ],
   },
   {
-    id: "entrees", label: "Entrees",
+    id: "pasta",
+    label: "Pasta",
     items: [
-      { name: "Chicken Parmesan", desc: "Classic chicken dish prepared au gratin with fresh whole milk mozzarella.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Chicken Marsala", desc: "Tender chicken breast sautéed with shallots, garlic and wild mushrooms in a sweet Marsala wine reduction.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Salmon Fillet", desc: "Broiled Canadian salmon with savory Italian herb crust, lemon-chive butter sauce.", serving: "Full pan serves 10–12", img: SEAFOOD_IMG },
-      { name: "Shrimp with Polenta", desc: "Colossal shrimp, crispy pancetta, spinach, cherry tomatoes in garlic pomodoro over creamy polenta.", serving: "Full pan serves 10–12", img: SEAFOOD_IMG },
-      { name: "Veal Parmesan", desc: "Breaded veal au gratin with fresh whole milk mozzarella and housemade marinara.", serving: "Full pan serves 10–12", img: CHEF_IMG },
+      { name: "Baked Ziti", desc: "Classic baked ziti, housemade marinara, ricotta, mozzarella", price: "HF-$75/FL-$140" },
+      { name: "Chicken Riggies", desc: "Peppers, onions, spicy pink sauce — mild, medium, or hot", price: "HF-$85/FL-$160" },
+      { name: "Fettuccine Alfredo", desc: "Creamy housemade Alfredo sauce over ribbon pasta", price: "HF-$75/FL-$140" },
+      { name: "Bolognese", desc: "Buccatini pasta, braised veal, beef, pork, carrots, rustic tomato barolo wine sauce", price: "HF-$90/FL-$170" },
+      { name: "Eggplant Parmesan", desc: "Crispy fried eggplant layers, marinara, mozzarella, seasoned ricotta", price: "HF-$80/FL-$150" },
+      { name: "Cheese Ravioli Marinara", desc: "Housemade cheese ravioli in classic marinara sauce", price: "HF-$80/FL-$150" },
     ],
   },
   {
-    id: "steaks", label: "Steaks",
+    id: "entrees",
+    label: "Entrees",
     items: [
-      { name: "Filet Mignon", desc: "Center-cut Angus Reserve filet, seasoned and grilled to perfection.", serving: "Priced per person", img: STEAK_IMG },
-      { name: "New York Strip", desc: "Bone-in strip steak, aged a minimum of 30 days.", serving: "Priced per person", img: STEAK_IMG },
-      { name: "Surf and Turf", desc: "Chef's selection of premium steak paired with fresh seafood.", serving: "Priced per person", img: STEAK_IMG },
+      { name: "Chicken Parmesan", desc: "Classic chicken dish prepared au gratin with fresh whole milk mozzarella and house marinara", price: "HF-$95/FL-$180" },
+      { name: "Chicken Marsala", desc: "Tender chicken breast sautéed with shallots, garlic and wild mushrooms in a sweet Marsala wine reduction", price: "HF-$95/FL-$180" },
+      { name: "Salmon Fillet", desc: "Faroe Island salmon pan-roasted in garlic, white wine and rosemary butter sauce", price: "HF-$120/FL-$225" },
+      { name: "Shrimp Scampi", desc: "Housemade cavatelli tossed with sweet Argentine red shrimp in roasted garlic, white wine and lemon butter scampi sauce", price: "HF-$110/FL-$205" },
+      { name: "Veal Parmesan", desc: "Breaded veal au gratin with fresh whole milk mozzarella and housemade marinara", price: "HF-$130/FL-$245" },
     ],
   },
   {
-    id: "sides", label: "Sides",
+    id: "dessert",
+    label: "Dessert",
     items: [
-      { name: "Smoked Gouda Au Gratin Mashed Potatoes", desc: "Creamy mashed potatoes with smoked gouda cheese.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Grilled Asparagus", desc: "Seasonal asparagus, olive oil, sea salt.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Saffron Risotto", desc: "Creamy Arborio rice with saffron.", serving: "Full pan serves 15–20", img: PASTA_IMG },
-      { name: "Seasonal Vegetables", desc: "Chef's selection of roasted seasonal vegetables.", serving: "Full pan serves 15–20", img: CHEF_IMG },
-      { name: "Garlic Bread", desc: "Housemade garlic bread with herb butter.", serving: "Sold by the dozen", img: PASTA_IMG },
+      { name: "Tiramisu", desc: "Classic Italian tiramisu with espresso-soaked ladyfingers and mascarpone cream", price: "HF-$55/FL-$100" },
+      { name: "Cannoli", desc: "Traditional Sicilian cannoli with sweet ricotta filling and chocolate chips", price: "HF-$48(12PC) / FL-$85(25PC)" },
+      { name: "Panna Cotta", desc: "Silky vanilla panna cotta with seasonal berry compote", price: "HF-$55/FL-$100" },
+      { name: "Chocolate Lava Cake", desc: "Warm chocolate cake with a molten center, vanilla gelato", price: "HF-$60/FL-$110" },
     ],
   },
   {
-    id: "desserts", label: "Desserts",
+    id: "sides",
+    label: "Sides",
     items: [
-      { name: "Tiramisu", desc: "Classic Italian tiramisu with espresso-soaked ladyfingers and mascarpone cream.", serving: "Full pan serves 15–20", img: DESSERT_IMG },
-      { name: "Cannoli", desc: "Traditional Sicilian cannoli with sweet ricotta filling and chocolate chips.", serving: "Sold by the dozen", img: DESSERT_IMG },
-      { name: "Panna Cotta", desc: "Silky vanilla panna cotta with seasonal berry compote.", serving: "Serves 12–15", img: DESSERT_IMG },
+      { name: "Roasted Garlic Mashed Potatoes", desc: "Creamy mashed potatoes with roasted garlic olive oil", price: "HF-$45/FL-$85" },
+      { name: "Grilled Asparagus", desc: "Seasonal asparagus, olive oil, sea salt", price: "HF-$50/FL-$90" },
+      { name: "Saffron Risotto", desc: "Creamy Arborio rice with saffron", price: "HF-$55/FL-$100" },
+      { name: "Seasonal Vegetables", desc: "Chef's selection of roasted seasonal vegetables", price: "HF-$45/FL-$85" },
+      { name: "Garlic Bread", desc: "Housemade garlic bread with herb butter", price: "HF-$30/FL-$55" },
+      { name: "Crispy Italian Herb Potatoes", desc: "Roasted potatoes with Italian herbs and garlic", price: "HF-$45/FL-$85" },
     ],
   },
 ];
+
+// ─── ORNAMENT SVG ─────────────────────────────────────────────────────────────
+const GoldOrnament = () => (
+  <svg width="60" height="14" viewBox="0 0 60 14" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block", margin: "0.6rem auto" }}>
+    <line x1="0" y1="7" x2="22" y2="7" stroke="#c8a96e" strokeWidth="0.75" />
+    <circle cx="30" cy="7" r="3" stroke="#c8a96e" strokeWidth="0.75" />
+    <circle cx="30" cy="7" r="1.2" fill="#c8a96e" />
+    <line x1="38" y1="7" x2="60" y2="7" stroke="#c8a96e" strokeWidth="0.75" />
+  </svg>
+);
+
+// ─── PHONE ICON ───────────────────────────────────────────────────────────────
+const PhoneIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+// ─── EMAIL ICON ───────────────────────────────────────────────────────────────
+const EmailIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
 
 export default function Catering() {
   const [activeTab, setActiveTab] = useState("appetizers");
@@ -94,7 +142,7 @@ export default function Catering() {
     setActiveTab(id);
     const el = sectionRefs.current[id];
     if (el) {
-      const offset = 140;
+      const offset = 130;
       const top = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: "smooth" });
     }
@@ -106,7 +154,7 @@ export default function Catering() {
         const el = sectionRefs.current[cat.id];
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 170 && rect.bottom > 170) {
+          if (rect.top <= 160 && rect.bottom > 160) {
             setActiveTab(cat.id);
             break;
           }
@@ -118,63 +166,185 @@ export default function Catering() {
   }, []);
 
   return (
-    <div style={{ background: "#f9f6f0", minHeight: "100vh", color: "#1a1a18" }}>
+    <div style={{ background: "#0a0a08", minHeight: "100vh", color: "#f0ece4" }}>
       <NavigationA />
 
-      {/* ─── HERO ─── */}
-      <div style={{ position: "relative", height: "clamp(280px, 40vw, 480px)", overflow: "hidden", marginTop: "72px" }}>
-        <img
-          src={CATERING_HERO_IMG}
-          alt="Francesca's Cucina catering spread"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }}
-        />
-        {/* No dark overlay — keep photo vibrant */}
-        {/* Centered heading + contact info */}
+      {/* ═══════════════════════════════════════════════════════════════
+          HERO — split layout: text left 40%, photo right 60%
+      ═══════════════════════════════════════════════════════════════ */}
+      <div style={{
+        position: "relative",
+        minHeight: "clamp(520px, 55vw, 680px)",
+        background: "#0a0a08",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "stretch",
+      }}>
+        {/* Photo — right 60% */}
         <div style={{
-          position: "absolute", inset: 0,
-          display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
-          textAlign: "center",
-          padding: "0 1.5rem",
-          zIndex: 2,
+          position: "absolute",
+          top: 0, right: 0,
+          width: "62%",
+          height: "100%",
+          zIndex: 1,
         }}>
-          <h1 style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(3.5rem, 10vw, 8rem)",
-            letterSpacing: "0.04em",
-            color: "#fff",
-            lineHeight: 0.9,
-            margin: "0 0 0.75rem",
-            textShadow: "0 2px 20px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.9)",
-          }}>
-            Catering
-          </h1>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: "clamp(0.8rem, 1.8vw, 1rem)",
-            color: "#fff",
-            margin: 0,
-            lineHeight: 1.7,
-            textShadow: "0 1px 8px rgba(0,0,0,0.8)",
-          }}>
-            To place a catering order, please call{" "}
-            <a href="tel:3154098848" style={{ color: "#fff", textDecoration: "underline" }}>315-409-8848</a>
-            {" "}or email{" "}
-            <a href="mailto:catering@francescas-cucina.com" style={{ color: "#fff", textDecoration: "underline" }}>
-              catering@francescas-cucina.com
+          <img
+            src={CATERING_HERO_IMG}
+            alt="Francesca's Cucina catering spread"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
+          />
+          {/* Left-edge gradient: black → transparent over ~30% of image width */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to right, #0a0a08 0%, #0a0a08 8%, rgba(10,10,8,0.85) 22%, rgba(10,10,8,0.3) 45%, transparent 70%)",
+            zIndex: 2,
+          }} />
+        </div>
+
+        {/* Text column — left side */}
+        <div style={{
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "clamp(5rem, 10vw, 8rem) 2rem 4rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}>
+          <div style={{ maxWidth: "480px" }}>
+            {/* Eyebrow */}
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.78rem",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "#c8a96e",
+              margin: "0 0 0.5rem",
+            }}>
+              Catering
+            </p>
+            {/* Gold rule + ornament */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.2rem" }}>
+              <div style={{ width: "28px", height: "1px", background: "#c8a96e" }} />
+              <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" stroke="#c8a96e" strokeWidth="0.8" fill="none" /><circle cx="4" cy="4" r="1.2" fill="#c8a96e" /></svg>
+              <div style={{ width: "28px", height: "1px", background: "#c8a96e" }} />
+            </div>
+
+            {/* Headline */}
+            <h1 style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 600,
+              fontSize: "clamp(3rem, 5.5vw, 5rem)",
+              lineHeight: 1.05,
+              color: "#f0ece4",
+              margin: "0 0 1.2rem",
+              letterSpacing: "-0.01em",
+            }}>
+              Bring Francesca's<br />
+              to <em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
+            </h1>
+
+            {/* Subtext */}
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
+              color: "#b8b0a0",
+              margin: "0 0 2rem",
+              lineHeight: 1.7,
+              maxWidth: "360px",
+            }}>
+              Curated Italian catering for gatherings,<br />
+              celebrations, and special occasions of all sizes.
+            </p>
+
+            {/* Contact box — 1×2 with phone and email */}
+            <div style={{
+              border: "1px solid rgba(200,169,110,0.45)",
+              padding: "1.4rem 1.6rem",
+              marginBottom: "1.8rem",
+              maxWidth: "380px",
+            }}>
+              {/* Phone row */}
+              <a href="tel:3154098848" style={{ display: "flex", alignItems: "center", gap: "1rem", textDecoration: "none", marginBottom: "1rem" }}>
+                <div style={{
+                  width: "40px", height: "40px",
+                  border: "1px solid rgba(200,169,110,0.5)",
+                  borderRadius: "50%",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  <PhoneIcon />
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a96e", margin: "0 0 0.15rem" }}>Call</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", fontWeight: 600, color: "#c8a96e", margin: 0, letterSpacing: "0.02em" }}>315-409-8848</p>
+                </div>
+              </a>
+
+              {/* Divider */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+                <div style={{ flex: 1, height: "1px", background: "rgba(200,169,110,0.25)" }} />
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b5a3e" }}>or</span>
+                <div style={{ flex: 1, height: "1px", background: "rgba(200,169,110,0.25)" }} />
+              </div>
+
+              {/* Email row */}
+              <a href="mailto:catering@francescas-cucina.com" style={{ display: "flex", alignItems: "center", gap: "1rem", textDecoration: "none" }}>
+                <div style={{
+                  width: "40px", height: "40px",
+                  border: "1px solid rgba(200,169,110,0.5)",
+                  borderRadius: "50%",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  <EmailIcon />
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a96e", margin: "0 0 0.15rem" }}>Email</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", fontWeight: 500, color: "#c8a96e", margin: 0 }}>catering@francescas-cucina.com</p>
+                </div>
+              </a>
+            </div>
+
+            {/* CTA button */}
+            <a
+              href="#appetizers"
+              onClick={(e) => { e.preventDefault(); scrollToSection("appetizers"); }}
+              style={{
+                display: "inline-block",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 600,
+                fontSize: "0.75rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#1a1a18",
+                background: "#c8a96e",
+                padding: "0.9rem 2.2rem",
+                textDecoration: "none",
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#b8996e")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#c8a96e")}
+            >
+              View Catering Menu
             </a>
-          </p>
+          </div>
         </div>
       </div>
 
-      {/* ─── STICKY CATEGORY TABS ─── */}
+      {/* ═══════════════════════════════════════════════════════════════
+          STICKY CATEGORY TABS — dark bar
+      ═══════════════════════════════════════════════════════════════ */}
       <div style={{
         position: "sticky",
         top: "72px",
         zIndex: 40,
-        background: "#fff",
-        borderBottom: "1px solid #e8e2d8",
+        background: "#111109",
+        borderBottom: "1px solid rgba(200,169,110,0.2)",
         overflowX: "auto",
       }}>
         <div style={{
@@ -189,14 +359,14 @@ export default function Catering() {
               onClick={() => scrollToSection(cat.id)}
               style={{
                 fontFamily: "'Big Shoulders Display', sans-serif",
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: "0.78rem",
-                letterSpacing: "0.12em",
+                letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: activeTab === cat.id ? "#1a1a18" : "#888",
+                color: activeTab === cat.id ? "#c8a96e" : "#6b6050",
                 background: "none",
                 border: "none",
-                borderBottom: activeTab === cat.id ? "2px solid #1a1a18" : "2px solid transparent",
+                borderBottom: activeTab === cat.id ? "2px solid #c8a96e" : "2px solid transparent",
                 padding: "1.1rem 1.3rem",
                 cursor: "pointer",
                 transition: "color 0.2s ease, border-color 0.2s ease",
@@ -209,7 +379,9 @@ export default function Catering() {
         </div>
       </div>
 
-      {/* ─── MENU SECTIONS ─── */}
+      {/* ═══════════════════════════════════════════════════════════════
+          MENU SECTIONS — dark background, 2-column cards
+      ═══════════════════════════════════════════════════════════════ */}
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem 8rem" }}>
         {cateringMenu.map((cat) => (
           <section
@@ -218,195 +390,144 @@ export default function Catering() {
             ref={(el) => { sectionRefs.current[cat.id] = el; }}
             style={{ paddingTop: "5rem" }}
           >
-            {/* Section title */}
-            <h2 style={{
-              fontFamily: "'Big Shoulders Display', sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              letterSpacing: "0.02em",
-              color: "#1a1a18",
-              marginBottom: "0.4rem",
-            }}>
-              {cat.label}
-            </h2>
-            <p style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "0.8rem",
-              color: "#888",
-              marginBottom: "2.5rem",
-              letterSpacing: "0.03em",
-            }}>
-              Serving sizes may vary per item
-            </p>
+            {/* Section header */}
+            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+              <h2 style={{
+                fontFamily: "'Big Shoulders Display', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "#f0ece4",
+                margin: "0 0 0.2rem",
+              }}>
+                {cat.label}
+              </h2>
+              <GoldOrnament />
+            </div>
 
-            {/* Two-column card grid */}
+            {/* 2-column grid of item cards */}
             <div style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "0",
-              background: "#f9f6f0",
-            }}
-            className="catering-grid"
-            >
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+              gap: "1.2rem",
+            }}>
               {cat.items.map((item) => (
                 <div
                   key={item.name}
                   style={{
-                    background: "#fff",
-                    padding: "1.5rem",
-                    display: "flex",
-                    gap: "1.25rem",
-                    alignItems: "flex-start",
-                    margin: "0 0 1px 0",
+                    border: "1px solid rgba(200,169,110,0.3)",
+                    padding: "1.6rem 1.8rem",
+                    background: "rgba(255,255,255,0.02)",
+                    textAlign: "center",
                   }}
                 >
-                  {/* Text */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <h3 style={{
-                      fontFamily: "'Big Shoulders Display', sans-serif",
-                      fontWeight: 700,
-                      fontSize: "1.05rem",
-                      letterSpacing: "0.03em",
-                      color: "#1a1a18",
-                      marginBottom: "0.35rem",
-                      lineHeight: 1.2,
-                    }}>
-                      {item.name}
-                    </h3>
-                    <p style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 300,
-                      fontSize: "0.82rem",
-                      color: "#555",
-                      lineHeight: 1.65,
-                      marginBottom: "0.75rem",
-                    }}>
-                      {item.desc}
-                    </p>
-                    <p style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 500,
-                      fontSize: "0.75rem",
-                      color: "#888",
-                      letterSpacing: "0.04em",
-                    }}>
-                      {item.serving}
-                    </p>
-                  </div>
-                  {/* Photo */}
-                  <img
-                    src={item.img}
-                    alt={item.name}
-                    style={{
-                      width: "110px",
-                      height: "110px",
-                      objectFit: "cover",
-                      flexShrink: 0,
-                    }}
-                  />
+                  <h3 style={{
+                    fontFamily: "'Big Shoulders Display', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "1.05rem",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#f0ece4",
+                    margin: "0 0 0.5rem",
+                  }}>
+                    {item.name}
+                  </h3>
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 300,
+                    fontSize: "0.9rem",
+                    color: "#9a9080",
+                    margin: "0 0 1rem",
+                    lineHeight: 1.6,
+                  }}>
+                    {item.desc}
+                  </p>
+                  {/* Gold ornament divider */}
+                  <svg width="40" height="10" viewBox="0 0 40 10" fill="none" style={{ display: "block", margin: "0 auto 0.8rem" }}>
+                    <line x1="0" y1="5" x2="15" y2="5" stroke="#c8a96e" strokeWidth="0.6" />
+                    <circle cx="20" cy="5" r="2" stroke="#c8a96e" strokeWidth="0.6" fill="none" />
+                    <circle cx="20" cy="5" r="0.8" fill="#c8a96e" />
+                    <line x1="25" y1="5" x2="40" y2="5" stroke="#c8a96e" strokeWidth="0.6" />
+                  </svg>
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 500,
+                    fontSize: "0.85rem",
+                    color: "#c8a96e",
+                    margin: 0,
+                    letterSpacing: "0.02em",
+                  }}>
+                    {item.price}
+                  </p>
                 </div>
               ))}
             </div>
+
+            {/* View all button at bottom of each section */}
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <button
+                onClick={() => scrollToSection(cat.id)}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "#c8a96e",
+                  background: "none",
+                  border: "1px solid rgba(200,169,110,0.4)",
+                  padding: "0.75rem 2rem",
+                  cursor: "pointer",
+                }}
+              >
+                View All {cat.label}
+              </button>
+            </div>
           </section>
         ))}
+      </div>
 
-        {/* CTA */}
-        <div style={{
-          marginTop: "5rem",
-          padding: "3rem",
-          background: "#1a1a18",
-          textAlign: "center",
-        }}
-        className="catering-cta"
-        >
-          <p style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontStyle: "italic",
-            fontSize: "1rem",
-            color: "rgba(245,240,228,0.6)",
-            marginBottom: "0.75rem",
-            letterSpacing: "0.05em",
-          }}>
-            Ready to place an order?
-          </p>
-          <h3 style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(1.8rem, 4vw, 3rem)",
-            color: "#f5f0e4",
-            marginBottom: "1.5rem",
-            letterSpacing: "0.02em",
-          }}>
-            Let's Make It Happen
-          </h3>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 300,
-            fontSize: "0.9rem",
-            color: "rgba(245,240,228,0.7)",
-            marginBottom: "2rem",
-            lineHeight: 1.7,
-          }}>
-            All catering orders are priced at market rate. Please contact us at least 48 hours in advance.
-          </p>
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }} className="catering-cta-btns">
-            <a
-              href="tel:3154098848"
-              style={{
-                fontFamily: "'Big Shoulders Display', sans-serif",
-                fontWeight: 600,
-                fontSize: "0.8rem",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "#1a1a18",
-                background: "#f5f0e4",
-                padding: "0.85rem 2rem",
-                textDecoration: "none",
-                transition: "opacity 0.2s ease",
-              }}
-            >
-              Call 315-409-8848
-            </a>
-            <a
-              href="mailto:catering@francescas-cucina.com"
-              style={{
-                fontFamily: "'Big Shoulders Display', sans-serif",
-                fontWeight: 600,
-                fontSize: "0.8rem",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "#f5f0e4",
-                background: "transparent",
-                padding: "0.85rem 2rem",
-                border: "1px solid rgba(245,240,228,0.4)",
-                textDecoration: "none",
-                transition: "all 0.2s ease",
-              }}
-            >
-              Email Us
-            </a>
-          </div>
-        </div>
+      {/* ═══════════════════════════════════════════════════════════════
+          BOTTOM CTA STRIP
+      ═══════════════════════════════════════════════════════════════ */}
+      <div style={{
+        background: "#111109",
+        borderTop: "1px solid rgba(200,169,110,0.2)",
+        padding: "4rem 2rem",
+        textAlign: "center",
+      }}>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "0.75rem",
+          letterSpacing: "0.3em",
+          textTransform: "uppercase",
+          color: "#c8a96e",
+          margin: "0 0 0.75rem",
+        }}>
+          Ready to Book?
+        </p>
+        <h2 style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontWeight: 600,
+          fontSize: "clamp(1.8rem, 4vw, 3rem)",
+          color: "#f0ece4",
+          margin: "0 0 0.5rem",
+        }}>
+          Let's plan your event together.
+        </h2>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 300,
+          fontSize: "0.95rem",
+          color: "#9a9080",
+          margin: "0 0 2rem",
+        }}>
+          Call <a href="tel:3154098848" style={{ color: "#c8a96e", textDecoration: "none" }}>315-409-8848</a> or email <a href="mailto:catering@francescas-cucina.com" style={{ color: "#c8a96e", textDecoration: "none" }}>catering@francescas-cucina.com</a>
+        </p>
       </div>
 
       <Footer />
-
-      <style>{`
-        @media (max-width: 640px) {
-          .catering-grid { grid-template-columns: 1fr !important; }
-          .catering-cta {
-            padding: 2.5rem 1.5rem !important;
-          }
-          .catering-cta-btns {
-            flex-direction: column !important;
-            align-items: stretch !important;
-          }
-          .catering-cta-btns a {
-            text-align: center !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
