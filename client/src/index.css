@@ -300,6 +300,23 @@
     position: relative !important;
     padding: 2rem 1.5rem 2.5rem !important;
     background: #0a0a08;
+    text-align: center;
+    align-items: center;
+  }
+  .catering-hero > div:last-child p,
+  .catering-hero > div:last-child h1 {
+    text-align: center;
+  }
+  .catering-hero > div:last-child > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .catering-hero > div:last-child a[href] {
+    text-align: center;
+  }
+  .catering-hero > div:last-child div[style*='display: flex'][style*='flex-wrap'] {
+    justify-content: center;
   }
 }
 
