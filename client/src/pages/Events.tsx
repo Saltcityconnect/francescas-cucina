@@ -10,7 +10,6 @@
 
 import { useState, useRef } from "react";
 import NavigationA from "@/components/NavigationA";
-import Footer from "@/components/Footer";
 
 const RED_BRICK_IMG = "/manus-storage/red_brick_room_photo_d5969599.png";
 const TUSCANY_IMG = "/manus-storage/tuscanyterracephoto_9a1ef6b7.png";
@@ -414,7 +413,6 @@ export default function Events() {
         </div>
       </section>
 
-      <Footer />
 
       {/* ══════════════════════════════════════════════════════
           STICKY BOTTOM BAR
