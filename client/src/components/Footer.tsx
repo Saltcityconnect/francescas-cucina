@@ -62,7 +62,7 @@ export default function Footer() {
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 500,
             fontStyle: "normal",
-            fontSize: "clamp(1rem, 1.6vw, 1.1rem)",
+            fontSize: "1.25rem",
             letterSpacing: "0.45em",
             textTransform: "uppercase",
             color: "var(--gold)",

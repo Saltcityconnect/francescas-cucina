@@ -390,7 +390,7 @@ export default function HomeA() {
           <div>
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1.1rem",
+            fontSize: "1.25rem",
             fontWeight: 500,
             letterSpacing: "0.35em",
             textTransform: "uppercase",
@@ -462,7 +462,7 @@ export default function HomeA() {
         <div style={{ textAlign: "center", marginBottom: "3rem", padding: "0 2rem" }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1.1rem",
+            fontSize: "1.25rem",
             fontWeight: 500,
             letterSpacing: "0.35em",
             textTransform: "uppercase",
@@ -562,7 +562,7 @@ export default function HomeA() {
           {/* Eyebrow label */}
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1.1rem",
+            fontSize: "1.25rem",
             fontWeight: 500,
             letterSpacing: "0.4em",
             textTransform: "uppercase",
@@ -721,7 +721,7 @@ export default function HomeA() {
         .pd-eyebrow {
           color: #d4a64f;
           letter-spacing: 0.5rem;
-          font-size: 1.1rem;
+          font-size: 1.25rem;
           margin-bottom: 1rem;
           text-transform: uppercase;
           font-family: 'DM Sans', sans-serif;
