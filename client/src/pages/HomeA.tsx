@@ -4,7 +4,6 @@
  */
 
 import { Link } from "wouter";
-import { useState, useRef } from "react";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
@@ -19,248 +18,10 @@ const FOOD4 = "/manus-storage/food_pic4_ceaeec18.png"; // surf & turf board — 
 const FOOD5 = "/manus-storage/food_pic5_6e05c036.png"; // scallops — bottom right
 
 // Private dining / catering photos — flat (white vignette removed)
-// Welcome section photos — order: Bar, Dining Room, Patio, Summer Nights
-const W_BAR      = "/manus-storage/w_bar_29067af7.jpg";
-const W_DINING   = "/manus-storage/w_candlelit_59776707.jpg";
-const W_PATIO    = "/manus-storage/w_patio_5bd6a92e.jpg";
-const W_SUMMER   = "/manus-storage/summer-nights-new_2f848c6f.png";
-
-const WELCOME_PHOTOS = [
-  { src: W_BAR,    label: "Bar & Cocktails" },
-  { src: W_DINING, label: "Dining Room" },
-  { src: W_PATIO,  label: "Patio Dining" },
-  { src: W_SUMMER, label: "Summer Nights" },
-];
-
-function PhotoCell({ src, label }: { src: string; label: string }) {
-  return (
-    <div style={{ position: "relative", overflow: "hidden", width: "100%", height: "100%" }}>
-      <img
-        src={src}
-        alt={label}
-        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-      />
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
-        pointerEvents: "none",
-      }} />
-      <div style={{ position: "absolute", bottom: "1rem", left: "1rem" }}>
-        <p style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: "0.6rem", fontWeight: 500,
-          letterSpacing: "0.3em", textTransform: "uppercase",
-          color: "var(--ivory)", marginBottom: "0.4rem",
-        }}>{label}</p>
-        <div style={{ width: "28px", height: "1px", background: "var(--gold)" }} />
-      </div>
-    </div>
-  );
-}
-
-function WelcomePhotos() {
-  const [active, setActive] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-
-  const prev = () => setActive(i => (i - 1 + WELCOME_PHOTOS.length) % WELCOME_PHOTOS.length);
-  const next = () => setActive(i => (i + 1) % WELCOME_PHOTOS.length);
-
-  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-  const onTouchEnd   = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    if (dx > 40) prev(); else if (dx < -40) next();
-    touchStartX.current = null;
-  };
-
-  return (
-    <>
-      {/* ── Desktop: 2×2 grid ── */}
-      <div className="welcome-photos-desktop" style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gridTemplateRows: "1fr 1fr",
-        gap: "4px",
-        aspectRatio: "1.4 / 1",
-        background: "#0d0c0a",
-      }}>
-        {WELCOME_PHOTOS.map(p => <PhotoCell key={p.label} {...p} />)}
-      </div>
-
-      {/* ── Mobile: full-width carousel ── */}
-      {/* Image track */}
-      <div
-        className="welcome-photos-mobile"
-        style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", background: "#0d0c0a" }}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        <div style={{
-          display: "flex",
-          width: `${WELCOME_PHOTOS.length * 100}%`,
-          height: "100%",
-          transform: `translateX(-${active * (100 / WELCOME_PHOTOS.length)}%)`,
-          transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
-        }}>
-          {WELCOME_PHOTOS.map(p => (
-            <div key={p.label} style={{ width: `${100 / WELCOME_PHOTOS.length}%`, flexShrink: 0, height: "100%" }}>
-              <PhotoCell {...p} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Controls bar below image: counter LEFT | diamond buttons RIGHT */}
-      <div className="welcome-photos-controls" style={{
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0.7rem 1.25rem 0.5rem",
-        background: "#0d0c0a",
-      }}>
-        {/* Counter — left */}
-        <span style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: "0.78rem",
-          fontWeight: 500,
-          letterSpacing: "0.15em",
-          color: "var(--ivory-muted)",
-        }}>
-          {active + 1} / {WELCOME_PHOTOS.length}
-        </span>
-
-        {/* Diamond buttons — right */}
-        <div style={{ display: "flex", gap: "1.4rem", alignItems: "center" }}>
-          {[{label: "Previous", onClick: prev, symbol: "‹"}, {label: "Next", onClick: next, symbol: "›"}].map(({label, onClick, symbol}) => (
-            <button key={label} onClick={onClick} aria-label={label} style={{
-              background: "transparent",
-              border: "1px solid rgba(185,148,83,0.55)",
-              color: "var(--gold)",
-              width: "32px", height: "32px",
-              transform: "rotate(45deg)",
-              fontSize: "1.2rem", lineHeight: 1,
-              cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              padding: 0,
-            }}>
-              <span style={{ transform: "rotate(-45deg)", display: "flex", alignItems: "center", justifyContent: "center" }}>{symbol}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        .welcome-photos-mobile { display: none; }
-        .welcome-photos-controls { display: none; }
-        @media (max-width: 768px) {
-          .welcome-photos-desktop { display: none !important; }
-          .welcome-photos-mobile  { display: block !important; }
-          .welcome-photos-controls { display: flex !important; }
-        }
-      `}</style>
-    </>
-  );
-}
-
-const MENU_FOOD_PHOTOS = [
-  { src: "/manus-storage/menu-food-1_bdd48938.png", alt: "Chicken Parmigiana" },
-  { src: "/manus-storage/menu-food-2_765ecf7c.jpg", alt: "Gnocchi with Shrimp" },
-  { src: "/manus-storage/menu-food-3_fdf02553.png", alt: "Brownie with Caramel" },
-  { src: "/manus-storage/menu-food-4_071cecc5.png", alt: "Surf & Turf Board" },
-  { src: "/manus-storage/menu-food-5_03d696f7.png", alt: "Seared Scallops" },
-];
-
-function MenuFoodCarousel() {
-  const [active, setActive] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-  const total = MENU_FOOD_PHOTOS.length;
-
-  const prev = () => setActive(i => (i - 1 + total) % total);
-  const next = () => setActive(i => (i + 1) % total);
-
-  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-  const onTouchEnd   = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    if (dx > 40) prev(); else if (dx < -40) next();
-    touchStartX.current = null;
-  };
-
-  return (
-    <div className="menu-food-mobile">
-      {/* Image track */}
-      <div
-        style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", background: "#0d0c0a" }}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        <div style={{
-          display: "flex",
-          width: `${total * 100}%`,
-          height: "100%",
-          transform: `translateX(-${active * (100 / total)}%)`,
-          transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
-        }}>
-          {MENU_FOOD_PHOTOS.map((p, idx) => (
-            <div key={p.alt} style={{ width: `${100 / total}%`, flexShrink: 0, height: "100%" }}>
-              <img
-                src={p.src}
-                alt={p.alt}
-                style={{
-                  width: "100%", height: "100%", objectFit: "cover", display: "block",
-                  objectPosition: idx === 2 ? "center 60%" : "center center",
-                  filter: idx >= 2 ? "contrast(1.12) saturate(1.18) brightness(1.04)" : undefined,
-                  imageRendering: idx >= 2 ? "crisp-edges" : undefined,
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Controls bar: counter LEFT | diamond buttons RIGHT */}
-      <div className="menu-food-controls" style={{
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0.7rem 1.25rem 0.5rem",
-        background: "#0d0c0a",
-      }}>
-        <span style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: "0.78rem", fontWeight: 500,
-          letterSpacing: "0.15em",
-          color: "var(--ivory-muted)",
-        }}>{active + 1} / {total}</span>
-        <div style={{ display: "flex", gap: "1.4rem", alignItems: "center" }}>
-          {[{label: "Previous", onClick: prev, symbol: "\u2039"}, {label: "Next", onClick: next, symbol: "\u203a"}].map(({label, onClick, symbol}) => (
-            <button key={label} onClick={onClick} aria-label={label} style={{
-              background: "transparent",
-              border: "1px solid rgba(185,148,83,0.55)",
-              color: "var(--gold)",
-              width: "32px", height: "32px",
-              transform: "rotate(45deg)",
-              fontSize: "1.2rem", lineHeight: 1,
-              cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              padding: 0,
-            }}>
-              <span style={{ transform: "rotate(-45deg)", display: "flex", alignItems: "center", justifyContent: "center" }}>{symbol}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        .menu-food-mobile { display: none; }
-        .menu-food-controls { display: none; }
-        @media (max-width: 768px) {
-          .menu-food-desktop { display: none !important; }
-          .menu-food-mobile  { display: block !important; }
-          .menu-food-controls { display: flex !important; }
-        }
-      `}</style>
-    </div>
-  );
-}
+const CATERING1 = "/manus-storage/w_patio_5bd6a92e.jpg";
+const CATERING2 = "/manus-storage/w_bar_29067af7.jpg";
+const CATERING3 = "/manus-storage/w_summer_6a3d268e.jpg";
+const CATERING4 = "/manus-storage/w_candlelit_59776707.jpg";
 
 export default function HomeA() {
   return (
@@ -434,8 +195,56 @@ export default function HomeA() {
             </p>
           </div>
 
-          {/* Right: 2×2 photo grid (desktop) / carousel (mobile) */}
-          <WelcomePhotos />
+          {/* Right: 2×2 photo grid */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
+            gap: "4px",
+            aspectRatio: "1.4 / 1",
+            background: "#0d0c0a",
+          }}>
+            {[
+              { src: CATERING1, label: "Patio Dining" },
+              { src: CATERING2, label: "Bar & Cocktails" },
+              { src: CATERING3, label: "Summer Nights" },
+              { src: CATERING4, label: "Candlelit Rooms" },
+            ].map(({ src, label }) => (
+              <div key={label} style={{ position: "relative", overflow: "hidden" }}>
+                <img
+                  src={src}
+                  alt={label}
+                  style={{
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    display: "block",
+                  }}
+                />
+                {/* Dark gradient at bottom */}
+                <div style={{
+                  position: "absolute", inset: 0,
+                  background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)",
+                  pointerEvents: "none",
+                }} />
+                {/* Label */}
+                <div style={{
+                  position: "absolute", bottom: "1rem", left: "1rem",
+                }}>
+                  <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.6rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.3em",
+                    textTransform: "uppercase",
+                    color: "var(--ivory)",
+                    marginBottom: "0.4rem",
+                  }}>{label}</p>
+                  <div style={{ width: "28px", height: "1px", background: "var(--gold)" }} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <style>{`
@@ -493,8 +302,8 @@ export default function HomeA() {
           </p>
         </div>
 
-        {/* Desktop: composite food photo */}
-        <div className="menu-food-desktop" style={{
+        {/* Composite food photo — full-width, natural proportions */}
+        <div style={{
           maxWidth: "1400px",
           margin: "0 auto",
           padding: "0 2rem",
@@ -502,12 +311,13 @@ export default function HomeA() {
           <img
             src="/manus-storage/food_composite_e7b235b5.png"
             alt="Francesca's Cucina signature dishes"
-            style={{ width: "100%", height: "auto", display: "block" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+            }}
           />
         </div>
-
-        {/* Mobile: food photo carousel */}
-        <MenuFoodCarousel />
 
         {/* VIEW FULL MENU button */}
         <div style={{ textAlign: "center", marginTop: "3rem", padding: "0 2rem" }}>
@@ -556,223 +366,269 @@ export default function HomeA() {
       </section>
 
       {/* ─── CATERING BANNER SECTION ─── */}
-      <section style={{ background: "#0d0c0a", padding: "4rem 2rem" }}>
-        {/* Constrained photo container matching other sections */}
-        <div style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          position: "relative",
-          overflow: "hidden",
-          borderRadius: "4px",
-          padding: "6rem 2rem",
-          textAlign: "center",
-        }}>
-        <div>
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+      <section style={{ background: "#0d0c0a", padding: "7rem 2rem" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto", textAlign: "center" }}>
+
+          {/* Eyebrow label */}
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.85rem",
+            fontSize: "0.8rem",
             fontWeight: 500,
-            letterSpacing: "0.35em",
+            letterSpacing: "0.4em",
             textTransform: "uppercase",
             color: "var(--gold)",
-            marginBottom: "1.5rem",
-          }}>Catering</p>
+            marginBottom: "2rem",
+          }}>Catering &amp; Private Events</p>
+
+          {/* Gold ornamental line */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.5rem" }}>
+            <div style={{ flex: 1, maxWidth: "80px", height: "1px", background: "var(--gold)", opacity: 0.6 }} />
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold)" opacity="0.8">
+              <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+            </svg>
+            <div style={{ flex: 1, maxWidth: "80px", height: "1px", background: "var(--gold)", opacity: 0.6 }} />
+          </div>
+
+          {/* Main headline */}
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
             fontWeight: 400,
-            fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-            lineHeight: 1.15,
+            fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
+            lineHeight: 1.1,
             color: "var(--ivory)",
-            marginBottom: "1.5rem",
-          }}>Bring Francesca&rsquo;s to the table.</h2>
+            marginBottom: "2rem",
+            letterSpacing: "-0.01em",
+          }}>Bring Francesca&rsquo;s<br />to your table.</h2>
+
+          {/* Second gold divider */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.5rem" }}>
+            <div style={{ flex: 1, maxWidth: "60px", height: "1px", background: "var(--gold)", opacity: 0.4 }} />
+            <div style={{ width: "5px", height: "5px", background: "var(--gold)", borderRadius: "50%", opacity: 0.7 }} />
+            <div style={{ flex: 1, maxWidth: "60px", height: "1px", background: "var(--gold)", opacity: 0.4 }} />
+          </div>
+
+          {/* Body copy */}
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1rem",
-            color: "rgba(245,240,228,0.75)",
-            marginBottom: "2.5rem",
-            lineHeight: 1.7,
-          }}>Curated Italian catering for gatherings, celebrations, and special occasions of all sizes.</p>
+            fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
+            fontWeight: 300,
+            color: "rgba(245,240,228,0.72)",
+            marginBottom: "3rem",
+            lineHeight: 1.85,
+            maxWidth: "560px",
+            margin: "0 auto 3rem",
+          }}>Curated Italian catering for gatherings, celebrations, and special occasions of all sizes — delivered with the warmth Francesca&rsquo;s is known for.</p>
+
+          {/* CTA button */}
           <Link
             href="/catering"
             style={{
               display: "inline-block",
-              padding: "1rem 2.5rem",
-              border: "1px solid var(--ivory)",
+              padding: "1.1rem 3rem",
+              background: "var(--gold)",
+              border: "1px solid var(--gold)",
               borderRadius: "6px",
-              color: "var(--ivory)",
+              color: "#1a1410",
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.7rem",
-              fontWeight: 500,
+              fontSize: "0.72rem",
+              fontWeight: 700,
               letterSpacing: "0.25em",
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "background 0.3s ease, color 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "var(--ivory)";
-              (e.currentTarget as HTMLElement).style.color = "var(--charcoal)";
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "var(--gold)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "var(--ivory)";
+              (e.currentTarget as HTMLElement).style.background = "var(--gold)";
+              (e.currentTarget as HTMLElement).style.color = "#1a1410";
             }}
           >
-            Book Your Order
+            Explore Catering
           </Link>
-        </div>
-        </div>
         </div>
       </section>
 
       {/* ─── PRIVATE DINING SECTION ─── */}
-      {/* ─── PRIVATE DINING HERO ─── 3-column full-width grid: text(41%) | dining(30%) | fireplace(29%) */}
-      <section className="private-dining-hero">
-        {/* Column 1: Text overlay */}
-        <div className="pd-hero-copy">
-          <p className="pd-eyebrow">PRIVATE DINING</p>
-          <div style={{ width: "48px", height: "1px", background: "#d4a64f", marginBottom: "2rem" }} />
-          <h2 className="pd-hero-h2">Celebrate<br />the moments<br />that matter.</h2>
-          <p className="pd-subtext">Host unforgettable gatherings with warm hospitality and authentic Italian cuisine.</p>
+      <section style={{ background: "var(--charcoal)", padding: "0" }}>
+        <div className="pd-grid" style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr",
+          minHeight: "520px",
+        }}>
+          {/* Left: dark panel with text */}
+          <div style={{
+            background: "#0d0c0a",
+            padding: "5rem 3.5rem",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: "1rem",
+            }}>Private Dining</p>
+            {/* Gold decorative line */}
+            <div style={{ width: "48px", height: "1px", background: "var(--gold)", marginBottom: "1.75rem" }} />
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+              lineHeight: 1.15,
+              color: "var(--ivory)",
+              marginBottom: "1.5rem",
+            }}>Celebrate the moments that matter.</h2>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.95rem",
+              color: "rgba(245,240,228,0.72)",
+              lineHeight: 1.8,
+              marginBottom: "2.5rem",
+              maxWidth: "340px",
+            }}>Host unforgettable gatherings with warm hospitality and authentic Italian cuisine.</p>
+            <Link
+              href="/events"
+              className="pd-book-btn-panel"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "1rem 2rem",
+                background: "var(--gold)",
+                border: "1px solid var(--gold)",
+                borderRadius: "6px",
+                color: "#1a1410",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                alignSelf: "flex-start",
+                transition: "background 0.3s ease, color 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "var(--gold)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "var(--gold)";
+                (e.currentTarget as HTMLElement).style.color = "#1a1410";
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              Book Your Event
+            </Link>
+          </div>
+
+          {/* Right: 2 photos side by side */}
+          <div className="pd-photos" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
+            <div style={{ overflow: "hidden" }}>
+              <img
+                src="/manus-storage/pd_indoor_59b8bd65.png"
+                alt="Private dining room at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+            <div style={{ overflow: "hidden" }}>
+              <img
+                src="/manus-storage/pd_patio_b33b592b.png"
+                alt="Outdoor patio at Francesca's Cucina"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile-only: Book Your Event button below photos, centered */}
+        <div className="pd-book-btn-mobile" style={{
+          justifyContent: "center",
+          padding: "1.5rem 1.5rem 2.5rem",
+          background: "#0d0c0a",
+        }}>
           <Link
             href="/events"
-            className="pd-hero-btn"
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "#d7ad5a";
-              (e.currentTarget as HTMLElement).style.border = "1px solid #d7ad5a";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#d7ad5a";
-              (e.currentTarget as HTMLElement).style.color = "#111111";
-              (e.currentTarget as HTMLElement).style.border = "1px solid #d7ad5a";
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "1rem 2.5rem",
+              background: "var(--gold)",
+              border: "1px solid var(--gold)",
+              borderRadius: "6px",
+              color: "#1a1410",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.65rem",
+              fontWeight: 700,
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              textDecoration: "none",
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "0.5rem" }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <line x1="16" y1="2" x2="16" y2="6"/>
               <line x1="8" y1="2" x2="8" y2="6"/>
               <line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
-            BOOK YOUR EVENT
+            Book Your Event
           </Link>
-        </div>
-
-        {/* Columns 2 & 3: Photos — side by side on mobile via pd-photos-row */}
-        <div className="pd-photos-row" style={{ display: "contents" }}>
-          <div className="pd-hero-image">
-            <img
-              src="/manus-storage/pd_indoor_59b8bd65.png"
-              alt="Private dining room at Francesca's Cucina"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "20% center", display: "block" }}
-            />
-          </div>
-
-          <div className="pd-hero-image">
-            <img
-              src="/manus-storage/PrivateDiningPhotoRighthomepage_537010e9.jpeg"
-              alt="Outdoor patio with fireplace at Francesca's Cucina"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "right center", display: "block" }}
-            />
-          </div>
         </div>
       </section>
 
       <Footer />
 
       <style>{`
-        .hero-title { white-space: nowrap; }
-
-        /* ── Private Dining Hero ── */
-        .private-dining-hero {
-          width: 100%;
-          min-height: 600px;
-          display: grid;
-          grid-template-columns: 41% 30% 29%;
-          background: #050505;
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
-        }
-        .pd-hero-copy {
-          position: relative;
-          z-index: 2;
-          padding: 5rem 3.5rem 5rem 5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          background: linear-gradient(90deg, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0.35) 100%);
-        }
-        .pd-eyebrow {
-          color: #d4a64f;
-          letter-spacing: 0.5rem;
-          font-size: 0.85rem;
-          margin-bottom: 1rem;
-          text-transform: uppercase;
-          font-family: 'DM Sans', sans-serif;
-          font-weight: 600;
-        }
-        .pd-hero-h2 {
-          color: #ffffff;
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(3rem, 4.5vw, 4.5rem);
-          line-height: 1.08;
-          font-weight: 400;
-          margin: 0 0 2rem;
-        }
-        .pd-subtext {
-          color: rgba(255,255,255,0.85);
-          font-size: 1rem;
-          line-height: 1.65;
-          max-width: 400px;
-          margin-bottom: 2.5rem;
-          font-family: 'DM Sans', sans-serif;
-        }
-        .pd-hero-btn {
-          display: inline-flex;
-          align-items: center;
-          width: fit-content;
-          background: #d7ad5a;
-          color: #111111;
-          padding: 1rem 2rem;
-          border-radius: 6px;
-          letter-spacing: 0.2rem;
-          font-size: 0.7rem;
-          font-weight: 700;
-          text-decoration: none;
-          font-family: 'DM Sans', sans-serif;
-          border: 1px solid #d7ad5a;
-          transition: background 0.3s ease, color 0.3s ease;
-        }
-        .pd-hero-image {
-          height: 100%;
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
-        }
-
-        /* Mobile */
-        @media (max-width: 900px) {
+        @media (max-width: 640px) {
           .hero-title { white-space: nowrap !important; font-size: clamp(1.4rem, 8.5vw, 5rem) !important; }
-          .private-dining-hero {
+
+          /* Private Dining: stack text above photos on mobile, center everything */
+          .pd-grid {
             grid-template-columns: 1fr !important;
-            min-height: auto !important;
+            min-height: unset !important;
           }
-          .pd-hero-copy {
-            padding: 3rem 1.5rem !important;
-            background: rgba(0,0,0,0.92) !important;
+          .pd-grid > div:first-child {
+            padding: 2.5rem 1.5rem 1.5rem !important;
+            text-align: center;
+            align-items: center !important;
           }
-          .pd-hero-h2 {
-            font-size: 2.4rem !important;
+          .pd-grid > div:first-child > div[style] {
+            margin-left: auto;
+            margin-right: auto;
           }
-          /* Two photos side by side on mobile */
-          .pd-photos-row {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
+          /* Hide the button inside the text panel on mobile */
+          .pd-book-btn-panel {
+            display: none !important;
           }
-          .pd-hero-image {
+          .pd-photos {
             height: 220px;
           }
+          .pd-photos img {
+            height: 220px !important;
+            object-fit: cover !important;
+          }
+          /* Show the mobile-only button below photos */
+          .pd-book-btn-mobile {
+            display: flex !important;
+          }
+        }
+        /* Desktop: hide the mobile button */
+        .pd-book-btn-mobile {
+          display: none;
         }
       `}</style>
     </div>
