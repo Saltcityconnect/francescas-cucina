@@ -556,72 +556,87 @@ export default function HomeA() {
       </section>
 
       {/* ─── CATERING BANNER SECTION ─── */}
-      <section style={{ background: "#0d0c0a", padding: "4rem 2rem" }}>
-        {/* Constrained photo container matching other sections */}
-        <div style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          position: "relative",
-          overflow: "hidden",
-          borderRadius: "4px",
-          padding: "6rem 2rem",
-          textAlign: "center",
-        }}>
-        <div>
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+      <section style={{ background: "#0d0c0a", padding: "7rem 2rem" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto", textAlign: "center" }}>
+
+          {/* Eyebrow label */}
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.85rem",
+            fontSize: "0.8rem",
             fontWeight: 500,
-            letterSpacing: "0.35em",
+            letterSpacing: "0.4em",
             textTransform: "uppercase",
             color: "var(--gold)",
-            marginBottom: "1.5rem",
-          }}>Catering</p>
+            marginBottom: "2rem",
+          }}>Catering &amp; Private Events</p>
+
+          {/* Gold ornamental divider */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.5rem" }}>
+            <div style={{ flex: 1, maxWidth: "80px", height: "1px", background: "var(--gold)", opacity: 0.6 }} />
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold)" opacity="0.8">
+              <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+            </svg>
+            <div style={{ flex: 1, maxWidth: "80px", height: "1px", background: "var(--gold)", opacity: 0.6 }} />
+          </div>
+
+          {/* Main headline */}
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
             fontWeight: 400,
-            fontSize: "clamp(2.2rem, 5vw, 3.8rem)",
-            lineHeight: 1.15,
+            fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
+            lineHeight: 1.1,
             color: "var(--ivory)",
-            marginBottom: "1.5rem",
-          }}>Bring Francesca&rsquo;s to the table.</h2>
+            marginBottom: "2rem",
+            letterSpacing: "-0.01em",
+          }}>Bring Francesca&rsquo;s<br />to your table.</h2>
+
+          {/* Dot divider */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.5rem" }}>
+            <div style={{ flex: 1, maxWidth: "60px", height: "1px", background: "var(--gold)", opacity: 0.4 }} />
+            <div style={{ width: "5px", height: "5px", background: "var(--gold)", borderRadius: "50%", opacity: 0.7 }} />
+            <div style={{ flex: 1, maxWidth: "60px", height: "1px", background: "var(--gold)", opacity: 0.4 }} />
+          </div>
+
+          {/* Body copy */}
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: "1rem",
-            color: "rgba(245,240,228,0.75)",
-            marginBottom: "2.5rem",
-            lineHeight: 1.7,
-          }}>Curated Italian catering for gatherings, celebrations, and special occasions of all sizes.</p>
+            fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
+            fontWeight: 300,
+            color: "rgba(245,240,228,0.72)",
+            lineHeight: 1.85,
+            maxWidth: "560px",
+            margin: "0 auto 3rem",
+          }}>Curated Italian catering for gatherings, celebrations, and special occasions of all sizes — delivered with the warmth Francesca&rsquo;s is known for.</p>
+
+          {/* CTA button */}
           <Link
             href="/catering"
             style={{
               display: "inline-block",
-              padding: "1rem 2.5rem",
-              border: "1px solid var(--ivory)",
+              padding: "1.1rem 3rem",
+              background: "var(--gold)",
+              border: "1px solid var(--gold)",
               borderRadius: "6px",
-              color: "var(--ivory)",
+              color: "#1a1410",
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: "0.7rem",
-              fontWeight: 500,
+              fontSize: "0.72rem",
+              fontWeight: 700,
               letterSpacing: "0.25em",
               textTransform: "uppercase",
               textDecoration: "none",
               transition: "background 0.3s ease, color 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "var(--ivory)";
-              (e.currentTarget as HTMLElement).style.color = "var(--charcoal)";
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+              (e.currentTarget as HTMLElement).style.color = "var(--gold)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-              (e.currentTarget as HTMLElement).style.color = "var(--ivory)";
+              (e.currentTarget as HTMLElement).style.background = "var(--gold)";
+              (e.currentTarget as HTMLElement).style.color = "#1a1410";
             }}
           >
-            Book Your Order
+            Explore Catering
           </Link>
-        </div>
-        </div>
         </div>
       </section>
 
