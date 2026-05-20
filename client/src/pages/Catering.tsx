@@ -310,8 +310,9 @@ export default function Catering() {
 
             {/* CTA button */}
             <a
-              href="#appetizers"
-              onClick={(e) => { e.preventDefault(); scrollToSection("appetizers"); }}
+              href="/manus-storage/francescas_catering_menu_036ba512.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "inline-block",
                 fontFamily: "'DM Sans', sans-serif",
