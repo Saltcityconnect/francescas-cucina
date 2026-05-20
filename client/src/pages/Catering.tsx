@@ -212,7 +212,7 @@ export default function Catering() {
           flexDirection: "column",
           justifyContent: "center",
         }}>
-          <div style={{ maxWidth: "480px" }}>
+          <div style={{ maxWidth: "560px" }}>
             {/* Eyebrow */}
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -235,14 +235,14 @@ export default function Catering() {
             <h1 style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 600,
-              fontSize: "clamp(3rem, 5.5vw, 5rem)",
+              fontSize: "clamp(2.4rem, 4vw, 3.8rem)",
               lineHeight: 1.05,
               color: "#f0ece4",
               margin: "0 0 1.2rem",
               letterSpacing: "-0.01em",
             }}>
               Bring Francesca's<br />
-              to <em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
+              to{" "}<em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.
             </h1>
 
             {/* Subtext */}
