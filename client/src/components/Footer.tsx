@@ -49,26 +49,11 @@ const divider = "1px solid rgba(184,160,90,0.22)";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#0d0c0a", padding: "4rem 2rem 2rem" }}>
+    <footer style={{ background: "#0d0c0a", padding: "0" }}>
 
-      {/* Constrained inner container with background photo */}
-      <div style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: "4px",
-        backgroundImage: `url(${FOOTER_BG})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center 30%",
-      }}>
-      {/* Dark mask — patio photo visible but text stays legible */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1,
-        background: "rgba(6,5,3,0.80)",
-      }} />
+      <div style={{ background: "#0d0c0a", maxWidth: "1200px", margin: "0 auto" }}>
 
-      <div style={{ position: "relative", zIndex: 2, padding: "2.5rem 2.5rem 1.5rem" }}>
+      <div className="footer-outer-pad">
 
         {/* ── Header: spaced caps matching reference ── */}
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "0.35rem" }}>
@@ -195,9 +180,14 @@ export default function Footer() {
       </div>
 
       <style>{`
-        /* ── Mobile base (default) ── */
+        .footer-outer-pad { padding: 1.5rem 0.5rem 1rem; }
+
+        /* ── Mobile base (default) – keep 2×2 grid ── */
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
         .footer-cell {
-          padding: 1.1rem 0.7rem;
+          padding: 1.1rem 0.9rem;
           box-sizing: border-box;
           overflow: hidden;
         }
@@ -217,22 +207,22 @@ export default function Footer() {
         .footer-label {
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.48rem;
-          letter-spacing: 0.2em;
+          font-size: 0.58rem;
+          letter-spacing: 0.15em;
           text-transform: uppercase;
           color: var(--gold);
           white-space: nowrap;
         }
         .footer-indent { padding-left: 0; }
         .footer-link {
-          color: rgba(245,240,228,0.78);
+          color: rgba(245,240,228,0.85);
           text-decoration: none;
           display: block;
           font-family: 'DM Sans', sans-serif;
-          font-weight: 300;
-          font-size: 0.65rem;
-          line-height: 1.7;
-          white-space: nowrap;
+          font-weight: 400;
+          font-size: 0.68rem;
+          line-height: 1.55;
+          white-space: normal;
         }
         .footer-link:hover { color: var(--gold); }
         .footer-hours { display: flex; flex-direction: column; }
@@ -241,10 +231,10 @@ export default function Footer() {
           justify-content: space-between;
           gap: 0.25rem;
           font-family: 'DM Sans', sans-serif;
-          font-weight: 300;
+          font-weight: 400;
           font-size: 0.65rem;
-          color: rgba(245,240,228,0.78);
-          line-height: 1.7;
+          color: rgba(245,240,228,0.85);
+          line-height: 1.55;
           white-space: nowrap;
         }
         .footer-social { display: flex; flex-direction: column; gap: 0; }
@@ -258,17 +248,17 @@ export default function Footer() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.35rem;
+          gap: 0.3rem;
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.44rem;
-          letter-spacing: 0.15em;
+          font-size: 0.55rem;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           color: var(--gold);
           text-decoration: none;
-          border: 1px solid rgba(184,160,90,0.5);
+          border: 1px solid rgba(184,160,90,0.6);
           border-radius: 3px;
-          padding: 0.55rem 0.3rem;
+          padding: 0.5rem 0.4rem;
           background: transparent;
           transition: background 0.2s ease;
           width: 100%;
@@ -279,18 +269,20 @@ export default function Footer() {
 
         /* ── Desktop overrides ── */
         @media (min-width: 640px) {
-          .footer-cell { padding: 1.6rem 2rem; }
+          .footer-outer-pad { padding: 2.5rem 2.5rem 1.5rem; }
+          .footer-grid { grid-template-columns: 1fr 1fr; }
+          .footer-cell { overflow: hidden; padding: 1.8rem 2.2rem; }
           .footer-icon-circle { width: 36px; height: 36px; min-width: 36px; }
-          .footer-label { font-size: 0.58rem; letter-spacing: 0.28em; }
+          .footer-label { font-size: 0.72rem; letter-spacing: 0.28em; }
           .footer-indent { padding-left: 50px; }
-          .footer-link { font-size: 0.82rem; white-space: normal; }
-          .footer-hour-row { font-size: 0.82rem; white-space: normal; }
+          .footer-link { font-size: 1rem; white-space: normal; font-weight: 400; }
+          .footer-hour-row { font-size: 1rem; white-space: normal; font-weight: 400; }
           .footer-social { flex-direction: row; gap: 1.5rem; }
           .footer-btns { flex-direction: row; gap: 0.75rem; align-items: center; }
           .footer-btn {
-            font-size: 0.58rem;
-            letter-spacing: 0.2em;
-            padding: 0.7rem 1.4rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            padding: 0.8rem 1.6rem;
             width: auto;
             flex: 1;
           }
