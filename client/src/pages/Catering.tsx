@@ -179,9 +179,9 @@ export default function Catering() {
         overflow: "hidden",
         display: "flex",
         alignItems: "stretch",
-      }}>
+      }} className="catering-hero">
         {/* Photo — right 60% */}
-        <div style={{
+        <div className="catering-hero-photo" style={{
           position: "absolute",
           top: 0, right: 0,
           width: "62%",
@@ -235,12 +235,11 @@ export default function Catering() {
             <h1 style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 600,
-              fontSize: "100px",
+              fontSize: "clamp(2.8rem, 8vw, 100px)",
               lineHeight: 1.05,
               color: "#f0ece4",
               margin: "0 0 1.2rem",
               letterSpacing: "-0.01em",
-              whiteSpace: "nowrap",
             }}>
               Bring Francesca's<br />
               to{" "}<em style={{ fontStyle: "italic", fontWeight: 400 }}>your</em> table.

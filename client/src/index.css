@@ -278,3 +278,27 @@
     }
   }
 }
+
+/* ── Catering page hero — mobile responsive ── */
+@media (max-width: 640px) {
+  .catering-hero {
+    min-height: auto !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .catering-hero-photo {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    height: 260px !important;
+  }
+  .catering-hero-photo img {
+    border-radius: 0;
+  }
+  .catering-hero > div:last-child {
+    position: relative !important;
+    padding: 2rem 1.5rem 2.5rem !important;
+    background: #0a0a08;
+  }
+}
