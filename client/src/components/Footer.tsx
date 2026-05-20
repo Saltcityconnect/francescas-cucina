@@ -185,16 +185,14 @@ export default function Footer() {
       </div>
 
       <style>{`
-        /* ── Mobile base (default) ── */
+        /* ── Mobile base (default) – keep 2×2 grid ── */
         .footer-grid {
-          grid-template-columns: 1fr !important;
+          grid-template-columns: 1fr 1fr;
         }
         .footer-cell {
-          padding: 1.4rem 1.2rem;
+          padding: 1.1rem 0.9rem;
           box-sizing: border-box;
-          overflow: visible;
-          border-right: none !important;
-          border-bottom: 1px solid rgba(184,160,90,0.15);
+          overflow: hidden;
         }
         .footer-label-row {
           display: flex;
@@ -274,8 +272,8 @@ export default function Footer() {
 
         /* ── Desktop overrides ── */
         @media (min-width: 640px) {
-          .footer-grid { grid-template-columns: 1fr 1fr !important; }
-          .footer-cell { border-right: unset; border-bottom: unset; overflow: hidden; padding: 1.8rem 2.2rem; }
+          .footer-grid { grid-template-columns: 1fr 1fr; }
+          .footer-cell { overflow: hidden; padding: 1.8rem 2.2rem; }
           .footer-icon-circle { width: 36px; height: 36px; min-width: 36px; }
           .footer-label { font-size: 0.72rem; letter-spacing: 0.28em; }
           .footer-indent { padding-left: 50px; }
