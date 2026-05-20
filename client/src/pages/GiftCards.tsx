@@ -41,7 +41,7 @@ export default function GiftCards() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
-              objectPosition: "center 15%",
+              objectPosition: "center 60%",
             }}
           />
           {/* Left-edge gradient: black → transparent */}
