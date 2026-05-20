@@ -210,8 +210,8 @@ export default function Footer() {
         .footer-label {
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.72rem;
-          letter-spacing: 0.2em;
+          font-size: 0.58rem;
+          letter-spacing: 0.15em;
           text-transform: uppercase;
           color: var(--gold);
           white-space: nowrap;
@@ -223,8 +223,8 @@ export default function Footer() {
           display: block;
           font-family: 'DM Sans', sans-serif;
           font-weight: 400;
-          font-size: 0.88rem;
-          line-height: 1.7;
+          font-size: 0.68rem;
+          line-height: 1.55;
           white-space: normal;
         }
         .footer-link:hover { color: var(--gold); }
@@ -232,13 +232,13 @@ export default function Footer() {
         .footer-hour-row {
           display: flex;
           justify-content: space-between;
-          gap: 0.5rem;
+          gap: 0.25rem;
           font-family: 'DM Sans', sans-serif;
           font-weight: 400;
-          font-size: 0.88rem;
+          font-size: 0.65rem;
           color: rgba(245,240,228,0.85);
-          line-height: 1.7;
-          white-space: normal;
+          line-height: 1.55;
+          white-space: nowrap;
         }
         .footer-social { display: flex; flex-direction: column; gap: 0; }
         .footer-btns {
@@ -251,17 +251,17 @@ export default function Footer() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.4rem;
+          gap: 0.3rem;
           font-family: 'DM Sans', sans-serif;
           font-weight: 600;
-          font-size: 0.68rem;
-          letter-spacing: 0.18em;
+          font-size: 0.55rem;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           color: var(--gold);
           text-decoration: none;
           border: 1px solid rgba(184,160,90,0.6);
           border-radius: 3px;
-          padding: 0.65rem 0.5rem;
+          padding: 0.5rem 0.4rem;
           background: transparent;
           transition: background 0.2s ease;
           width: 100%;
