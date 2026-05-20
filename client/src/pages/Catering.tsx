@@ -207,9 +207,7 @@ export default function Catering() {
           position: "relative",
           zIndex: 10,
           width: "100%",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "clamp(5rem, 10vw, 8rem) 2rem 4rem",
+          padding: "clamp(5rem, 10vw, 8rem) 0 4rem clamp(2rem, 5vw, 6rem)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -280,8 +278,8 @@ export default function Catering() {
                   <PhoneIcon />
                 </div>
                 <div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a96e", margin: "0 0 0.15rem" }}>Call</p>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", fontWeight: 600, color: "#c8a96e", margin: 0, letterSpacing: "0.02em" }}>315-409-8848</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a96e", margin: "0 0 0.15rem", fontWeight: 700 }}>Call</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 700, color: "#c8a96e", margin: 0, letterSpacing: "0.04em" }}>315-409-8848</p>
                 </div>
               </a>
 
@@ -304,8 +302,8 @@ export default function Catering() {
                   <EmailIcon />
                 </div>
                 <div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a96e", margin: "0 0 0.15rem" }}>Email</p>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", fontWeight: 500, color: "#c8a96e", margin: 0 }}>catering@francescas-cucina.com</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a96e", margin: "0 0 0.15rem", fontWeight: 700 }}>Email</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: "#c8a96e", margin: 0 }}>catering@francescas-cucina.com</p>
                 </div>
               </a>
             </div>
