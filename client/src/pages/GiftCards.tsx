@@ -7,7 +7,7 @@
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const GIFTCARD_HERO_IMG = "/manus-storage/giftcard_hero2_ad4a2ea7.png";
+const GIFTCARD_HERO_IMG = "/manus-storage/giftcard_hero_cc83cbd9.png";
 
 export default function GiftCards() {
   return (
@@ -15,17 +15,17 @@ export default function GiftCards() {
       <NavigationA />
 
       {/* ═══════════════════════════════════════════════════════════════
-          HERO — split layout: blurred photo bg on left, crisp card on right
+          HERO — full-bleed photo with vignette, left-aligned text
       ═══════════════════════════════════════════════════════════════ */}
       <section style={{
         position: "relative",
         minHeight: "clamp(480px, 55vw, 640px)",
         display: "flex",
-        alignItems: "stretch",
+        alignItems: "center",
         overflow: "hidden",
         background: "#0a0a08",
       }}>
-        {/* Full-bleed blurred background photo */}
+        {/* Full-bleed photo */}
         <img
           src={GIFTCARD_HERO_IMG}
           alt=""
@@ -37,20 +37,21 @@ export default function GiftCards() {
             height: "100%",
             objectFit: "cover",
             objectPosition: "center 30%",
-            filter: "blur(18px) brightness(0.35)",
-            transform: "scale(1.08)",
             zIndex: 1,
           }}
         />
-        {/* Extra dark overlay on left half so text is crisp */}
+        {/* Vignette: dark edges all around, heavier on left for text legibility */}
         <div style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to right, rgba(10,10,8,0.82) 0%, rgba(10,10,8,0.55) 55%, rgba(10,10,8,0.1) 100%)",
+          background: [
+            "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%)",
+            "linear-gradient(to right, rgba(10,10,8,0.88) 0%, rgba(10,10,8,0.55) 45%, rgba(10,10,8,0.15) 100%)",
+          ].join(", "),
           zIndex: 2,
         }} />
 
-        {/* Inner split container */}
+        {/* Text container */}
         <div style={{
           position: "relative",
           zIndex: 10,
@@ -60,7 +61,6 @@ export default function GiftCards() {
           maxWidth: 1280,
           margin: "0 auto",
           padding: "clamp(6rem, 12vw, 10rem) clamp(1.5rem, 5vw, 5rem) 4rem",
-          gap: "clamp(2rem, 5vw, 5rem)",
         }}>
 
           {/* LEFT — text column */}
@@ -112,27 +112,7 @@ export default function GiftCards() {
             </p>
           </div>
 
-          {/* RIGHT — crisp gift card photo */}
-          <div style={{
-            flex: "1 1 auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            minWidth: 0,
-          }}>
-            <img
-              src={GIFTCARD_HERO_IMG}
-              alt="Francesca's Cucina Gift Card"
-              style={{
-                width: "100%",
-                maxWidth: "clamp(280px, 42vw, 540px)",
-                height: "auto",
-                objectFit: "cover",
-                borderRadius: "4px",
-                boxShadow: "0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,169,110,0.15)",
-              }}
-            />
-          </div>
+
         </div>
       </section>
 
