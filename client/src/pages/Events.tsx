@@ -159,13 +159,13 @@ export default function Events() {
           SECTION 2 — VENUE CARDS
       ══════════════════════════════════════════════════════ */}
       {venues.map((venue) => (
-        <section key={venue.name} style={{ display: "flex", minHeight: "clamp(400px, 50vw, 580px)", borderTop: `1px solid ${BORDER}` }}>
+        <section key={venue.name} className="pd-venue-card">
           {/* Photo — left 50% */}
-          <div style={{ flex: "0 0 50%", position: "relative", overflow: "hidden" }}>
+          <div className="pd-venue-photo">
             <img src={venue.img} alt={venue.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
           </div>
           {/* Text — right 50% */}
-          <div style={{ flex: "0 0 50%", background: BG, padding: "clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 4rem)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="pd-venue-text">
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.6rem" }}>
               {venue.capacity}
             </p>
@@ -213,14 +213,14 @@ export default function Events() {
         </div>
 
         {/* Split: photo left, menu list right */}
-        <div style={{ display: "flex", minHeight: "clamp(340px, 40vw, 480px)" }}>
+        <div className="pd-menu-split">
           {/* Food photo */}
-          <div style={{ flex: "0 0 45%", position: "relative", overflow: "hidden" }}>
+          <div className="pd-menu-photo">
             <img src={FOOD_IMG} alt="Curated catering spread" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, transparent 60%, #0a0a08 100%)" }} />
           </div>
           {/* Menu list */}
-          <div style={{ flex: "0 0 55%", background: BG, padding: "clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4vw, 4rem)", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0" }}>
+          <div className="pd-menu-list">
             {menuOptions.map((opt, i) => (
               <div key={opt.num} style={{ display: "flex", alignItems: "flex-start", gap: "1.5rem", padding: "1.2rem 0", borderBottom: i < menuOptions.length - 1 ? `1px solid ${BORDER}` : "none" }}>
                 <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", fontWeight: 300, color: GOLD, minWidth: 32, lineHeight: 1 }}>{opt.num}</span>
@@ -313,7 +313,7 @@ export default function Events() {
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", color: GOLD, textAlign: "center", margin: "0 0 1.8rem" }}>
                   Event Inquiry Form
                 </p>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem 1.2rem" }}>
+                <div className="pd-form-grid">
                   {/* First / Last */}
                   <div>
                     <label style={labelStyle}>First Name <Gold>*</Gold></label>
@@ -419,12 +419,7 @@ export default function Events() {
       {/* ══════════════════════════════════════════════════════
           STICKY BOTTOM BAR
       ══════════════════════════════════════════════════════ */}
-      <div style={{
-        position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100,
-        background: "#111009", borderTop: `1px solid ${BORDER}`,
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0.9rem 2rem", gap: "1rem", flexWrap: "wrap",
-      }}>
+      <div className="pd-sticky-bar">
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: IVORY, margin: 0 }}>
             Ready to Plan Your Event?
