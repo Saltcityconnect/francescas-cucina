@@ -11,7 +11,7 @@ import { useState, useEffect, useRef } from "react";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
-const CATERING_HERO_IMG = "/manus-storage/catering-hero_fcb2e452.png";
+const CATERING_HERO_IMG = "/manus-storage/catering_hero_new_7c825a31.png";
 
 // ─── CATERING MENU DATA ───────────────────────────────────────────────────────
 interface CateringItem {
