@@ -14,7 +14,7 @@ const menuLinks = [
   { label: "Order Online", href: "https://www.toasttab.com/francescas-cucina", external: true },
   { label: "Menu", href: "/menu", external: false },
   { label: "Catering", href: "/catering", external: false },
-  { label: "Events", href: "/events", external: false },
+  { label: "Private Events", href: "/events", external: false },
 ];
 
 // Home SVG icon

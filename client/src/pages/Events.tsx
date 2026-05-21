@@ -137,7 +137,7 @@ export default function Events() {
           {[
             { label: "Explore Venues", action: () => window.scrollTo({ top: 500, behavior: "smooth" }) },
             { label: "Check Availability", action: scrollToForm },
-            { label: "Browse Menus", action: () => {} },
+            { label: "Browse Menus", action: () => { const el = document.getElementById("menu-options"); if (el) el.scrollIntoView({ behavior: "smooth" }); } },
           ].map(({ label, action }) => (
             <button key={label} onClick={action} style={{
               fontFamily: "'DM Sans', sans-serif", fontSize: "0.72rem", letterSpacing: "0.18em",
@@ -192,7 +192,7 @@ export default function Events() {
       {/* ══════════════════════════════════════════════════════
           SECTION 3 — MENU OPTIONS
       ══════════════════════════════════════════════════════ */}
-      <section style={{ background: BG, borderTop: `1px solid ${BORDER}` }}>
+      <section id="menu-options" style={{ background: BG, borderTop: `1px solid ${BORDER}` }}>
         {/* Header */}
         <div style={{ textAlign: "center", padding: "3.5rem 2rem 2.5rem" }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.72rem", letterSpacing: "0.3em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.8rem" }}>
