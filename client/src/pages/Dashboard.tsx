@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 // ── Francesca's Cucina — Analytics Dashboard Mockup ──────────────────────────
 // Design: Dark luxury theme. Three data source tabs: Website, Resy, Toast.
 // All data is static/illustrative — this is a design mockup only.
+// Mobile: sidebar collapses to bottom nav; grids stack to 1-col; tables scroll.
 
 const GOLD = "#b8a05a";
 const GOLD_DIM = "rgba(184,160,90,0.18)";
@@ -15,6 +16,18 @@ const GREEN = "#4ade80";
 const RED = "#f87171";
 const BLUE = "#60a5fa";
 const PURPLE = "#a78bfa";
+
+// ── Mobile hook ───────────────────────────────────────────────────────────────
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() => window.innerWidth < 768);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return mobile;
+}
 
 // ── Sparkline ────────────────────────────────────────────────────────────────
 function Sparkline({ data, color = GOLD, height = 48 }: { data: number[]; color?: string; height?: number }) {
@@ -95,7 +108,7 @@ function DonutChart({ slices, centerLabel, centerSub }: {
     ctx.font = "11px 'DM Sans', sans-serif";
     ctx.fillText(centerSub || "total", cx, cy + 10);
   }, [slices, centerLabel, centerSub]);
-  return <canvas ref={canvasRef} width={160} height={160} style={{ width: 160, height: 160 }} />;
+  return <canvas ref={canvasRef} width={160} height={160} style={{ width: 160, height: 160, flexShrink: 0 }} />;
 }
 
 // ── Bar Chart ────────────────────────────────────────────────────────────────
@@ -132,8 +145,8 @@ function KpiCard({ label, value, change, up, sub, data, color }: {
       overflow: "hidden",
     }}>
       <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2 }}>
-        <span style={{ fontSize: "1.8rem", fontWeight: 700, color: TEXT, lineHeight: 1 }}>{value}</span>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2, flexWrap: "wrap" }}>
+        <span style={{ fontSize: "1.6rem", fontWeight: 700, color: TEXT, lineHeight: 1 }}>{value}</span>
         <span style={{
           fontSize: "0.75rem", fontWeight: 600,
           color: up ? GREEN : RED,
@@ -142,7 +155,7 @@ function KpiCard({ label, value, change, up, sub, data, color }: {
         }}>{change}</span>
       </div>
       <div style={{ fontSize: "0.7rem", color: MUTED, marginBottom: 10 }}>{sub}</div>
-      <Sparkline data={data} height={40} color={color || GOLD} />
+      <Sparkline data={data} height={36} color={color || GOLD} />
     </div>
   );
 }
@@ -151,8 +164,26 @@ function KpiCard({ label, value, change, up, sub, data, color }: {
 function SectionHeader({ title, sub }: { title: string; sub: string }) {
   return (
     <div style={{ marginBottom: "1.5rem" }}>
-      <h2 style={{ fontSize: "1.4rem", fontWeight: 700, color: TEXT, margin: 0 }}>{title}</h2>
-      <p style={{ color: MUTED, fontSize: "0.85rem", margin: "4px 0 0" }}>{sub}</p>
+      <h2 style={{ fontSize: "1.3rem", fontWeight: 700, color: TEXT, margin: 0 }}>{title}</h2>
+      <p style={{ color: MUTED, fontSize: "0.82rem", margin: "4px 0 0" }}>{sub}</p>
+    </div>
+  );
+}
+
+// ── Scrollable Table Wrapper ──────────────────────────────────────────────────
+function ScrollTable({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as any }}>
+      {children}
+    </div>
+  );
+}
+
+// ── Insight Callout ───────────────────────────────────────────────────────────
+function Insight({ text, color, bg, border }: { text: string; color: string; bg: string; border: string }) {
+  return (
+    <div style={{ marginTop: 10, padding: "8px 10px", background: bg, border: `1px solid ${border}`, borderRadius: 6, fontSize: "0.72rem", color, lineHeight: 1.5 }}>
+      ✦ {text}
     </div>
   );
 }
@@ -328,80 +359,99 @@ const toastLaborByRole = [
   { role: "Management", hours: 160, cost: "$4,480", pct: 4.8 },
 ];
 
+// ── Responsive grid helper ────────────────────────────────────────────────────
+function Grid2({ children, isMobile }: { children: React.ReactNode; isMobile: boolean }) {
+  return (
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+      gap: "1rem",
+      marginBottom: "1.5rem",
+    }}>
+      {children}
+    </div>
+  );
+}
+
 // ── WEBSITE TAB ───────────────────────────────────────────────────────────────
-function WebsiteTab() {
+function WebsiteTab({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionHeader title="Website Performance" sub="Last 30 Days · francescas-cucina.com" />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)",
+        gap: "0.75rem",
+        marginBottom: "1.5rem",
+      }}>
         {webKpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+      <Grid2 isMobile={isMobile}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Traffic by Day of Week</div>
-          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Average sessions per day — Friday & Saturday peak</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Average sessions per day</div>
           <BarChart data={weeklyBar} />
-          <div style={{ marginTop: 12, display: "flex", gap: 16 }}>
+          <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
             <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: GOLD }}>Saturday (4,680)</span></div>
             <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>Monday (2,140)</span></div>
           </div>
         </div>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Traffic Sources</div>
-          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>Where your visitors are coming from</div>
-          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>Where your visitors come from</div>
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: isMobile ? "wrap" : "nowrap" }}>
             <DonutChart slices={sources.map(s => ({ label: s.label, value: s.value, color: s.color }))} />
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
               {sources.map((s, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 7 }}>
                   <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                  <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                  <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1, minWidth: 0 }}>{s.label}</span>
                   <span style={{ fontSize: "0.78rem", color: GOLD, fontWeight: 600 }}>{s.pct}%</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
+      </Grid2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+      <Grid2 isMobile={isMobile}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Referral Sites</div>
-          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Sites driving traffic — and which convert to reservations</div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Source</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Sessions</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Reservations</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Conv. Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {referrers.map((r, i) => (
-                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                  <td style={{ padding: "7px 0", color: TEXT }}>{r.site}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.sessions.toLocaleString()}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{r.conversions}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: parseFloat(r.rate) > 10 ? GREEN : GOLD, fontWeight: 600 }}>{r.rate}</td>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Sites driving traffic — and which convert</div>
+          <ScrollTable>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem", minWidth: 320 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Source</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Sessions</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Reserv.</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Conv.</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: GREEN }}>
-            ✦ Resy.com drives the highest reservation conversion rate at 19.1%
-          </div>
+              </thead>
+              <tbody>
+                {referrers.map((r, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                    <td style={{ padding: "7px 0", color: TEXT, whiteSpace: "nowrap" }}>{r.site}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.sessions.toLocaleString()}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{r.conversions}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: parseFloat(r.rate) > 10 ? GREEN : GOLD, fontWeight: 600 }}>{r.rate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ScrollTable>
+          <Insight text="Resy.com drives the highest reservation conversion rate at 19.1%" color={GREEN} bg="rgba(74,222,128,0.06)" border="rgba(74,222,128,0.15)" />
         </div>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Visitor Geography</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Where your audience is located</div>
           {geoData.map((g, i) => (
             <div key={i} style={{ marginBottom: 10 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                <span style={{ fontSize: "0.8rem", color: TEXT }}>{g.city}</span>
-                <span style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{g.sessions.toLocaleString()} <span style={{ color: MUTED, fontWeight: 400 }}>({g.pct}%)</span></span>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3, gap: 8 }}>
+                <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1, minWidth: 0 }}>{g.city}</span>
+                <span style={{ fontSize: "0.78rem", color: GOLD, fontWeight: 600, flexShrink: 0 }}>{g.pct}%</span>
               </div>
               <div style={{ height: 4, background: "rgba(184,160,90,0.12)", borderRadius: 2 }}>
                 <div style={{ height: "100%", width: `${g.pct}%`, background: `linear-gradient(to right, ${GOLD}, ${GOLD}99)`, borderRadius: 2 }} />
@@ -409,43 +459,32 @@ function WebsiteTab() {
             </div>
           ))}
         </div>
-      </div>
+      </Grid2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "1rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "2fr 1fr", gap: "1rem" }}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Pages</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Most visited pages and average time on page</div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Page</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Views</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Avg. Time</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Share</th>
-              </tr>
-            </thead>
-            <tbody>
-              {topPages.map((p, i) => {
-                const total = topPages.reduce((s, x) => s + x.views, 0);
-                const pct = ((p.views / total) * 100).toFixed(1);
-                return (
+          <ScrollTable>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem", minWidth: 280 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Page</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Views</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Avg. Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topPages.map((p, i) => (
                   <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                    <td style={{ padding: "7px 0", color: GOLD, fontFamily: "monospace" }}>{p.page}</td>
+                    <td style={{ padding: "7px 0", color: GOLD, fontFamily: "monospace", whiteSpace: "nowrap" }}>{p.page}</td>
                     <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{p.views.toLocaleString()}</td>
                     <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{p.avgTime}</td>
-                    <td style={{ padding: "7px 0", textAlign: "right" }}>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6 }}>
-                        <div style={{ width: 50, height: 4, background: "rgba(184,160,90,0.12)", borderRadius: 2 }}>
-                          <div style={{ height: "100%", width: `${pct}%`, background: GOLD, borderRadius: 2 }} />
-                        </div>
-                        <span style={{ fontSize: "0.72rem", color: MUTED, width: 32, textAlign: "right" }}>{pct}%</span>
-                      </div>
-                    </td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          </ScrollTable>
         </div>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Device Type</div>
@@ -460,9 +499,7 @@ function WebsiteTab() {
               <span style={{ fontSize: "0.82rem", color: GOLD, fontWeight: 600 }}>{d.value}%</span>
             </div>
           ))}
-          <div style={{ marginTop: 12, padding: "8px 10px", background: GOLD_DIM, border: `1px solid ${BORDER}`, borderRadius: 6, fontSize: "0.72rem", color: GOLD }}>
-            ✦ 58% mobile — ensure all promotions are mobile-first
-          </div>
+          <Insight text="58% mobile — ensure all promotions are mobile-first" color={GOLD} bg={GOLD_DIM} border={BORDER} />
         </div>
       </div>
     </div>
@@ -470,41 +507,46 @@ function WebsiteTab() {
 }
 
 // ── RESY TAB ──────────────────────────────────────────────────────────────────
-function ResyTab() {
+function ResyTab({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionHeader title="Resy — Reservations & Guest Intelligence" sub="Last 30 Days · Francesca's Cucina" />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)",
+        gap: "0.75rem",
+        marginBottom: "1.5rem",
+      }}>
         {resyKpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+      <Grid2 isMobile={isMobile}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Covers by Day of Week</div>
-          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Total guests seated per day — this month</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Total guests seated per day</div>
           <BarChart data={resyCoversByDay} color={BLUE} />
-          <div style={{ marginTop: 12, display: "flex", gap: 16 }}>
-            <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: BLUE }}>Saturday (398 covers)</span></div>
+          <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: BLUE }}>Saturday (398)</span></div>
             <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>Monday (88)</span></div>
           </div>
         </div>
 
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Booking Source Breakdown</div>
-          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>How guests are making their reservations</div>
-          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>How guests are making reservations</div>
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: isMobile ? "wrap" : "nowrap" }}>
             <DonutChart
               slices={resyBookingSources.map(s => ({ label: s.label, value: s.value, color: s.color }))}
               centerLabel="3,842"
               centerSub="covers"
             />
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
               {resyBookingSources.map((s, i) => (
                 <div key={i} style={{ marginBottom: 10 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                     <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1, minWidth: 0 }}>{s.label}</span>
                     <span style={{ fontSize: "0.78rem", color: s.color, fontWeight: 600 }}>{s.pct}%</span>
                   </div>
                   <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginLeft: 16 }}>
@@ -514,89 +556,92 @@ function ResyTab() {
               ))}
             </div>
           </div>
-          <div style={{ marginTop: 8, padding: "8px 10px", background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.2)", borderRadius: 6, fontSize: "0.72rem", color: BLUE }}>
-            ✦ 29.1% of reservations come through your own website widget — strong direct channel
-          </div>
+          <Insight text="29.1% of reservations come through your own website widget — strong direct channel" color={BLUE} bg="rgba(96,165,250,0.08)" border="rgba(96,165,250,0.2)" />
         </div>
-      </div>
+      </Grid2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+      <Grid2 isMobile={isMobile}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Returning Guests</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Your most loyal guests this year</div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Guest</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Visits</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Last Visit</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resyTopGuests.map((g, i) => (
-                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                  <td style={{ padding: "7px 0", color: TEXT }}>{g.name}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: GOLD, fontWeight: 600 }}>{g.visits}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{g.lastVisit}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: GREEN }}>{g.rating}</td>
+          <ScrollTable>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem", minWidth: 280 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Guest</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Visits</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Last Visit</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Rating</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div style={{ marginTop: 10, padding: "8px 10px", background: GOLD_DIM, border: `1px solid ${BORDER}`, borderRadius: 6, fontSize: "0.72rem", color: GOLD }}>
-            ✦ Your top 6 guests have visited a combined 72 times — consider a VIP recognition program
-          </div>
+              </thead>
+              <tbody>
+                {resyTopGuests.map((g, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                    <td style={{ padding: "7px 0", color: TEXT, whiteSpace: "nowrap" }}>{g.name}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: GOLD, fontWeight: 600 }}>{g.visits}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED, whiteSpace: "nowrap" }}>{g.lastVisit}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: GREEN }}>{g.rating}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ScrollTable>
+          <Insight text="Your top 6 guests have visited a combined 72 times — consider a VIP recognition program" color={GOLD} bg={GOLD_DIM} border={BORDER} />
         </div>
 
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Server Guest Ratings</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Average guest rating by server — private to management</div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Server</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Covers</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Rating</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Trend</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resyServerRatings.map((s, i) => (
-                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                  <td style={{ padding: "7px 0", color: TEXT }}>{s.name}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{s.covers}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: GREEN, fontWeight: 600 }}>{s.rating}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: s.trend.startsWith("+") ? GREEN : RED, fontSize: "0.75rem" }}>{s.trend}</td>
+          <ScrollTable>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem", minWidth: 260 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Server</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Covers</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Rating</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Trend</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: GREEN }}>
-            ✦ All servers rated above 4.7 — exceptional team performance across the board
-          </div>
+              </thead>
+              <tbody>
+                {resyServerRatings.map((s, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                    <td style={{ padding: "7px 0", color: TEXT, whiteSpace: "nowrap" }}>{s.name}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{s.covers}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: GREEN, fontWeight: 600 }}>{s.rating}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: s.trend.startsWith("+") ? GREEN : RED, fontSize: "0.75rem" }}>{s.trend}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ScrollTable>
+          <Insight text="All servers rated above 4.7 — exceptional team performance across the board" color={GREEN} bg="rgba(74,222,128,0.06)" border="rgba(74,222,128,0.15)" />
         </div>
-      </div>
+      </Grid2>
     </div>
   );
 }
 
 // ── TOAST TAB ─────────────────────────────────────────────────────────────────
-function ToastTab() {
+function ToastTab({ isMobile }: { isMobile: boolean }) {
   return (
     <div>
       <SectionHeader title="Toast POS — Sales, Menu & Labor" sub="Last 30 Days · Francesca's Cucina" />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)",
+        gap: "0.75rem",
+        marginBottom: "1.5rem",
+      }}>
         {toastKpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+      <Grid2 isMobile={isMobile}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Revenue by Hour</div>
-          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>When guests are spending — helps with staffing decisions</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>When guests are spending — helps with staffing</div>
           <BarChart data={toastHourlyBar} color={GREEN} />
-          <div style={{ marginTop: 12, display: "flex", gap: 16 }}>
+          <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
             <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: GREEN }}>7pm ($12,480)</span></div>
             <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>11am ($420)</span></div>
           </div>
@@ -605,18 +650,18 @@ function ToastTab() {
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Revenue by Menu Category</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>Where your revenue is coming from</div>
-          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: isMobile ? "wrap" : "nowrap" }}>
             <DonutChart
               slices={toastMenuCategories.map(s => ({ label: s.label, value: s.value, color: s.color }))}
               centerLabel="$94.3k"
               centerSub="revenue"
             />
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
               {toastMenuCategories.map((s, i) => (
                 <div key={i} style={{ marginBottom: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
                     <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1, minWidth: 0 }}>{s.label}</span>
                     <span style={{ fontSize: "0.78rem", color: s.color, fontWeight: 600 }}>{s.pct}%</span>
                   </div>
                   <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginLeft: 16 }}>
@@ -626,73 +671,71 @@ function ToastTab() {
               ))}
             </div>
           </div>
-          <div style={{ marginTop: 8, padding: "8px 10px", background: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.2)", borderRadius: 6, fontSize: "0.72rem", color: PURPLE }}>
-            ✦ Wine & spirits at 25.6% — strong beverage program driving margin
-          </div>
+          <Insight text="Wine & spirits at 25.6% — strong beverage program driving margin" color={PURPLE} bg="rgba(167,139,250,0.08)" border="rgba(167,139,250,0.2)" />
         </div>
-      </div>
+      </Grid2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "1rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "3fr 2fr", gap: "1rem" }}>
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Selling Dishes</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Most ordered items by revenue — this month</div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Dish</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Orders</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Revenue</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Avg Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {toastTopDishes.map((d, i) => (
-                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                  <td style={{ padding: "7px 0", color: TEXT }}>{d.dish}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{d.orders}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: GREEN, fontWeight: 600 }}>{d.revenue}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: GOLD }}>{d.avgCheck}</td>
+          <ScrollTable>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem", minWidth: 300 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Dish</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Orders</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Revenue</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Avg Price</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: GREEN }}>
-            ✦ Filet Mignon is your top revenue driver — consider featuring it prominently on the menu page
-          </div>
+              </thead>
+              <tbody>
+                {toastTopDishes.map((d, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                    <td style={{ padding: "7px 0", color: TEXT, whiteSpace: "nowrap" }}>{d.dish}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{d.orders}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: GREEN, fontWeight: 600 }}>{d.revenue}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: GOLD }}>{d.avgCheck}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ScrollTable>
+          <Insight text="Filet Mignon is your top revenue driver — consider featuring it prominently on the menu page" color={GREEN} bg="rgba(74,222,128,0.06)" border="rgba(74,222,128,0.15)" />
         </div>
 
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
           <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Labor Cost Breakdown</div>
           <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Hours and cost by role — this month</div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Role</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Hours</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Cost</th>
-                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>% Rev</th>
-              </tr>
-            </thead>
-            <tbody>
-              {toastLaborByRole.map((r, i) => (
-                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                  <td style={{ padding: "7px 0", color: TEXT }}>{r.role}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.hours}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: BLUE, fontWeight: 600 }}>{r.cost}</td>
-                  <td style={{ padding: "7px 0", textAlign: "right", color: r.pct > 8 ? GOLD : GREEN }}>{r.pct}%</td>
+          <ScrollTable>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem", minWidth: 240 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Role</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Hours</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>Cost</th>
+                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500, whiteSpace: "nowrap" }}>% Rev</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {toastLaborByRole.map((r, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                    <td style={{ padding: "7px 0", color: TEXT, whiteSpace: "nowrap" }}>{r.role}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.hours}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: BLUE, fontWeight: 600 }}>{r.cost}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: r.pct > 8 ? GOLD : GREEN }}>{r.pct}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ScrollTable>
           <div style={{ marginTop: 8, borderTop: `1px solid ${BORDER}`, paddingTop: 8 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <span style={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>Total Labor</span>
               <span style={{ fontSize: "0.8rem", color: BLUE, fontWeight: 700 }}>$27,750 (29.4%)</span>
             </div>
           </div>
-          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.2)", borderRadius: 6, fontSize: "0.72rem", color: BLUE }}>
-            ✦ Total labor at 29.4% of revenue — within the healthy 28–35% restaurant benchmark
-          </div>
+          <Insight text="Total labor at 29.4% of revenue — within the healthy 28–35% restaurant benchmark" color={BLUE} bg="rgba(96,165,250,0.08)" border="rgba(96,165,250,0.2)" />
         </div>
       </div>
     </div>
@@ -703,11 +746,13 @@ function ToastTab() {
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<"website" | "resy" | "toast">("website");
   const [dateRange, setDateRange] = useState("Last 30 Days");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const tabs = [
-    { id: "website" as const, label: "Website Analytics", icon: "◎" },
-    { id: "resy" as const, label: "Resy Reservations", icon: "⬡" },
-    { id: "toast" as const, label: "Toast POS", icon: "▣" },
+    { id: "website" as const, label: "Website", fullLabel: "Website Analytics", icon: "◎" },
+    { id: "resy" as const, label: "Resy", fullLabel: "Resy Reservations", icon: "⬡" },
+    { id: "toast" as const, label: "Toast", fullLabel: "Toast POS", icon: "▣" },
   ];
 
   return (
@@ -717,138 +762,249 @@ export default function Dashboard() {
       color: TEXT,
       fontFamily: "'DM Sans', sans-serif",
       display: "flex",
+      flexDirection: isMobile ? "column" : "row",
     }}>
-      {/* ── Sidebar ── */}
-      <aside style={{
-        width: 220,
-        minHeight: "100vh",
-        background: "#0d0d0b",
-        borderRight: `1px solid ${BORDER}`,
-        display: "flex",
-        flexDirection: "column",
-        padding: "2rem 0",
-        flexShrink: 0,
-      }}>
-        <div style={{ padding: "0 1.5rem 2rem", borderBottom: `1px solid ${BORDER}` }}>
-          <div style={{ fontSize: "0.65rem", letterSpacing: "0.35em", color: GOLD, textTransform: "uppercase", marginBottom: 4 }}>
-            Francesca's Cucina
-          </div>
-          <div style={{ fontSize: "1rem", fontWeight: 600, color: TEXT }}>Analytics</div>
-          <div style={{ fontSize: "0.7rem", color: MUTED, marginTop: 2 }}>Owner Dashboard</div>
-        </div>
 
-        {/* Data Source Tabs */}
-        <nav style={{ padding: "1.5rem 0 0", flex: 1 }}>
-          <div style={{ padding: "0 1.5rem", fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Data Sources</div>
-          {tabs.map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              width: "100%",
-              textAlign: "left",
-              padding: "0.7rem 1.5rem",
-              background: activeTab === tab.id ? GOLD_DIM : "transparent",
-              borderLeft: activeTab === tab.id ? `2px solid ${GOLD}` : "2px solid transparent",
-              color: activeTab === tab.id ? GOLD : MUTED,
-              fontSize: "0.85rem",
-              letterSpacing: "0.04em",
-              cursor: "pointer",
-              border: "none",
-              transition: "all 0.2s",
-            }}>
-              <span style={{ fontSize: "0.9rem" }}>{tab.icon}</span>
-              {tab.label}
-            </button>
-          ))}
-
-          {/* Status indicators */}
-          <div style={{ padding: "1.5rem 1.5rem 0" }}>
-            <div style={{ fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 10 }}>Connection Status</div>
-            {[
-              { label: "Google Analytics", status: "Connected", color: GREEN },
-              { label: "Resy", status: "Pending", color: GOLD },
-              { label: "Toast POS", status: "Pending", color: GOLD },
-            ].map((s, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                <span style={{ fontSize: "0.75rem", color: TEXT, flex: 1 }}>{s.label}</span>
-                <span style={{ fontSize: "0.68rem", color: s.color }}>{s.status}</span>
-              </div>
-            ))}
-          </div>
-        </nav>
-
-        {/* Date range */}
-        <div style={{ padding: "1rem 1.5rem", borderTop: `1px solid ${BORDER}` }}>
-          <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: MUTED, marginBottom: 6 }}>DATE RANGE</div>
-          {["Last 7 Days", "Last 30 Days", "Last 90 Days", "This Year"].map(r => (
-            <button key={r} onClick={() => setDateRange(r)} style={{
-              display: "block", width: "100%", textAlign: "left",
-              padding: "0.35rem 0", background: "transparent", border: "none",
-              color: dateRange === r ? GOLD : MUTED,
-              fontSize: "0.78rem", cursor: "pointer",
-              fontWeight: dateRange === r ? 600 : 400,
-            }}>
-              {dateRange === r ? "▸ " : "  "}{r}
-            </button>
-          ))}
-        </div>
-
-        <div style={{
-          margin: "1rem",
-          padding: "0.6rem 0.8rem",
-          background: "rgba(184,160,90,0.08)",
-          border: `1px solid ${BORDER}`,
-          borderRadius: 6,
-          fontSize: "0.68rem",
-          color: MUTED,
-          lineHeight: 1.4,
+      {/* ── Desktop Sidebar ── */}
+      {!isMobile && (
+        <aside style={{
+          width: 220,
+          minHeight: "100vh",
+          background: "#0d0d0b",
+          borderRight: `1px solid ${BORDER}`,
+          display: "flex",
+          flexDirection: "column",
+          padding: "2rem 0",
+          flexShrink: 0,
         }}>
-          ✦ Design mockup — illustrative data only
-        </div>
-      </aside>
+          <div style={{ padding: "0 1.5rem 2rem", borderBottom: `1px solid ${BORDER}` }}>
+            <div style={{ fontSize: "0.65rem", letterSpacing: "0.35em", color: GOLD, textTransform: "uppercase", marginBottom: 4 }}>
+              Francesca's Cucina
+            </div>
+            <div style={{ fontSize: "1rem", fontWeight: 600, color: TEXT }}>Analytics</div>
+            <div style={{ fontSize: "0.7rem", color: MUTED, marginTop: 2 }}>Owner Dashboard</div>
+          </div>
 
-      {/* ── Main Content ── */}
-      <main style={{ flex: 1, padding: "2rem 2.5rem", overflowY: "auto" }}>
-
-        {/* Top bar with tab pills */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-          <div style={{ display: "flex", gap: 8 }}>
+          <nav style={{ padding: "1.5rem 0 0", flex: 1 }}>
+            <div style={{ padding: "0 1.5rem", fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Data Sources</div>
             {tabs.map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-                padding: "0.45rem 1.2rem",
-                borderRadius: 6,
-                border: `1px solid ${activeTab === tab.id ? GOLD : BORDER}`,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                width: "100%",
+                textAlign: "left",
+                padding: "0.7rem 1.5rem",
                 background: activeTab === tab.id ? GOLD_DIM : "transparent",
+                borderLeft: activeTab === tab.id ? `2px solid ${GOLD}` : "2px solid transparent",
                 color: activeTab === tab.id ? GOLD : MUTED,
-                fontSize: "0.8rem",
-                letterSpacing: "0.06em",
+                fontSize: "0.85rem",
+                letterSpacing: "0.04em",
                 cursor: "pointer",
-                fontWeight: activeTab === tab.id ? 600 : 400,
+                border: "none",
                 transition: "all 0.2s",
               }}>
-                {tab.icon} {tab.label}
+                <span style={{ fontSize: "0.9rem" }}>{tab.icon}</span>
+                {tab.fullLabel}
+              </button>
+            ))}
+
+            <div style={{ padding: "1.5rem 1.5rem 0" }}>
+              <div style={{ fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 10 }}>Connection Status</div>
+              {[
+                { label: "Google Analytics", status: "Connected", color: GREEN },
+                { label: "Resy", status: "Pending", color: GOLD },
+                { label: "Toast POS", status: "Pending", color: GOLD },
+              ].map((s, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.75rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                  <span style={{ fontSize: "0.68rem", color: s.color }}>{s.status}</span>
+                </div>
+              ))}
+            </div>
+          </nav>
+
+          <div style={{ padding: "1rem 1.5rem", borderTop: `1px solid ${BORDER}` }}>
+            <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: MUTED, marginBottom: 6 }}>DATE RANGE</div>
+            {["Last 7 Days", "Last 30 Days", "Last 90 Days", "This Year"].map(r => (
+              <button key={r} onClick={() => setDateRange(r)} style={{
+                display: "block", width: "100%", textAlign: "left",
+                padding: "0.35rem 0", background: "transparent", border: "none",
+                color: dateRange === r ? GOLD : MUTED,
+                fontSize: "0.78rem", cursor: "pointer",
+                fontWeight: dateRange === r ? 600 : 400,
+              }}>
+                {dateRange === r ? "▸ " : "  "}{r}
               </button>
             ))}
           </div>
+
           <div style={{
-            padding: "0.5rem 1.2rem",
+            margin: "1rem",
+            padding: "0.6rem 0.8rem",
+            background: "rgba(184,160,90,0.08)",
             border: `1px solid ${BORDER}`,
             borderRadius: 6,
-            fontSize: "0.78rem",
-            color: GOLD,
-            letterSpacing: "0.08em",
-            cursor: "pointer",
+            fontSize: "0.68rem",
+            color: MUTED,
+            lineHeight: 1.4,
           }}>
-            EXPORT REPORT
+            ✦ Design mockup — illustrative data only
+          </div>
+        </aside>
+      )}
+
+      {/* ── Mobile Top Bar ── */}
+      {isMobile && (
+        <div style={{
+          background: "#0d0d0b",
+          borderBottom: `1px solid ${BORDER}`,
+          padding: "0.75rem 1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+        }}>
+          <div>
+            <div style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: GOLD, textTransform: "uppercase" }}>Francesca's Cucina</div>
+            <div style={{ fontSize: "0.9rem", fontWeight: 600, color: TEXT, lineHeight: 1.2 }}>Analytics</div>
+          </div>
+          <div style={{ display: "flex", gap: 6 }}>
+            {[
+              { label: "Connected", color: GREEN },
+              { label: "Resy Pending", color: GOLD },
+              { label: "Toast Pending", color: GOLD },
+            ].slice(0, 1).map((s, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: s.color }} />
+                <span style={{ fontSize: "0.65rem", color: s.color }}>{s.label}</span>
+              </div>
+            ))}
           </div>
         </div>
+      )}
+
+      {/* ── Mobile Tab Bar ── */}
+      {isMobile && (
+        <div style={{
+          display: "flex",
+          background: "#0d0d0b",
+          borderBottom: `1px solid ${BORDER}`,
+          padding: "0 0.5rem",
+        }}>
+          {tabs.map(tab => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+              flex: 1,
+              padding: "0.75rem 0.5rem",
+              background: "transparent",
+              border: "none",
+              borderBottom: activeTab === tab.id ? `2px solid ${GOLD}` : "2px solid transparent",
+              color: activeTab === tab.id ? GOLD : MUTED,
+              fontSize: "0.78rem",
+              fontWeight: activeTab === tab.id ? 600 : 400,
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 3,
+              transition: "all 0.2s",
+            }}>
+              <span style={{ fontSize: "1rem" }}>{tab.icon}</span>
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* ── Main Content ── */}
+      <main style={{
+        flex: 1,
+        padding: isMobile ? "1rem" : "2rem 2.5rem",
+        overflowY: "auto",
+        overflowX: "hidden",
+        paddingBottom: isMobile ? "2rem" : "2rem",
+      }}>
+
+        {/* Desktop top bar */}
+        {!isMobile && (
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+            <div style={{ display: "flex", gap: 8 }}>
+              {tabs.map(tab => (
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+                  padding: "0.45rem 1.2rem",
+                  borderRadius: 6,
+                  border: `1px solid ${activeTab === tab.id ? GOLD : BORDER}`,
+                  background: activeTab === tab.id ? GOLD_DIM : "transparent",
+                  color: activeTab === tab.id ? GOLD : MUTED,
+                  fontSize: "0.8rem",
+                  letterSpacing: "0.06em",
+                  cursor: "pointer",
+                  fontWeight: activeTab === tab.id ? 600 : 400,
+                  transition: "all 0.2s",
+                }}>
+                  {tab.icon} {tab.fullLabel}
+                </button>
+              ))}
+            </div>
+            <div style={{
+              padding: "0.5rem 1.2rem",
+              border: `1px solid ${BORDER}`,
+              borderRadius: 6,
+              fontSize: "0.78rem",
+              color: GOLD,
+              letterSpacing: "0.08em",
+              cursor: "pointer",
+            }}>
+              EXPORT REPORT
+            </div>
+          </div>
+        )}
+
+        {/* Mobile date range selector */}
+        {isMobile && (
+          <div style={{ display: "flex", gap: 6, marginBottom: "1rem", overflowX: "auto", paddingBottom: 4 }}>
+            {["Last 7 Days", "Last 30 Days", "Last 90 Days", "This Year"].map(r => (
+              <button key={r} onClick={() => setDateRange(r)} style={{
+                padding: "0.3rem 0.8rem",
+                borderRadius: 20,
+                border: `1px solid ${dateRange === r ? GOLD : BORDER}`,
+                background: dateRange === r ? GOLD_DIM : "transparent",
+                color: dateRange === r ? GOLD : MUTED,
+                fontSize: "0.72rem",
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+              }}>
+                {r}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Tab Content */}
-        {activeTab === "website" && <WebsiteTab />}
-        {activeTab === "resy" && <ResyTab />}
-        {activeTab === "toast" && <ToastTab />}
+        {activeTab === "website" && <WebsiteTab isMobile={isMobile} />}
+        {activeTab === "resy" && <ResyTab isMobile={isMobile} />}
+        {activeTab === "toast" && <ToastTab isMobile={isMobile} />}
+
+        {/* Mobile mockup notice */}
+        {isMobile && (
+          <div style={{
+            marginTop: "1.5rem",
+            padding: "0.6rem 0.8rem",
+            background: "rgba(184,160,90,0.08)",
+            border: `1px solid ${BORDER}`,
+            borderRadius: 6,
+            fontSize: "0.68rem",
+            color: MUTED,
+            lineHeight: 1.4,
+            textAlign: "center",
+          }}>
+            ✦ Design mockup — illustrative data only
+          </div>
+        )}
       </main>
     </div>
   );
