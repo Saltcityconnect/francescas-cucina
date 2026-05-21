@@ -148,8 +148,8 @@ export default function Menu() {
           Francesca's Cucina · Syracuse, New York
         </p>
         <h1 style={{
-          fontFamily: "'Big Shoulders Display', sans-serif",
-          fontWeight: 800,
+          fontFamily: "'Cormorant Garamond', serif",
+          fontWeight: 700,
           fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
           letterSpacing: "0.08em",
           textTransform: "uppercase",
