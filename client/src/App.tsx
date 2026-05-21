@@ -11,6 +11,7 @@ import Menu from "./pages/Menu";
 import Events from "./pages/Events";
 import Catering from "./pages/Catering";
 import WineList from "./pages/WineList";
+import Dashboard from "./pages/Dashboard";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/catering" component={Catering} />
       <Route path="/gift-cards" component={GiftCards} />
       <Route path="/wine-list" component={WineList} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
