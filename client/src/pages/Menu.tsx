@@ -159,6 +159,38 @@ export default function Menu() {
         }}>
           Dinner Menu
         </h1>
+        <div style={{ marginTop: "1.5rem" }}>
+          <a
+            href="/manus-storage/francescas_dinner_menu_b87ebbe7.pdf"
+            download="Francescas_Dinner_Menu.pdf"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "#1a1a1a",
+              background: "var(--gold)",
+              border: "none",
+              padding: "0.75rem 1.75rem",
+              cursor: "pointer",
+              textDecoration: "none",
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Menu
+          </a>
+        </div>
       </div>
 
       {/* ─── MENU CARD ─── */}
