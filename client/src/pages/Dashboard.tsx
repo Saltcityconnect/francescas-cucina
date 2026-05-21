@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 // ── Francesca's Cucina — Analytics Dashboard Mockup ──────────────────────────
-// Design: Dark luxury theme matching the site. Sidebar navigation, KPI cards,
-// traffic sparklines, source breakdown donut, geo heatmap table, and referral table.
+// Design: Dark luxury theme. Three data source tabs: Website, Resy, Toast.
 // All data is static/illustrative — this is a design mockup only.
 
 const GOLD = "#b8a05a";
@@ -12,13 +11,12 @@ const CARD = "#111110";
 const BORDER = "rgba(184,160,90,0.18)";
 const TEXT = "#f0ede6";
 const MUTED = "rgba(240,237,230,0.5)";
+const GREEN = "#4ade80";
+const RED = "#f87171";
+const BLUE = "#60a5fa";
+const PURPLE = "#a78bfa";
 
-// ── Sparkline data (28 days) ─────────────────────────────────────────────────
-const trafficData = [310,290,340,380,420,395,450,470,510,490,530,560,520,580,610,590,640,670,650,700,720,690,750,780,760,810,840,820];
-const reservationData = [18,15,22,25,28,24,30,32,35,31,37,40,36,42,44,40,46,49,47,52,54,50,56,58,55,60,63,61];
-const pageViewData = [820,780,890,950,1050,990,1120,1180,1260,1220,1310,1380,1290,1440,1510,1470,1580,1640,1610,1710,1750,1690,1820,1880,1850,1940,1990,1960];
-const bounceData = [52,54,50,48,46,49,44,43,41,43,40,38,41,37,35,38,34,32,35,31,30,33,29,28,30,27,26,28];
-
+// ── Sparkline ────────────────────────────────────────────────────────────────
 function Sparkline({ data, color = GOLD, height = 48 }: { data: number[]; color?: string; height?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -26,14 +24,11 @@ function Sparkline({ data, color = GOLD, height = 48 }: { data: number[]; color?
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const w = canvas.width;
-    const h = canvas.height;
-    const min = Math.min(...data);
-    const max = Math.max(...data);
+    const w = canvas.width, h = canvas.height;
+    const min = Math.min(...data), max = Math.max(...data);
     const range = max - min || 1;
     const pad = 4;
     ctx.clearRect(0, 0, w, h);
-    // Fill gradient
     const grad = ctx.createLinearGradient(0, 0, 0, h);
     grad.addColorStop(0, color + "55");
     grad.addColorStop(1, color + "00");
@@ -48,7 +43,6 @@ function Sparkline({ data, color = GOLD, height = 48 }: { data: number[]; color?
     ctx.closePath();
     ctx.fillStyle = grad;
     ctx.fill();
-    // Line
     ctx.beginPath();
     data.forEach((v, i) => {
       const x = pad + (i / (data.length - 1)) * (w - pad * 2);
@@ -62,7 +56,12 @@ function Sparkline({ data, color = GOLD, height = 48 }: { data: number[]; color?
   return <canvas ref={canvasRef} width={220} height={height} style={{ width: "100%", height }} />;
 }
 
-function DonutChart({ slices }: { slices: { label: string; value: number; color: string }[] }) {
+// ── Donut Chart ──────────────────────────────────────────────────────────────
+function DonutChart({ slices, centerLabel, centerSub }: {
+  slices: { label: string; value: number; color: string }[];
+  centerLabel?: string;
+  centerSub?: string;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -83,25 +82,24 @@ function DonutChart({ slices }: { slices: { label: string; value: number; color:
       ctx.fill();
       angle += sweep;
     });
-    // Inner circle cutout
     ctx.beginPath();
     ctx.arc(cx, cy, inner, 0, Math.PI * 2);
     ctx.fillStyle = CARD;
     ctx.fill();
-    // Center label
     ctx.fillStyle = TEXT;
-    ctx.font = "bold 18px 'DM Sans', sans-serif";
+    ctx.font = "bold 16px 'DM Sans', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(total.toLocaleString(), cx, cy - 8);
+    ctx.fillText(centerLabel || total.toLocaleString(), cx, cy - 8);
     ctx.fillStyle = MUTED;
     ctx.font = "11px 'DM Sans', sans-serif";
-    ctx.fillText("sessions", cx, cy + 10);
-  }, [slices]);
+    ctx.fillText(centerSub || "total", cx, cy + 10);
+  }, [slices, centerLabel, centerSub]);
   return <canvas ref={canvasRef} width={160} height={160} style={{ width: 160, height: 160 }} />;
 }
 
-function BarChart({ data }: { data: { label: string; value: number }[] }) {
+// ── Bar Chart ────────────────────────────────────────────────────────────────
+function BarChart({ data, color = GOLD }: { data: { label: string; value: number }[]; color?: string }) {
   const max = Math.max(...data.map(d => d.value));
   return (
     <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 80, padding: "0 4px" }}>
@@ -110,7 +108,7 @@ function BarChart({ data }: { data: { label: string; value: number }[] }) {
           <div style={{
             width: "100%",
             height: Math.max(4, (d.value / max) * 64),
-            background: `linear-gradient(to top, ${GOLD}, ${GOLD}99)`,
+            background: `linear-gradient(to top, ${color}, ${color}99)`,
             borderRadius: 3,
             transition: "height 0.4s ease",
           }} />
@@ -121,7 +119,51 @@ function BarChart({ data }: { data: { label: string; value: number }[] }) {
   );
 }
 
-const kpis = [
+// ── KPI Card ─────────────────────────────────────────────────────────────────
+function KpiCard({ label, value, change, up, sub, data, color }: {
+  label: string; value: string; change: string; up: boolean; sub: string; data: number[]; color?: string;
+}) {
+  return (
+    <div style={{
+      background: CARD,
+      border: `1px solid ${BORDER}`,
+      borderRadius: 10,
+      padding: "1.2rem 1.4rem 0.8rem",
+      overflow: "hidden",
+    }}>
+      <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2 }}>
+        <span style={{ fontSize: "1.8rem", fontWeight: 700, color: TEXT, lineHeight: 1 }}>{value}</span>
+        <span style={{
+          fontSize: "0.75rem", fontWeight: 600,
+          color: up ? GREEN : RED,
+          background: up ? "rgba(74,222,128,0.12)" : "rgba(248,113,113,0.12)",
+          padding: "2px 6px", borderRadius: 4,
+        }}>{change}</span>
+      </div>
+      <div style={{ fontSize: "0.7rem", color: MUTED, marginBottom: 10 }}>{sub}</div>
+      <Sparkline data={data} height={40} color={color || GOLD} />
+    </div>
+  );
+}
+
+// ── Section Header ────────────────────────────────────────────────────────────
+function SectionHeader({ title, sub }: { title: string; sub: string }) {
+  return (
+    <div style={{ marginBottom: "1.5rem" }}>
+      <h2 style={{ fontSize: "1.4rem", fontWeight: 700, color: TEXT, margin: 0 }}>{title}</h2>
+      <p style={{ color: MUTED, fontSize: "0.85rem", margin: "4px 0 0" }}>{sub}</p>
+    </div>
+  );
+}
+
+// ── WEBSITE DATA ──────────────────────────────────────────────────────────────
+const trafficData = [310,290,340,380,420,395,450,470,510,490,530,560,520,580,610,590,640,670,650,700,720,690,750,780,760,810,840,820];
+const reservationData = [18,15,22,25,28,24,30,32,35,31,37,40,36,42,44,40,46,49,47,52,54,50,56,58,55,60,63,61];
+const pageViewData = [820,780,890,950,1050,990,1120,1180,1260,1220,1310,1380,1290,1440,1510,1470,1580,1640,1610,1710,1750,1690,1820,1880,1850,1940,1990,1960];
+const bounceData = [52,54,50,48,46,49,44,43,41,43,40,38,41,37,35,38,34,32,35,31,30,33,29,28,30,27,26,28];
+
+const webKpis = [
   { label: "Unique Visitors", value: "18,240", change: "+12.4%", up: true, sub: "Last 30 days", data: trafficData },
   { label: "Page Views", value: "47,810", change: "+8.7%", up: true, sub: "Last 30 days", data: pageViewData },
   { label: "Online Reservations", value: "1,643", change: "+21.3%", up: true, sub: "Last 30 days", data: reservationData },
@@ -140,7 +182,7 @@ const sources = [
 const referrers = [
   { site: "google.com", sessions: 7840, conversions: 312, rate: "3.98%" },
   { site: "yelp.com", sessions: 1240, conversions: 98, rate: "7.90%" },
-  { site: "opentable.com", sessions: 980, conversions: 187, rate: "19.1%" },
+  { site: "resy.com", sessions: 980, conversions: 187, rate: "19.1%" },
   { site: "instagram.com", sessions: 870, conversions: 42, rate: "4.83%" },
   { site: "facebook.com", sessions: 640, conversions: 28, rate: "4.38%" },
   { site: "tripadvisor.com", sessions: 520, conversions: 61, rate: "11.7%" },
@@ -184,17 +226,488 @@ const deviceData = [
   { label: "Tablet", value: 8, color: "#b8a05a44" },
 ];
 
+// ── RESY DATA ─────────────────────────────────────────────────────────────────
+const resyCoversData = [42,38,55,61,68,58,72,78,84,76,88,94,82,96,102,94,108,114,110,118,122,116,128,134,130,140,146,142];
+const resyNoShowData = [4,5,3,4,3,5,2,3,4,3,2,4,3,2,3,4,2,3,2,3,2,3,2,2,3,2,2,2];
+const resyTurnData = [88,92,85,90,87,94,82,86,89,84,88,91,85,87,90,83,86,88,84,87,85,88,83,86,84,87,85,83];
+const resyRatingData = [42,43,44,43,44,45,44,45,46,45,46,47,46,47,47,48,47,48,48,49,48,49,49,49,49,50,50,50];
+
+const resyKpis = [
+  { label: "Covers This Month", value: "3,842", change: "+14.2%", up: true, sub: "Guests who dined", data: resyCoversData, color: "#60a5fa" },
+  { label: "No-Show Rate", value: "3.1%", change: "−1.8%", up: true, sub: "Industry avg: 5–20%", data: resyNoShowData, color: RED },
+  { label: "Avg. Turn Time", value: "87 min", change: "−4 min", up: true, sub: "Time per table", data: resyTurnData, color: GOLD },
+  { label: "Guest Rating", value: "4.9 / 5", change: "+0.2", up: true, sub: "Private to restaurant", data: resyRatingData, color: GREEN },
+];
+
+const resyBookingSources = [
+  { label: "Resy App / Website", value: 1840, pct: 47.9, color: "#60a5fa" },
+  { label: "Your Website Widget", value: 1120, pct: 29.1, color: GOLD },
+  { label: "Walk-In", value: 480, pct: 12.5, color: "#a78bfa" },
+  { label: "Phone / In-House", value: 402, pct: 10.5, color: "#888" },
+];
+
+const resyCoversByDay = [
+  { label: "Mon", value: 88 },
+  { label: "Tue", value: 112 },
+  { label: "Wed", value: 148 },
+  { label: "Thu", value: 186 },
+  { label: "Fri", value: 312 },
+  { label: "Sat", value: 398 },
+  { label: "Sun", value: 224 },
+];
+
+const resyTopGuests = [
+  { name: "M. Romano", visits: 18, lastVisit: "May 18", rating: "5.0" },
+  { name: "D. Sullivan", visits: 14, lastVisit: "May 20", rating: "4.8" },
+  { name: "A. Caruso", visits: 12, lastVisit: "May 15", rating: "5.0" },
+  { name: "P. Marchetti", visits: 11, lastVisit: "May 19", rating: "4.9" },
+  { name: "L. Ferraro", visits: 9, lastVisit: "May 17", rating: "5.0" },
+  { name: "G. Bianchi", visits: 8, lastVisit: "May 14", rating: "4.7" },
+];
+
+const resyServerRatings = [
+  { name: "Sophia M.", covers: 412, rating: "4.96", trend: "+0.08" },
+  { name: "Marco R.", covers: 388, rating: "4.91", trend: "+0.05" },
+  { name: "Isabella C.", covers: 356, rating: "4.88", trend: "+0.12" },
+  { name: "Luca B.", covers: 298, rating: "4.84", trend: "−0.02" },
+  { name: "Aria D.", covers: 276, rating: "4.79", trend: "+0.04" },
+];
+
+// ── TOAST DATA ────────────────────────────────────────────────────────────────
+const toastRevenueData = [4200,3800,5100,5600,6200,5800,6800,7200,7600,7100,7900,8400,7800,8600,9100,8700,9400,9800,9500,10200,10600,10100,11000,11400,11100,11800,12200,11900];
+const toastCheckData = [142,138,156,162,168,158,174,178,184,176,188,194,182,196,202,194,208,214,210,218,222,216,228,234,230,240,246,242];
+const toastLaborData = [28,30,27,26,25,27,24,23,22,24,21,20,23,19,18,21,17,16,19,15,14,17,13,12,15,11,10,12];
+const toastCoversPOS = [38,35,48,54,62,52,66,72,78,70,82,88,76,90,96,88,102,108,104,112,116,110,122,128,124,134,140,136];
+
+const toastKpis = [
+  { label: "Revenue This Month", value: "$94,280", change: "+18.4%", up: true, sub: "vs. last month", data: toastRevenueData, color: GREEN },
+  { label: "Avg. Check Per Person", value: "$187", change: "+$14", up: true, sub: "vs. last month", data: toastCheckData, color: GOLD },
+  { label: "Labor Cost %", value: "24.1%", change: "−3.2%", up: true, sub: "Lower is better", data: toastLaborData, color: BLUE },
+  { label: "Covers (POS)", value: "3,798", change: "+12.8%", up: true, sub: "Matches Resy closely", data: toastCoversPOS, color: PURPLE },
+];
+
+const toastMenuCategories = [
+  { label: "Entrees", value: 38420, pct: 40.7, color: GOLD },
+  { label: "Wine & Spirits", value: 24180, pct: 25.6, color: "#a78bfa" },
+  { label: "Appetizers", value: 12640, pct: 13.4, color: "#60a5fa" },
+  { label: "Desserts", value: 8920, pct: 9.5, color: "#f472b6" },
+  { label: "Cocktails", value: 6840, pct: 7.3, color: "#34d399" },
+  { label: "Non-Alcoholic", value: 3280, pct: 3.5, color: "#888" },
+];
+
+const toastTopDishes = [
+  { dish: "Filet Mignon (8oz)", orders: 312, revenue: "$15,288", avgCheck: "$49" },
+  { dish: "Lobster Carbonara", orders: 284, revenue: "$10,796", avgCheck: "$38" },
+  { dish: "Veal Antonio", orders: 261, revenue: "$11,219", avgCheck: "$43" },
+  { dish: "Chicken Francese", orders: 248, revenue: "$8,928", avgCheck: "$36" },
+  { dish: "Wagyu Beef Ravioli", orders: 224, revenue: "$8,736", avgCheck: "$39" },
+  { dish: "Cheese Ravioli", orders: 198, revenue: "$6,534", avgCheck: "$33" },
+  { dish: "Shrimp Scampi", orders: 186, revenue: "$7,068", avgCheck: "$38" },
+];
+
+const toastHourlyBar = [
+  { label: "11a", value: 420 },
+  { label: "12p", value: 1840 },
+  { label: "1p", value: 2210 },
+  { label: "2p", value: 980 },
+  { label: "3p", value: 340 },
+  { label: "4p", value: 680 },
+  { label: "5p", value: 3120 },
+  { label: "6p", value: 8640 },
+  { label: "7p", value: 12480 },
+  { label: "8p", value: 11200 },
+  { label: "9p", value: 7840 },
+  { label: "10p", value: 3280 },
+];
+
+const toastLaborByRole = [
+  { role: "Servers", hours: 486, cost: "$8,262", pct: 8.8 },
+  { role: "Kitchen", hours: 612, cost: "$9,180", pct: 9.7 },
+  { role: "Bar", hours: 248, cost: "$3,968", pct: 4.2 },
+  { role: "Host", hours: 124, cost: "$1,860", pct: 2.0 },
+  { role: "Management", hours: 160, cost: "$4,480", pct: 4.8 },
+];
+
+// ── WEBSITE TAB ───────────────────────────────────────────────────────────────
+function WebsiteTab() {
+  return (
+    <div>
+      <SectionHeader title="Website Performance" sub="Last 30 Days · francescas-cucina.com" />
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+        {webKpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Traffic by Day of Week</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Average sessions per day — Friday & Saturday peak</div>
+          <BarChart data={weeklyBar} />
+          <div style={{ marginTop: 12, display: "flex", gap: 16 }}>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: GOLD }}>Saturday (4,680)</span></div>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>Monday (2,140)</span></div>
+          </div>
+        </div>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Traffic Sources</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>Where your visitors are coming from</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <DonutChart slices={sources.map(s => ({ label: s.label, value: s.value, color: s.color }))} />
+            <div style={{ flex: 1 }}>
+              {sources.map((s, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 7 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                  <span style={{ fontSize: "0.78rem", color: GOLD, fontWeight: 600 }}>{s.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Referral Sites</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Sites driving traffic — and which convert to reservations</div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Source</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Sessions</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Reservations</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Conv. Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {referrers.map((r, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                  <td style={{ padding: "7px 0", color: TEXT }}>{r.site}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.sessions.toLocaleString()}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{r.conversions}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: parseFloat(r.rate) > 10 ? GREEN : GOLD, fontWeight: 600 }}>{r.rate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: GREEN }}>
+            ✦ Resy.com drives the highest reservation conversion rate at 19.1%
+          </div>
+        </div>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Visitor Geography</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Where your audience is located</div>
+          {geoData.map((g, i) => (
+            <div key={i} style={{ marginBottom: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                <span style={{ fontSize: "0.8rem", color: TEXT }}>{g.city}</span>
+                <span style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{g.sessions.toLocaleString()} <span style={{ color: MUTED, fontWeight: 400 }}>({g.pct}%)</span></span>
+              </div>
+              <div style={{ height: 4, background: "rgba(184,160,90,0.12)", borderRadius: 2 }}>
+                <div style={{ height: "100%", width: `${g.pct}%`, background: `linear-gradient(to right, ${GOLD}, ${GOLD}99)`, borderRadius: 2 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "1rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Pages</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Most visited pages and average time on page</div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Page</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Views</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Avg. Time</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Share</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topPages.map((p, i) => {
+                const total = topPages.reduce((s, x) => s + x.views, 0);
+                const pct = ((p.views / total) * 100).toFixed(1);
+                return (
+                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                    <td style={{ padding: "7px 0", color: GOLD, fontFamily: "monospace" }}>{p.page}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{p.views.toLocaleString()}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{p.avgTime}</td>
+                    <td style={{ padding: "7px 0", textAlign: "right" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6 }}>
+                        <div style={{ width: 50, height: 4, background: "rgba(184,160,90,0.12)", borderRadius: 2 }}>
+                          <div style={{ height: "100%", width: `${pct}%`, background: GOLD, borderRadius: 2 }} />
+                        </div>
+                        <span style={{ fontSize: "0.72rem", color: MUTED, width: 32, textAlign: "right" }}>{pct}%</span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Device Type</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>How visitors access the site</div>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
+            <DonutChart slices={deviceData} centerLabel="100%" centerSub="visitors" />
+          </div>
+          {deviceData.map((d, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+              <div style={{ width: 10, height: 10, borderRadius: "50%", background: d.color }} />
+              <span style={{ fontSize: "0.82rem", color: TEXT, flex: 1 }}>{d.label}</span>
+              <span style={{ fontSize: "0.82rem", color: GOLD, fontWeight: 600 }}>{d.value}%</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 12, padding: "8px 10px", background: GOLD_DIM, border: `1px solid ${BORDER}`, borderRadius: 6, fontSize: "0.72rem", color: GOLD }}>
+            ✦ 58% mobile — ensure all promotions are mobile-first
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── RESY TAB ──────────────────────────────────────────────────────────────────
+function ResyTab() {
+  return (
+    <div>
+      <SectionHeader title="Resy — Reservations & Guest Intelligence" sub="Last 30 Days · Francesca's Cucina" />
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+        {resyKpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Covers by Day of Week</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Total guests seated per day — this month</div>
+          <BarChart data={resyCoversByDay} color={BLUE} />
+          <div style={{ marginTop: 12, display: "flex", gap: 16 }}>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: BLUE }}>Saturday (398 covers)</span></div>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>Monday (88)</span></div>
+          </div>
+        </div>
+
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Booking Source Breakdown</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>How guests are making their reservations</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <DonutChart
+              slices={resyBookingSources.map(s => ({ label: s.label, value: s.value, color: s.color }))}
+              centerLabel="3,842"
+              centerSub="covers"
+            />
+            <div style={{ flex: 1 }}>
+              {resyBookingSources.map((s, i) => (
+                <div key={i} style={{ marginBottom: 10 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                    <span style={{ fontSize: "0.78rem", color: s.color, fontWeight: 600 }}>{s.pct}%</span>
+                  </div>
+                  <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginLeft: 16 }}>
+                    <div style={{ height: "100%", width: `${s.pct}%`, background: s.color, borderRadius: 2 }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ marginTop: 8, padding: "8px 10px", background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.2)", borderRadius: 6, fontSize: "0.72rem", color: BLUE }}>
+            ✦ 29.1% of reservations come through your own website widget — strong direct channel
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Returning Guests</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Your most loyal guests this year</div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Guest</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Visits</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Last Visit</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resyTopGuests.map((g, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                  <td style={{ padding: "7px 0", color: TEXT }}>{g.name}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: GOLD, fontWeight: 600 }}>{g.visits}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{g.lastVisit}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: GREEN }}>{g.rating}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: 10, padding: "8px 10px", background: GOLD_DIM, border: `1px solid ${BORDER}`, borderRadius: 6, fontSize: "0.72rem", color: GOLD }}>
+            ✦ Your top 6 guests have visited a combined 72 times — consider a VIP recognition program
+          </div>
+        </div>
+
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Server Guest Ratings</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Average guest rating by server — private to management</div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Server</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Covers</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Rating</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resyServerRatings.map((s, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                  <td style={{ padding: "7px 0", color: TEXT }}>{s.name}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{s.covers}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: GREEN, fontWeight: 600 }}>{s.rating}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: s.trend.startsWith("+") ? GREEN : RED, fontSize: "0.75rem" }}>{s.trend}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: GREEN }}>
+            ✦ All servers rated above 4.7 — exceptional team performance across the board
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── TOAST TAB ─────────────────────────────────────────────────────────────────
+function ToastTab() {
+  return (
+    <div>
+      <SectionHeader title="Toast POS — Sales, Menu & Labor" sub="Last 30 Days · Francesca's Cucina" />
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+        {toastKpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Revenue by Hour</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>When guests are spending — helps with staffing decisions</div>
+          <BarChart data={toastHourlyBar} color={GREEN} />
+          <div style={{ marginTop: 12, display: "flex", gap: 16 }}>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak: <span style={{ color: GREEN }}>7pm ($12,480)</span></div>
+            <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>11am ($420)</span></div>
+          </div>
+        </div>
+
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Revenue by Menu Category</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>Where your revenue is coming from</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <DonutChart
+              slices={toastMenuCategories.map(s => ({ label: s.label, value: s.value, color: s.color }))}
+              centerLabel="$94.3k"
+              centerSub="revenue"
+            />
+            <div style={{ flex: 1 }}>
+              {toastMenuCategories.map((s, i) => (
+                <div key={i} style={{ marginBottom: 8 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                    <span style={{ fontSize: "0.78rem", color: s.color, fontWeight: 600 }}>{s.pct}%</span>
+                  </div>
+                  <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginLeft: 16 }}>
+                    <div style={{ height: "100%", width: `${s.pct}%`, background: s.color, borderRadius: 2 }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ marginTop: 8, padding: "8px 10px", background: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.2)", borderRadius: 6, fontSize: "0.72rem", color: PURPLE }}>
+            ✦ Wine & spirits at 25.6% — strong beverage program driving margin
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "1rem" }}>
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Selling Dishes</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Most ordered items by revenue — this month</div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Dish</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Orders</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Revenue</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Avg Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {toastTopDishes.map((d, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                  <td style={{ padding: "7px 0", color: TEXT }}>{d.dish}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{d.orders}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: GREEN, fontWeight: 600 }}>{d.revenue}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: GOLD }}>{d.avgCheck}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: GREEN }}>
+            ✦ Filet Mignon is your top revenue driver — consider featuring it prominently on the menu page
+          </div>
+        </div>
+
+        <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
+          <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Labor Cost Breakdown</div>
+          <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Hours and cost by role — this month</div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Role</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Hours</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Cost</th>
+                <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>% Rev</th>
+              </tr>
+            </thead>
+            <tbody>
+              {toastLaborByRole.map((r, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
+                  <td style={{ padding: "7px 0", color: TEXT }}>{r.role}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.hours}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: BLUE, fontWeight: 600 }}>{r.cost}</td>
+                  <td style={{ padding: "7px 0", textAlign: "right", color: r.pct > 8 ? GOLD : GREEN }}>{r.pct}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div style={{ marginTop: 8, borderTop: `1px solid ${BORDER}`, paddingTop: 8 }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>Total Labor</span>
+              <span style={{ fontSize: "0.8rem", color: BLUE, fontWeight: 700 }}>$27,750 (29.4%)</span>
+            </div>
+          </div>
+          <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.2)", borderRadius: 6, fontSize: "0.72rem", color: BLUE }}>
+            ✦ Total labor at 29.4% of revenue — within the healthy 28–35% restaurant benchmark
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── MAIN DASHBOARD ────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const [activeNav, setActiveNav] = useState("overview");
+  const [activeTab, setActiveTab] = useState<"website" | "resy" | "toast">("website");
   const [dateRange, setDateRange] = useState("Last 30 Days");
 
-  const navItems = [
-    { id: "overview", label: "Overview" },
-    { id: "traffic", label: "Traffic" },
-    { id: "sources", label: "Sources" },
-    { id: "geo", label: "Geography" },
-    { id: "pages", label: "Top Pages" },
-    { id: "conversions", label: "Conversions" },
+  const tabs = [
+    { id: "website" as const, label: "Website Analytics", icon: "◎" },
+    { id: "resy" as const, label: "Resy Reservations", icon: "⬡" },
+    { id: "toast" as const, label: "Toast POS", icon: "▣" },
   ];
 
   return (
@@ -216,7 +729,6 @@ export default function Dashboard() {
         padding: "2rem 0",
         flexShrink: 0,
       }}>
-        {/* Logo */}
         <div style={{ padding: "0 1.5rem 2rem", borderBottom: `1px solid ${BORDER}` }}>
           <div style={{ fontSize: "0.65rem", letterSpacing: "0.35em", color: GOLD, textTransform: "uppercase", marginBottom: 4 }}>
             Francesca's Cucina
@@ -225,42 +737,57 @@ export default function Dashboard() {
           <div style={{ fontSize: "0.7rem", color: MUTED, marginTop: 2 }}>Owner Dashboard</div>
         </div>
 
-        {/* Nav */}
-        <nav style={{ padding: "1.5rem 0", flex: 1 }}>
-          {navItems.map(item => (
-            <button key={item.id} onClick={() => setActiveNav(item.id)} style={{
-              display: "block",
+        {/* Data Source Tabs */}
+        <nav style={{ padding: "1.5rem 0 0", flex: 1 }}>
+          <div style={{ padding: "0 1.5rem", fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Data Sources</div>
+          {tabs.map(tab => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
               width: "100%",
               textAlign: "left",
-              padding: "0.65rem 1.5rem",
-              background: activeNav === item.id ? GOLD_DIM : "transparent",
-              borderLeft: activeNav === item.id ? `2px solid ${GOLD}` : "2px solid transparent",
-              color: activeNav === item.id ? GOLD : MUTED,
+              padding: "0.7rem 1.5rem",
+              background: activeTab === tab.id ? GOLD_DIM : "transparent",
+              borderLeft: activeTab === tab.id ? `2px solid ${GOLD}` : "2px solid transparent",
+              color: activeTab === tab.id ? GOLD : MUTED,
               fontSize: "0.85rem",
               letterSpacing: "0.04em",
               cursor: "pointer",
               border: "none",
               transition: "all 0.2s",
             }}>
-              {item.label}
+              <span style={{ fontSize: "0.9rem" }}>{tab.icon}</span>
+              {tab.label}
             </button>
           ))}
+
+          {/* Status indicators */}
+          <div style={{ padding: "1.5rem 1.5rem 0" }}>
+            <div style={{ fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 10 }}>Connection Status</div>
+            {[
+              { label: "Google Analytics", status: "Connected", color: GREEN },
+              { label: "Resy", status: "Pending", color: GOLD },
+              { label: "Toast POS", status: "Pending", color: GOLD },
+            ].map((s, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                <span style={{ fontSize: "0.75rem", color: TEXT, flex: 1 }}>{s.label}</span>
+                <span style={{ fontSize: "0.68rem", color: s.color }}>{s.status}</span>
+              </div>
+            ))}
+          </div>
         </nav>
 
-        {/* Date range selector */}
+        {/* Date range */}
         <div style={{ padding: "1rem 1.5rem", borderTop: `1px solid ${BORDER}` }}>
           <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: MUTED, marginBottom: 6 }}>DATE RANGE</div>
           {["Last 7 Days", "Last 30 Days", "Last 90 Days", "This Year"].map(r => (
             <button key={r} onClick={() => setDateRange(r)} style={{
-              display: "block",
-              width: "100%",
-              textAlign: "left",
-              padding: "0.35rem 0",
-              background: "transparent",
-              border: "none",
+              display: "block", width: "100%", textAlign: "left",
+              padding: "0.35rem 0", background: "transparent", border: "none",
               color: dateRange === r ? GOLD : MUTED,
-              fontSize: "0.78rem",
-              cursor: "pointer",
+              fontSize: "0.78rem", cursor: "pointer",
               fontWeight: dateRange === r ? 600 : 400,
             }}>
               {dateRange === r ? "▸ " : "  "}{r}
@@ -268,7 +795,6 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* Mockup badge */}
         <div style={{
           margin: "1rem",
           padding: "0.6rem 0.8rem",
@@ -286,11 +812,25 @@ export default function Dashboard() {
       {/* ── Main Content ── */}
       <main style={{ flex: 1, padding: "2rem 2.5rem", overflowY: "auto" }}>
 
-        {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "2rem" }}>
-          <div>
-            <h1 style={{ fontSize: "1.5rem", fontWeight: 700, color: TEXT, margin: 0 }}>Site Performance Overview</h1>
-            <p style={{ color: MUTED, fontSize: "0.85rem", margin: "4px 0 0" }}>{dateRange} · francescas-cucina.com</p>
+        {/* Top bar with tab pills */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+          <div style={{ display: "flex", gap: 8 }}>
+            {tabs.map(tab => (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+                padding: "0.45rem 1.2rem",
+                borderRadius: 6,
+                border: `1px solid ${activeTab === tab.id ? GOLD : BORDER}`,
+                background: activeTab === tab.id ? GOLD_DIM : "transparent",
+                color: activeTab === tab.id ? GOLD : MUTED,
+                fontSize: "0.8rem",
+                letterSpacing: "0.06em",
+                cursor: "pointer",
+                fontWeight: activeTab === tab.id ? 600 : 400,
+                transition: "all 0.2s",
+              }}>
+                {tab.icon} {tab.label}
+              </button>
+            ))}
           </div>
           <div style={{
             padding: "0.5rem 1.2rem",
@@ -305,210 +845,10 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* ── KPI Cards ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
-          {kpis.map((kpi, i) => (
-            <div key={i} style={{
-              background: CARD,
-              border: `1px solid ${BORDER}`,
-              borderRadius: 10,
-              padding: "1.2rem 1.4rem 0.8rem",
-              position: "relative",
-              overflow: "hidden",
-            }}>
-              <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{kpi.label}</div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2 }}>
-                <span style={{ fontSize: "1.8rem", fontWeight: 700, color: TEXT, lineHeight: 1 }}>{kpi.value}</span>
-                <span style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  color: kpi.up ? "#4ade80" : "#f87171",
-                  background: kpi.up ? "rgba(74,222,128,0.12)" : "rgba(248,113,113,0.12)",
-                  padding: "2px 6px",
-                  borderRadius: 4,
-                }}>{kpi.change}</span>
-              </div>
-              <div style={{ fontSize: "0.7rem", color: MUTED, marginBottom: 10 }}>{kpi.sub}</div>
-              <Sparkline data={kpi.data} height={40} />
-            </div>
-          ))}
-        </div>
-
-        {/* ── Row 2: Traffic by Day + Traffic Sources ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
-
-          {/* Weekly Traffic Bar */}
-          <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
-            <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Traffic by Day of Week</div>
-            <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>Average sessions per day — Friday & Saturday peak</div>
-            <BarChart data={weeklyBar} />
-            <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
-              <div style={{ fontSize: "0.75rem", color: MUTED }}>Peak day: <span style={{ color: GOLD }}>Saturday (4,680)</span></div>
-              <div style={{ fontSize: "0.75rem", color: MUTED }}>Slowest: <span style={{ color: TEXT }}>Monday (2,140)</span></div>
-            </div>
-          </div>
-
-          {/* Traffic Sources Donut */}
-          <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
-            <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Traffic Sources</div>
-            <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 12 }}>Where your visitors are coming from</div>
-            <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-              <DonutChart slices={sources.map(s => ({ label: s.label, value: s.value, color: s.color }))} />
-              <div style={{ flex: 1 }}>
-                {sources.map((s, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 7 }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                    <span style={{ fontSize: "0.78rem", color: TEXT, flex: 1 }}>{s.label}</span>
-                    <span style={{ fontSize: "0.78rem", color: GOLD, fontWeight: 600 }}>{s.pct}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Row 3: Referrers + Geo ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
-
-          {/* Referral Sites */}
-          <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
-            <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Referral Sites</div>
-            <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Sites driving traffic — and which convert to reservations</div>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-              <thead>
-                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Source</th>
-                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Sessions</th>
-                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Reservations</th>
-                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Conv. Rate</th>
-                </tr>
-              </thead>
-              <tbody>
-                {referrers.map((r, i) => (
-                  <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                    <td style={{ padding: "7px 0", color: TEXT }}>{r.site}</td>
-                    <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{r.sessions.toLocaleString()}</td>
-                    <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{r.conversions}</td>
-                    <td style={{ padding: "7px 0", textAlign: "right", color: parseFloat(r.rate) > 10 ? "#4ade80" : GOLD, fontWeight: 600 }}>{r.rate}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div style={{ marginTop: 10, padding: "8px 10px", background: "rgba(74,222,128,0.06)", border: "1px solid rgba(74,222,128,0.15)", borderRadius: 6, fontSize: "0.72rem", color: "#4ade80" }}>
-              ✦ OpenTable drives the highest reservation conversion rate at 19.1%
-            </div>
-          </div>
-
-          {/* Geographic breakdown */}
-          <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
-            <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Visitor Geography</div>
-            <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Where your audience is located</div>
-            {geoData.map((g, i) => (
-              <div key={i} style={{ marginBottom: 10 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                  <span style={{ fontSize: "0.8rem", color: TEXT }}>{g.city}</span>
-                  <span style={{ fontSize: "0.8rem", color: GOLD, fontWeight: 600 }}>{g.sessions.toLocaleString()} <span style={{ color: MUTED, fontWeight: 400 }}>({g.pct}%)</span></span>
-                </div>
-                <div style={{ height: 4, background: "rgba(184,160,90,0.12)", borderRadius: 2 }}>
-                  <div style={{ height: "100%", width: `${g.pct}%`, background: `linear-gradient(to right, ${GOLD}, ${GOLD}99)`, borderRadius: 2 }} />
-                </div>
-              </div>
-            ))}
-            <div style={{ marginTop: 10, padding: "8px 10px", background: GOLD_DIM, border: `1px solid ${BORDER}`, borderRadius: 6, fontSize: "0.72rem", color: GOLD }}>
-              ✦ 53.9% of visitors are local Syracuse — strong community engagement
-            </div>
-          </div>
-        </div>
-
-        {/* ── Row 4: Top Pages + Device Split ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
-
-          {/* Top Pages */}
-          <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
-            <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Top Pages</div>
-            <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 14 }}>Most visited pages and average time on page</div>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
-              <thead>
-                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                  <th style={{ textAlign: "left", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Page</th>
-                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Views</th>
-                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Avg. Time</th>
-                  <th style={{ textAlign: "right", padding: "0 0 8px", color: MUTED, fontWeight: 500 }}>Share</th>
-                </tr>
-              </thead>
-              <tbody>
-                {topPages.map((p, i) => {
-                  const total = topPages.reduce((s, x) => s + x.views, 0);
-                  const pct = ((p.views / total) * 100).toFixed(1);
-                  return (
-                    <tr key={i} style={{ borderBottom: `1px solid rgba(184,160,90,0.08)` }}>
-                      <td style={{ padding: "7px 0", color: GOLD, fontFamily: "monospace" }}>{p.page}</td>
-                      <td style={{ padding: "7px 0", textAlign: "right", color: TEXT }}>{p.views.toLocaleString()}</td>
-                      <td style={{ padding: "7px 0", textAlign: "right", color: MUTED }}>{p.avgTime}</td>
-                      <td style={{ padding: "7px 0", textAlign: "right" }}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6 }}>
-                          <div style={{ width: 50, height: 4, background: "rgba(184,160,90,0.12)", borderRadius: 2 }}>
-                            <div style={{ height: "100%", width: `${pct}%`, background: GOLD, borderRadius: 2 }} />
-                          </div>
-                          <span style={{ fontSize: "0.72rem", color: MUTED, width: 32, textAlign: "right" }}>{pct}%</span>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Device Split */}
-          <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1.4rem" }}>
-            <div style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>Device Type</div>
-            <div style={{ fontSize: "0.8rem", color: MUTED, marginBottom: 16 }}>How visitors access the site</div>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-              <DonutChart slices={deviceData} />
-            </div>
-            {deviceData.map((d, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                <div style={{ width: 10, height: 10, borderRadius: "50%", background: d.color }} />
-                <span style={{ fontSize: "0.82rem", color: TEXT, flex: 1 }}>{d.label}</span>
-                <span style={{ fontSize: "0.82rem", color: GOLD, fontWeight: 600 }}>{d.value}%</span>
-              </div>
-            ))}
-            <div style={{ marginTop: 14, padding: "8px 10px", background: GOLD_DIM, border: `1px solid ${BORDER}`, borderRadius: 6, fontSize: "0.72rem", color: GOLD }}>
-              ✦ 58% mobile — ensure mobile UX is a priority
-            </div>
-          </div>
-        </div>
-
-        {/* ── Marketing Insights Banner ── */}
-        <div style={{
-          background: "linear-gradient(135deg, rgba(184,160,90,0.12) 0%, rgba(184,160,90,0.04) 100%)",
-          border: `1px solid ${BORDER}`,
-          borderRadius: 10,
-          padding: "1.4rem 1.8rem",
-        }}>
-          <div style={{ fontSize: "0.7rem", letterSpacing: "0.15em", color: GOLD, textTransform: "uppercase", marginBottom: 8 }}>
-            ✦ Marketing Insights
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
-            {[
-              { title: "Invest in Google Ads", body: "43% of traffic comes from Google Search. A modest paid search budget targeting 'Italian restaurant Syracuse' could significantly increase reservations." },
-              { title: "Leverage OpenTable", body: "OpenTable visitors convert at 19.1% — the highest of any source. Keeping your listing optimized and up-to-date is one of the highest-ROI marketing activities." },
-              { title: "Mobile-First Content", body: "58% of visitors are on mobile devices. Ensure menu photos, reservation buttons, and phone numbers are easy to tap — especially on the Catering and Events pages." },
-            ].map((tip, i) => (
-              <div key={i}>
-                <div style={{ fontSize: "0.82rem", fontWeight: 600, color: TEXT, marginBottom: 4 }}>{tip.title}</div>
-                <div style={{ fontSize: "0.75rem", color: MUTED, lineHeight: 1.6 }}>{tip.body}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer note */}
-        <div style={{ marginTop: "1.5rem", textAlign: "center", fontSize: "0.7rem", color: "rgba(240,237,230,0.25)" }}>
-          This is a design mockup with illustrative data. A live version would connect to Google Analytics, OpenTable, and your reservation system.
-        </div>
-
+        {/* Tab Content */}
+        {activeTab === "website" && <WebsiteTab />}
+        {activeTab === "resy" && <ResyTab />}
+        {activeTab === "toast" && <ToastTab />}
       </main>
     </div>
   );
