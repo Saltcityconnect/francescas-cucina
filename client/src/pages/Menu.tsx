@@ -1,13 +1,12 @@
 /*
- * MENU PAGE — Sunny's Miami Style
- * Design: White/cream menu card on dark hunter green background with polka-dot texture
- * Typography: Big Shoulders Display for section headers (all-caps condensed),
- *             Cormorant Garamond italic for item names (elegant script feel),
- *             DM Sans for descriptions
- * Layout: Centered single-column, no photos, purely typographic
- * Colors: White card, dark charcoal text, hunter green outer bg
+ * MENU PAGE — Dark luxury, Cormorant Garamond headings
+ * Top tabs: Wine List | Dinner Menu (matching the reference design)
+ * Section tabs: sticky category bar (Appetizers, Soup & Salad, Pasta, Seafood, Chicken, Veal, Steaks)
+ * Typography: Cormorant Garamond for headings, DM Sans for body
  */
 
+import { useState, useEffect, useRef } from "react";
+import { Link } from "wouter";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
@@ -125,7 +124,30 @@ const menuData: MenuSection[] = [
   },
 ];
 
+const sectionTabLabels: Record<string, string> = {
+  appetizers: "Appetizers",
+  salads: "Soup & Salad",
+  pasta: "Pasta",
+  seafood: "Seafood",
+  chicken: "Chicken",
+  veal: "Veal",
+  steaks: "Steaks",
+};
+
 export default function Menu() {
+  const [activeSection, setActiveSection] = useState("appetizers");
+  const tabBarRef = useRef<HTMLDivElement>(null);
+
+  // Scroll active section tab into view on mobile
+  useEffect(() => {
+    const bar = tabBarRef.current;
+    if (!bar) return;
+    const btn = bar.querySelector(`[data-tab="${activeSection}"]`) as HTMLElement | null;
+    if (btn) btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [activeSection]);
+
+  const currentSection = menuData.find((s) => s.id === activeSection)!;
+
   return (
     <div style={{ background: "var(--charcoal)", minHeight: "100vh" }}>
       <NavigationA />
@@ -133,7 +155,7 @@ export default function Menu() {
       {/* ─── PAGE HEADER ─── */}
       <div style={{
         paddingTop: "7rem",
-        paddingBottom: "2rem",
+        paddingBottom: "0",
         textAlign: "center",
         background: "var(--charcoal)",
       }}>
@@ -159,7 +181,60 @@ export default function Menu() {
         }}>
           Dinner Menu
         </h1>
-        <div style={{ marginTop: "1.5rem" }}>
+
+        {/* ─── WINE LIST / DINNER MENU TOP TABS ─── */}
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 0,
+          marginTop: "2rem",
+          borderBottom: "1px solid rgba(200,169,110,0.2)",
+        }}>
+          {/* Wine List tab — links to wine list page */}
+          <Link
+            href="/wine-list"
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.68rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.45)",
+              textDecoration: "none",
+              padding: "1rem 1.5rem",
+              borderBottom: "2px solid transparent",
+              transition: "color 0.2s, border-color 0.2s",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--gold)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.45)"; }}
+          >
+            Wine List
+          </Link>
+
+          {/* Divider */}
+          <span style={{ color: "rgba(200,169,110,0.4)", fontSize: "1rem", padding: "0 0.25rem", lineHeight: 1 }}>|</span>
+
+          {/* Dinner Menu tab — active */}
+          <span style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.68rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            color: "var(--gold)",
+            padding: "1rem 1.5rem",
+            borderBottom: "2px solid var(--gold)",
+            whiteSpace: "nowrap",
+            display: "inline-block",
+          }}>
+            Dinner Menu
+          </span>
+        </div>
+
+        {/* Download button */}
+        <div style={{ marginTop: "1.5rem", marginBottom: "0.5rem" }}>
           <a
             href="/manus-storage/francescas_dinner_menu_b87ebbe7.pdf"
             download="Francescas_Dinner_Menu.pdf"
@@ -193,10 +268,55 @@ export default function Menu() {
         </div>
       </div>
 
+      {/* ─── STICKY SECTION TAB BAR ─── */}
+      <div
+        ref={tabBarRef}
+        style={{
+          position: "sticky",
+          top: "64px",
+          zIndex: 40,
+          background: "var(--charcoal)",
+          borderBottom: "1px solid rgba(200,169,110,0.2)",
+          overflowX: "auto",
+          scrollbarWidth: "none",
+          WebkitOverflowScrolling: "touch",
+          display: "flex",
+          justifyContent: "center",
+          padding: "0 1rem",
+        }}
+      >
+        <div style={{ display: "flex", gap: 0, minWidth: "max-content" }}>
+          {menuData.map((section) => (
+            <button
+              key={section.id}
+              data-tab={section.id}
+              onClick={() => setActiveSection(section.id)}
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: "0.68rem",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                fontWeight: activeSection === section.id ? 600 : 400,
+                color: activeSection === section.id ? "var(--gold)" : "rgba(255,255,255,0.45)",
+                background: "none",
+                border: "none",
+                borderBottom: activeSection === section.id ? "2px solid var(--gold)" : "2px solid transparent",
+                padding: "1rem 1.25rem",
+                cursor: "pointer",
+                transition: "color 0.2s, border-color 0.2s",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {sectionTabLabels[section.id]}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* ─── MENU CARD ─── */}
       <div style={{
         maxWidth: "820px",
-        margin: "0 auto 5rem",
+        margin: "2rem auto 5rem",
         padding: "0 1.5rem",
       }}>
         <div style={{
@@ -213,104 +333,101 @@ export default function Menu() {
             pointerEvents: "none",
           }} />
 
-          {/* Menu sections */}
-          {menuData.map((section, sIdx) => (
-            <div key={section.id} id={section.id} style={{ marginBottom: sIdx < menuData.length - 1 ? "3.5rem" : 0 }}>
-
-              {/* Section header */}
-              <div style={{ textAlign: "center", marginBottom: "0.4rem" }}>
-                <h2 style={{
-                  fontFamily: "'Big Shoulders Display', sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#1a1a1a",
-                  margin: 0,
-                  lineHeight: 1,
+          {/* Active section */}
+          <div id={currentSection.id}>
+            {/* Section header */}
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <h2 style={{
+                fontFamily: "'Big Shoulders Display', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#1a1a1a",
+                margin: 0,
+                lineHeight: 1,
+              }}>
+                {currentSection.title}
+              </h2>
+              {currentSection.subtitle && (
+                <p style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontStyle: "italic",
+                  fontSize: "1rem",
+                  color: "#6b5a3e",
+                  margin: "0.3rem 0 0",
+                  letterSpacing: "0.03em",
                 }}>
-                  {section.title}
-                </h2>
-                {section.subtitle && (
+                  {currentSection.subtitle}
+                </p>
+              )}
+            </div>
+
+            {/* Divider */}
+            <div style={{
+              width: "60px",
+              height: "1px",
+              background: "#c8a96e",
+              margin: "1rem auto 1.75rem",
+            }} />
+
+            {/* Items */}
+            <div>
+              {currentSection.items.map((item, iIdx) => (
+                <div key={iIdx} style={{
+                  textAlign: "center",
+                  marginBottom: item.description || item.note ? "1.75rem" : "1.1rem",
+                }}>
                   <p style={{
                     fontFamily: "'Cormorant Garamond', serif",
                     fontStyle: "italic",
-                    fontSize: "1rem",
-                    color: "#6b5a3e",
-                    margin: "0.3rem 0 0",
-                    letterSpacing: "0.03em",
+                    fontWeight: 600,
+                    fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)",
+                    color: "#1a1a1a",
+                    margin: 0,
+                    lineHeight: 1.3,
+                    letterSpacing: "0.01em",
                   }}>
-                    {section.subtitle}
+                    {item.name}
+                    {item.price && (
+                      <span style={{ fontWeight: 400, color: "#5a4a30" }}>
+                        {" "}•{" "}${item.price}
+                      </span>
+                    )}
                   </p>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div style={{
-                width: "60px",
-                height: "1px",
-                background: "#c8a96e",
-                margin: "1rem auto 1.75rem",
-              }} />
-
-              {/* Items */}
-              <div>
-                {section.items.map((item, iIdx) => (
-                  <div key={iIdx} style={{
-                    textAlign: "center",
-                    marginBottom: item.description || item.note ? "1.75rem" : "1.1rem",
-                  }}>
+                  {item.description && (
                     <p style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontStyle: "italic",
-                      fontWeight: 600,
-                      fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)",
-                      color: "#1a1a1a",
-                      margin: 0,
-                      lineHeight: 1.3,
-                      letterSpacing: "0.01em",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: "0.8rem",
+                      color: "#7a6a55",
+                      margin: "0.3rem 0 0",
+                      lineHeight: 1.5,
+                      maxWidth: "480px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
                     }}>
-                      {item.name}
-                      {item.price && (
-                        <span style={{ fontWeight: 400, color: "#5a4a30" }}>
-                          {" "}•{" "}${item.price}
-                        </span>
-                      )}
+                      {item.description}
                     </p>
-                    {item.description && (
-                      <p style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: "0.8rem",
-                        color: "#7a6a55",
-                        margin: "0.3rem 0 0",
-                        lineHeight: 1.5,
-                        maxWidth: "480px",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}>
-                        {item.description}
-                      </p>
-                    )}
-                    {item.note && (
-                      <p style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontStyle: "italic",
-                        fontSize: "0.75rem",
-                        color: "#9a8a75",
-                        margin: "0.5rem 0 0",
-                        lineHeight: 1.5,
-                        maxWidth: "480px",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}>
-                        {item.note}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+                  )}
+                  {item.note && (
+                    <p style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontStyle: "italic",
+                      fontSize: "0.75rem",
+                      color: "#9a8a75",
+                      margin: "0.5rem 0 0",
+                      lineHeight: 1.5,
+                      maxWidth: "480px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}>
+                      {item.note}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
 
           {/* Bottom note */}
           <div style={{
@@ -344,22 +461,16 @@ export default function Menu() {
           }}>
             Explore Our Cellar
           </p>
-          <a
+          <Link
             href="/wine-list"
             className="btn-outline-ivory"
           >
-            Wine List
-          </a>
+            View Wine List
+          </Link>
         </div>
       </div>
 
       <Footer />
-
-      <style>{`
-        @media (max-width: 640px) {
-          #root .menu-card-inner { padding: 2rem 1.25rem !important; }
-        }
-      `}</style>
     </div>
   );
 }

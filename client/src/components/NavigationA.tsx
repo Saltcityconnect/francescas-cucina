@@ -1,7 +1,8 @@
 /*
  * NAVIGATION — Option A (Motherwolf-inspired)
- * Desktop: hamburger left | home icon center | Reservations + Gift Cards right
- * Mobile:  hamburger + home icon left | Reservations + Gift Cards right
+ * Desktop: hamburger left | Reservations + Gift Cards right
+ * Mobile:  hamburger left | Reservations + Gift Cards right
+ * Home icon removed. Contact Us added to hamburger overlay.
  * Dark charcoal background on scroll, transparent over hero video
  */
 
@@ -15,23 +16,13 @@ const menuLinks = [
   { label: "Menu", href: "/menu", external: false },
   { label: "Catering", href: "/catering", external: false },
   { label: "Private Events", href: "/events", external: false },
+  { label: "Contact Us", href: "/contact", external: false },
 ];
-
-// Home SVG icon
-function HomeIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 9.75L12 3l9 6.75V21a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.75z" />
-      <path d="M9 22V12h6v10" />
-    </svg>
-  );
-}
 
 export default function NavigationA() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
-  const isHome = location === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -50,6 +41,22 @@ export default function NavigationA() {
     document.body.style.overflow = next ? "hidden" : "";
   };
 
+  const navBtnStyle: React.CSSProperties = {
+    fontFamily: "'DM Sans', sans-serif",
+    fontWeight: 500,
+    fontSize: "0.7rem",
+    letterSpacing: "0.2em",
+    textTransform: "uppercase",
+    color: "var(--ivory)",
+    textDecoration: "none",
+    padding: "0.5rem 1.1rem",
+    border: "1px solid rgba(245,240,228,0.5)",
+    borderRadius: "6px",
+    transition: "all 0.3s ease",
+    whiteSpace: "nowrap" as const,
+    display: "inline-block",
+  };
+
   return (
     <>
       <header
@@ -65,9 +72,8 @@ export default function NavigationA() {
         <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2rem" }}>
           <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "72px" }}>
 
-            {/* Left side: hamburger + home icon (home always visible on mobile, centered on desktop) */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              {/* Hamburger */}
+            {/* Left side: hamburger only */}
+            <div style={{ display: "flex", alignItems: "center" }}>
               <button
                 onClick={toggleMenu}
                 aria-label="Toggle navigation menu"
@@ -89,63 +95,15 @@ export default function NavigationA() {
                   transform: menuOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
                 }} />
               </button>
-
-              {/* Home icon — hidden on home page, visible on sub-pages */}
-              {!isHome && (
-                <Link
-                  href="/"
-                  aria-label="Return to homepage"
-                  className="nav-home-mobile"
-                  style={{
-                    textDecoration: "none",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "var(--ivory)", opacity: 0.85, transition: "opacity 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
-                >
-                  <HomeIcon />
-                </Link>
-              )}
             </div>
 
-            {/* Home icon — Center on desktop, hidden on home page */}
-            {!isHome && (
-              <Link
-                href="/"
-                aria-label="Return to homepage"
-                className="nav-home-desktop"
-                style={{
-                  position: "absolute", left: "50%", transform: "translateX(-50%)",
-                  textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center",
-                  color: "var(--ivory)", opacity: 0.85, transition: "opacity 0.2s ease",
-                }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
-              >
-                <HomeIcon />
-              </Link>
-            )}
-
-            {/* Right CTAs */}
+            {/* Right CTAs — Reservations + Gift Cards, same size */}
             <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
               <a
                 href="https://resy.com/cities/syr/francescas-cucina"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "var(--ivory)",
-                  textDecoration: "none",
-                  padding: "0.5rem 1.1rem",
-                  border: "1px solid rgba(245,240,228,0.5)",
-                  borderRadius: "6px",
-                  transition: "all 0.3s ease",
-                }}
+                style={navBtnStyle}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.background = "var(--ivory)";
                   (e.currentTarget as HTMLElement).style.color = "var(--charcoal)";
@@ -159,19 +117,7 @@ export default function NavigationA() {
               </a>
               <Link
                 href="/gift-cards"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "var(--ivory)",
-                  textDecoration: "none",
-                  padding: "0.5rem 1.1rem",
-                  border: "1px solid rgba(245,240,228,0.5)",
-                  borderRadius: "6px",
-                  transition: "all 0.3s ease",
-                }}
+                style={navBtnStyle}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.background = "var(--ivory)";
                   (e.currentTarget as HTMLElement).style.color = "var(--charcoal)";
@@ -290,19 +236,6 @@ export default function NavigationA() {
           )
         )}
       </div>
-
-      <style>{`
-        /* Desktop: show centered home icon, hide the left one */
-        @media (min-width: 641px) {
-          .nav-home-mobile { display: none !important; }
-          .nav-home-desktop { display: flex !important; }
-        }
-        /* Mobile: hide centered home icon, show left one */
-        @media (max-width: 640px) {
-          .nav-home-mobile { display: flex !important; }
-          .nav-home-desktop { display: none !important; }
-        }
-      `}</style>
     </>
   );
 }
