@@ -229,8 +229,8 @@ export default function WineList() {
           Francesca's Cucina · Syracuse, New York
         </p>
         <h1 style={{
-          fontFamily: "'Big Shoulders Display', sans-serif",
-          fontWeight: 800,
+          fontFamily: "'Cormorant Garamond', serif",
+          fontWeight: 700,
           fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
           letterSpacing: "0.08em",
           textTransform: "uppercase",
@@ -361,8 +361,8 @@ export default function WineList() {
           {/* Section header */}
           <div style={{ textAlign: "center", marginBottom: "0.4rem" }}>
             <h2 style={{
-              fontFamily: "'Big Shoulders Display', sans-serif",
-              fontWeight: 800,
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 700,
               fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
