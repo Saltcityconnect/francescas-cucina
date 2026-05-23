@@ -250,25 +250,6 @@ export default function WineList() {
           marginTop: "2rem",
           borderBottom: "1px solid rgba(200,169,110,0.2)",
         }}>
-          {/* Wine List tab — active */}
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.68rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            color: "var(--gold)",
-            padding: "1rem 1.5rem",
-            borderBottom: "2px solid var(--gold)",
-            whiteSpace: "nowrap",
-            display: "inline-block",
-          }}>
-            Wine List
-          </span>
-
-          {/* Divider */}
-          <span style={{ color: "rgba(200,169,110,0.4)", fontSize: "1rem", padding: "0 0.25rem", lineHeight: 1 }}>|</span>
-
           {/* Dinner Menu tab — links to menu page */}
           <Link
             href="/menu"
@@ -290,6 +271,25 @@ export default function WineList() {
           >
             Dinner Menu
           </Link>
+
+          {/* Divider */}
+          <span style={{ color: "rgba(200,169,110,0.4)", fontSize: "1rem", padding: "0 0.25rem", lineHeight: 1 }}>|</span>
+
+          {/* Wine List tab — active */}
+          <span style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.68rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            color: "var(--gold)",
+            padding: "1rem 1.5rem",
+            borderBottom: "2px solid var(--gold)",
+            whiteSpace: "nowrap",
+            display: "inline-block",
+          }}>
+            Wine List
+          </span>
         </div>
       </div>
 
@@ -306,11 +306,11 @@ export default function WineList() {
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
           display: "flex",
-          justifyContent: "center",
-          padding: "0 1rem",
+          justifyContent: "flex-start",
+          padding: "0",
         }}
       >
-        <div style={{ display: "flex", gap: 0, minWidth: "max-content" }}>
+        <div style={{ display: "flex", gap: 0, minWidth: "max-content", padding: "0 1rem" }}>
           {wineData.map((section) => (
             <button
               key={section.id}

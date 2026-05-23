@@ -182,7 +182,7 @@ export default function Menu() {
           Dinner Menu
         </h1>
 
-        {/* ─── WINE LIST / DINNER MENU TOP TABS ─── */}
+        {/* ─── DINNER MENU / WINE LIST TOP TABS ─── */}
         <div style={{
           display: "flex",
           alignItems: "center",
@@ -191,6 +191,25 @@ export default function Menu() {
           marginTop: "2rem",
           borderBottom: "1px solid rgba(200,169,110,0.2)",
         }}>
+          {/* Dinner Menu tab — active */}
+          <span style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.68rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            color: "var(--gold)",
+            padding: "1rem 1.5rem",
+            borderBottom: "2px solid var(--gold)",
+            whiteSpace: "nowrap",
+            display: "inline-block",
+          }}>
+            Dinner Menu
+          </span>
+
+          {/* Divider */}
+          <span style={{ color: "rgba(200,169,110,0.4)", fontSize: "1rem", padding: "0 0.25rem", lineHeight: 1 }}>|</span>
+
           {/* Wine List tab — links to wine list page */}
           <Link
             href="/wine-list"
@@ -212,25 +231,6 @@ export default function Menu() {
           >
             Wine List
           </Link>
-
-          {/* Divider */}
-          <span style={{ color: "rgba(200,169,110,0.4)", fontSize: "1rem", padding: "0 0.25rem", lineHeight: 1 }}>|</span>
-
-          {/* Dinner Menu tab — active */}
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.68rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            color: "var(--gold)",
-            padding: "1rem 1.5rem",
-            borderBottom: "2px solid var(--gold)",
-            whiteSpace: "nowrap",
-            display: "inline-block",
-          }}>
-            Dinner Menu
-          </span>
         </div>
 
         {/* Download button */}
@@ -281,11 +281,11 @@ export default function Menu() {
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
           display: "flex",
-          justifyContent: "center",
-          padding: "0 1rem",
+          justifyContent: "flex-start",
+          padding: "0",
         }}
       >
-        <div style={{ display: "flex", gap: 0, minWidth: "max-content" }}>
+        <div style={{ display: "flex", gap: 0, minWidth: "max-content", padding: "0 1rem" }}>
           {menuData.map((section) => (
             <button
               key={section.id}
