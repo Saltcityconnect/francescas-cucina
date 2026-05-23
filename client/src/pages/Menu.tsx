@@ -281,7 +281,7 @@ export default function Menu() {
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           padding: "0",
         }}
       >

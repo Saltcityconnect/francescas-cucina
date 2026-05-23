@@ -306,7 +306,7 @@ export default function WineList() {
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           padding: "0",
         }}
       >
