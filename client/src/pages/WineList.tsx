@@ -6,6 +6,7 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "wouter";
 import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
@@ -239,6 +240,57 @@ export default function WineList() {
         }}>
           Wine List
         </h1>
+
+        {/* ─── WINE LIST / DINNER MENU TOP TABS ─── */}
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 0,
+          marginTop: "2rem",
+          borderBottom: "1px solid rgba(200,169,110,0.2)",
+        }}>
+          {/* Wine List tab — active */}
+          <span style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "0.68rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            color: "var(--gold)",
+            padding: "1rem 1.5rem",
+            borderBottom: "2px solid var(--gold)",
+            whiteSpace: "nowrap",
+            display: "inline-block",
+          }}>
+            Wine List
+          </span>
+
+          {/* Divider */}
+          <span style={{ color: "rgba(200,169,110,0.4)", fontSize: "1rem", padding: "0 0.25rem", lineHeight: 1 }}>|</span>
+
+          {/* Dinner Menu tab — links to menu page */}
+          <Link
+            href="/menu"
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "0.68rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              fontWeight: 400,
+              color: "rgba(255,255,255,0.45)",
+              textDecoration: "none",
+              padding: "1rem 1.5rem",
+              borderBottom: "2px solid transparent",
+              transition: "color 0.2s, border-color 0.2s",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--gold)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.45)"; }}
+          >
+            Dinner Menu
+          </Link>
+        </div>
       </div>
 
       {/* ─── STICKY TAB NAV ─── */}
