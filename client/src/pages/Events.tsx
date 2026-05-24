@@ -69,10 +69,10 @@ const venues = [
 ];
 
 const menuOptions = [
-  { num: "01", title: "Hors D'Oeuvres", desc: "Elegant passed bites and displays perfect for cocktail receptions and mingling." },
-  { num: "02", title: "Buffet & Family Style", desc: "Abundant spreads and shareable platters that bring people together." },
-  { num: "03", title: "Plated Dinners", desc: "Refined, multi-course meals served with timeless Italian hospitality." },
-  { num: "04", title: "Lighter Fare", desc: "Fresh, seasonal options that are perfect for daytime events and casual gatherings." },
+  { num: "01", title: "Hors D'Oeuvres", desc: "Elegant passed bites and displays perfect for cocktail receptions and mingling.", pdf: "/manus-storage/Horsd'oeuvres_20d01e51.pdf", filename: "Francescas_Hors_dOeuvres_Menu.pdf" },
+  { num: "02", title: "Buffet & Family Style", desc: "Abundant spreads and shareable platters that bring people together.", pdf: "/manus-storage/Family_BuffetMenu_20e44474.pdf", filename: "Francescas_Family_Buffet_Menu.pdf" },
+  { num: "03", title: "Plated Dinners", desc: "Refined, multi-course meals served with timeless Italian hospitality.", pdf: "/manus-storage/PlatedDinnerMenu_d370a82f.pdf", filename: "Francescas_Plated_Dinner_Menu.pdf" },
+  { num: "04", title: "Lighter Fare", desc: "Fresh, seasonal options that are perfect for daytime events and casual gatherings.", pdf: "/manus-storage/LighterFareMenu_59211c55.pdf", filename: "Francescas_Lighter_Fare_Menu.pdf" },
 ];
 
 const BG = "#0a0a08";
@@ -221,13 +221,40 @@ export default function Events() {
           {/* Menu list */}
           <div className="pd-menu-list">
             {menuOptions.map((opt, i) => (
-              <div key={opt.num} style={{ display: "flex", alignItems: "flex-start", gap: "1.5rem", padding: "1.2rem 0", borderBottom: i < menuOptions.length - 1 ? `1px solid ${BORDER}` : "none" }}>
+              <div key={opt.num} style={{ display: "flex", alignItems: "flex-start", gap: "1.5rem", padding: "1.4rem 0", borderBottom: i < menuOptions.length - 1 ? `1px solid ${BORDER}` : "none" }}>
                 <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", fontWeight: 300, color: GOLD, minWidth: 32, lineHeight: 1 }}>{opt.num}</span>
                 <div style={{ flex: 1 }}>
                   <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.18em", textTransform: "uppercase", color: IVORY, margin: "0 0 0.35rem" }}>{opt.title}</h3>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.85rem", color: MUTED, margin: 0, lineHeight: 1.6 }}>{opt.desc}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.85rem", color: MUTED, margin: "0 0 0.75rem", lineHeight: 1.6 }}>{opt.desc}</p>
+                  <a
+                    href={opt.pdf}
+                    download={opt.filename}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      color: GOLD,
+                      textDecoration: "none",
+                      borderBottom: `1px solid ${GOLD}`,
+                      paddingBottom: "2px",
+                      transition: "opacity 0.2s",
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.opacity = "0.7")}
+                    onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    View Menu
+                  </a>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 16 16" style={{ flexShrink: 0, marginTop: 2 }}><path d="M6 3l5 5-5 5" stroke={GOLD} strokeWidth="1.2" fill="none" strokeLinecap="round"/></svg>
               </div>
             ))}
           </div>
