@@ -110,22 +110,22 @@ const entrees: EntreeItem[] = [
   { name: "Sliced Pork Loin", desc: "Chunky apple bourbon glaze", fullTray: "$165" },
 ];
 
-// Pasta — list rows with Half Tray | Full Tray pricing
+// Pasta — list rows with Half Tray | Full Tray pricing (original menu order)
 const pasta: EntreeItem[] = [
+  { name: "Al Fresco", desc: "Fresh tomato, zucchini, pesto, garlic & oil", halfTray: "$63", fullTray: "$115" },
   { name: "Baked Meat Lasagna", desc: "Layers of pasta, meat, seasoned ricotta, parmesan cheese, and housemade marinara", halfTray: "$73", fullTray: "$135" },
   { name: "Baked Veggie Lasagna", desc: "Layers of pasta, fresh vegetables, seasoned ricotta, parmesan cheese, and housemade marinara", halfTray: "$73", fullTray: "$135" },
   { name: "Baked Cheese Manicotti", desc: "Fresh pasta filled with ricotta, mozzarella and romano cheese", halfTray: "$68", fullTray: "$125" },
-  { name: "Baked Ziti", desc: "Baked ricotta, housemade marinara, mozzarella", halfTray: "$48", fullTray: "$85" },
+  { name: "Caprese", desc: "Plum tomatoes, fresh mozzarella, pesto, garlic & oil", halfTray: "$63", fullTray: "$115" },
+  { name: "Chicken Riggies", desc: "Francesca's famous rigatoni with chicken, peppers, onions, pink sauce (choice of medium or hot)", halfTray: "$68", fullTray: "$125" },
+  { name: "Cheese Tortellini Florentine", desc: "Tricolor cheese tortellini, cherry tomatoes, spinach, parmesan cheese", halfTray: "$63", fullTray: "$115" },
+  { name: "Gemelli Angeloro", desc: "Grilled chicken, Francesca's utica greens, prosciutto, toasted breadcrumbs, romano cheese, splash of ragu", halfTray: "$68", fullTray: "$125" },
   { name: "Rigatoni Marinara", desc: "Housemade marinara sauce", halfTray: "$48", fullTray: "$85" },
   { name: "Rigatoni Vodka", desc: "Housemade spicy pink vodka sauce", halfTray: "$53", fullTray: "$95" },
   { name: "Rigatoni Alfredo & Broccoli", desc: "Housemade creamy alfredo sauce, broccoli", halfTray: "$63", fullTray: "$115" },
-  { name: "Chicken Riggies", desc: "Francesca's famous rigatoni with chicken, peppers, onions, pink sauce (choice of medium or hot)", halfTray: "$63", fullTray: "$115" },
   { name: "Seafood Riggies", desc: "Francesca's famous rigatoni with bay scallops, shrimp, peppers, onions, pink sauce (choice of medium or hot)", halfTray: "$93", fullTray: "$175" },
   { name: "Shrimp Scampi", desc: "White wine, lemon, butter, olive oil, linguine", halfTray: "$78", fullTray: "$145" },
-  { name: "Cheese Tortellini Florentine", desc: "Tricolor cheese tortellini, cherry tomatoes, spinach, parmesan cheese", halfTray: "$63", fullTray: "$115" },
-  { name: "Al Fresco", desc: "Fresh tomato, zucchini, pesto, garlic & oil", halfTray: "$63", fullTray: "$115" },
-  { name: "Gemelli Angeloro", desc: "Grilled chicken, Francesca's utica greens, prosciutto, toasted breadcrumbs, romano cheese, splash of ragu", halfTray: "$68", fullTray: "$125" },
-  { name: "Caprese", desc: "Plum tomatoes, fresh mozzarella, pesto, garlic & oil", halfTray: "$63", fullTray: "$115" },
+  { name: "Baked Ziti", desc: "Baked ricotta, housemade marinara, mozzarella", halfTray: "$48", fullTray: "$85" },
 ];
 
 // Salads — 2-column card grid
