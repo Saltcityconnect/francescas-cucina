@@ -137,7 +137,8 @@ const salads: CardItem[] = [
   { name: "Pasta Salad", desc: "Gemelli, squash, zucchini, grape tomatoes, sweet peppers, cucumbers, red onion, pesto", price: "$63 / $115" },
   { name: "Contadina Bean", desc: "String beans, red potatoes, cherry tomatoes, red onion, kalamata olives, white balsamic", price: "$53 / $95" },
   { name: "Caprese Salad", desc: "Fresh ciligine, heirloom cherry tomatoes, fresh basil, olive oil, italian seasoning", price: "$65 (10-15 PPL)" },
-  { name: "Add Grilled Chicken", desc: "HF 6 Pieces Sliced $28 · FL 12 Pieces Sliced $55", price: "Add Grilled Shrimp — 24 Pieces $75" },
+  { name: "Add Grilled Chicken", desc: "HF 6 Pieces Sliced $28 · FL 12 Pieces Sliced $55", price: "" },
+  { name: "Add Grilled Shrimp", desc: "24 Pieces", price: "$75" },
 ];
 
 // Sandwiches / Wraps — 2-column card grid
@@ -164,9 +165,9 @@ const desserts: CardItem[] = [
 // ─── TAB CONFIG ───────────────────────────────────────────────────────────────
 const tabs = [
   { id: "appetizers", label: "Appetizers" },
+  { id: "salads", label: "Salads" },
   { id: "entrees", label: "Entrees" },
   { id: "pasta", label: "Pasta" },
-  { id: "salads", label: "Salads" },
   { id: "sandwiches", label: "Sandwiches" },
   { id: "sides", label: "Sides" },
   { id: "desserts", label: "Desserts" },
@@ -593,6 +594,25 @@ export default function Catering() {
 
         </section>
 
+        {/* ── SALADS ── */}
+        <section
+          id="salads"
+          ref={(el) => { sectionRefs.current["salads"] = el; }}
+          style={{ paddingTop: "5rem" }}
+        >
+          <SectionHeader title="Salads" subtitle="Half Tray (10-12)  |  Full Tray (20-22)" />
+          <p style={{ textAlign: "center", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: MUTED, marginBottom: "1.5rem", letterSpacing: "0.08em" }}>
+            Dressings available: Balsamic, Blue Cheese, Italian, Ranch, Raspberry Vinaigrette
+          </p>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+            gap: "1.2rem",
+          }}>
+            {salads.map((item) => <GenericCard key={item.name} item={item} />)}
+          </div>
+        </section>
+
         {/* ── ENTREES ── */}
         <section
           id="entrees"
@@ -625,25 +645,6 @@ export default function Catering() {
             gap: "1.2rem",
           }}>
             {pasta.map((item) => <GenericCard key={item.name} item={item} />)}
-          </div>
-        </section>
-
-        {/* ── SALADS ── */}
-        <section
-          id="salads"
-          ref={(el) => { sectionRefs.current["salads"] = el; }}
-          style={{ paddingTop: "5rem" }}
-        >
-          <SectionHeader title="Salads" subtitle="Half Tray (10-12)  |  Full Tray (20-22)" />
-          <p style={{ textAlign: "center", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: MUTED, marginBottom: "1.5rem", letterSpacing: "0.08em" }}>
-            Dressings available: Balsamic, Blue Cheese, Italian, Ranch, Raspberry Vinaigrette
-          </p>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-            gap: "1.2rem",
-          }}>
-            {salads.map((item) => <GenericCard key={item.name} item={item} />)}
           </div>
         </section>
 
