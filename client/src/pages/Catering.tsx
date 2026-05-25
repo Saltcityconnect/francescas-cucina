@@ -137,8 +137,7 @@ const salads: CardItem[] = [
   { name: "Pasta Salad", desc: "Gemelli, squash, zucchini, grape tomatoes, sweet peppers, cucumbers, red onion, pesto", price: "$63 / $115" },
   { name: "Contadina Bean", desc: "String beans, red potatoes, cherry tomatoes, red onion, kalamata olives, white balsamic", price: "$53 / $95" },
   { name: "Caprese Salad", desc: "Fresh ciligine, heirloom cherry tomatoes, fresh basil, olive oil, italian seasoning", price: "$65 (10-15 PPL)" },
-  { name: "Add Grilled Chicken", desc: "HF 6 Pieces Sliced $28 · FL 12 Pieces Sliced $55", price: "" },
-  { name: "Add Grilled Shrimp", desc: "24 Pieces", price: "$75" },
+  { name: "Add Grilled Chicken", desc: "HF 6 Pieces Sliced $28 · FL 12 Pieces Sliced $55", price: "__SHRIMP__" },
 ];
 
 // Sandwiches / Wraps — 2-column card grid
@@ -609,7 +608,17 @@ export default function Catering() {
             gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
             gap: "1.2rem",
           }}>
-            {salads.map((item) => <GenericCard key={item.name} item={item} />)}
+            {salads.map((item) => item.price === "__SHRIMP__" ? (
+              <div key={item.name} style={{ border: `1px solid ${BORDER}`, padding: "1.6rem 1.8rem", background: DARK_CARD, textAlign: "center" }}>
+                <h3 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "0.12em", textTransform: "uppercase", color: IVORY, margin: "0 0 0.5rem" }}>{item.name}</h3>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: MUTED, margin: "0 0 1rem", lineHeight: 1.6 }}>{item.desc}</p>
+                <SmallOrnament />
+                <h3 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "0.12em", textTransform: "uppercase", color: IVORY, margin: "0.8rem 0 0.5rem" }}>Add Grilled Shrimp</h3>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: MUTED, margin: "0 0 1rem", lineHeight: 1.6 }}>24 Pieces</p>
+                <SmallOrnament />
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: "0.85rem", color: GOLD, margin: 0, letterSpacing: "0.02em" }}>$75</p>
+              </div>
+            ) : <GenericCard key={item.name} item={item} />)}
           </div>
         </section>
 
