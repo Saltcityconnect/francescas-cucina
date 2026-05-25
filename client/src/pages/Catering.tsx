@@ -131,13 +131,13 @@ const pasta: CardItem[] = [
 // Salads — 2-column card grid
 const salads: CardItem[] = [
   { name: "Apple & Gorgonzola", desc: "Mixed greens, raspberry vinaigrette", price: "$58 / $105" },
-  { name: "Utica Greens Salad", desc: "Escarole, prosciutto, hot peppers, toasted breadcrumbs, romano cheese, served with balsamic glaze", price: "$58 / $105" },
   { name: "Cold Antipasto", desc: "Prosciutto, salami, sharp provolone, fresh mozzarella, olive medley, roasted red peppers, artichoke hearts, balsamic", price: "$58 / $105" },
   { name: "Caesar", desc: "Romaine, roasted red peppers, olives, croutons, shaved parmesan, creamy housemade caesar", price: "$48 / $85" },
   { name: "Garden", desc: "Mixed greens, tomatoes, cucumber, red onion", price: "$48 / $85" },
   { name: "Pasta Salad", desc: "Gemelli, squash, zucchini, grape tomatoes, sweet peppers, cucumbers, red onion, pesto", price: "$63 / $115" },
   { name: "Contadina Bean", desc: "String beans, red potatoes, cherry tomatoes, red onion, kalamata olives, white balsamic", price: "$53 / $95" },
   { name: "Caprese Salad", desc: "Fresh ciligine, heirloom cherry tomatoes, fresh basil, olive oil, italian seasoning", price: "$65 (10-15 PPL)" },
+  { name: "Add Grilled Chicken", desc: "HF 6 Pieces Sliced $28 · FL 12 Pieces Sliced $55", price: "Add Grilled Shrimp — 24 Pieces $75" },
 ];
 
 // Sandwiches / Wraps — 2-column card grid
@@ -176,10 +176,10 @@ const tabs = [
 const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
     <h2 style={{
-      fontFamily: "'Big Shoulders Display', sans-serif",
-      fontWeight: 800,
-      fontSize: "clamp(2rem, 5vw, 3.5rem)",
-      letterSpacing: "0.18em",
+      fontFamily: "'Cormorant Garamond', serif",
+      fontWeight: 700,
+      fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+      letterSpacing: "0.12em",
       textTransform: "uppercase",
       color: IVORY,
       margin: "0 0 0.2rem",
@@ -590,24 +590,7 @@ export default function Catering() {
           }}>
             {appetizers.map((item) => <AppCard key={item.name} item={item} />)}
           </div>
-          <div style={{ textAlign: "center", marginTop: "2rem" }}>
-            <button
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 600,
-                fontSize: "0.7rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: GOLD,
-                background: "none",
-                border: `1px solid rgba(200,169,110,0.4)`,
-                padding: "0.75rem 2rem",
-                cursor: "default",
-              }}
-            >
-              View All Appetizers
-            </button>
-          </div>
+
         </section>
 
         {/* ── ENTREES ── */}
@@ -618,9 +601,7 @@ export default function Catering() {
         >
           <SectionHeader title="Entrees" subtitle="Half Tray (10-12)  |  Full Tray (20-22)" />
           <div style={{
-            border: `1px solid ${BORDER}`,
             padding: "0 2rem",
-            background: DARK_CARD,
           }}>
             {entrees.map((item, i) => (
               <EntreeRow key={item.name} item={item} last={i === entrees.length - 1} />
@@ -655,7 +636,7 @@ export default function Catering() {
         >
           <SectionHeader title="Salads" subtitle="Half Tray (10-12)  |  Full Tray (20-22)" />
           <p style={{ textAlign: "center", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: MUTED, marginBottom: "1.5rem", letterSpacing: "0.08em" }}>
-            Dressings available: Balsamic, Blue Cheese, Italian, Ranch, Raspberry Vinaigrette · Add Grilled Chicken or Grilled Shrimp (24 pieces)
+            Dressings available: Balsamic, Blue Cheese, Italian, Ranch, Raspberry Vinaigrette
           </p>
           <div style={{
             display: "grid",
