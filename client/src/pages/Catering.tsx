@@ -614,9 +614,7 @@ export default function Catering() {
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: MUTED, margin: "0 0 1rem", lineHeight: 1.6 }}>{item.desc}</p>
                 <SmallOrnament />
                 <h3 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "0.12em", textTransform: "uppercase", color: IVORY, margin: "0.8rem 0 0.5rem" }}>Add Grilled Shrimp</h3>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: MUTED, margin: "0 0 1rem", lineHeight: 1.6 }}>24 Pieces</p>
-                <SmallOrnament />
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: "0.85rem", color: GOLD, margin: 0, letterSpacing: "0.02em" }}>$75</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.9rem", color: MUTED, margin: 0, lineHeight: 1.6 }}>24 Pieces &nbsp;$75</p>
               </div>
             ) : <GenericCard key={item.name} item={item} />)}
           </div>
