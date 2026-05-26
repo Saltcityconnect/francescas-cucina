@@ -320,18 +320,24 @@
   .catering-hero > div:last-child div[style*='display: flex'][style*='flex-wrap'] {
     justify-content: center;
   }
-  /* Phone + email stacked on mobile, text no-wrap */
+  /* Phone + email stacked on mobile, text centered, icons stay */
   .catering-contact-row {
     flex-direction: column !important;
     gap: 1rem !important;
+    align-items: center !important;
   }
   .catering-contact-row a {
     flex-direction: row !important;
     align-items: center !important;
     white-space: nowrap;
+    justify-content: center !important;
+  }
+  .catering-contact-row a > div:last-child {
+    text-align: center;
   }
   .catering-contact-row a p {
     white-space: nowrap;
+    text-align: center;
   }
 }
 
