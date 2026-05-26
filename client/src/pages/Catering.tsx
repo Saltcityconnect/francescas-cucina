@@ -674,35 +674,69 @@ export default function Catering() {
           </div>
         </section>
 
-        {/* ── SIDES ── */}
+        {/* ── SIDES & DESSERTS ── */}
         <section
           id="sides"
           ref={(el) => { sectionRefs.current["sides"] = el; }}
           style={{ paddingTop: "5rem" }}
         >
-          <SectionHeader title="Sides" />
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-            gap: "1.2rem",
+            gridTemplateColumns: "1fr 1px 1fr",
+            gap: "0 3rem",
+            alignItems: "start",
           }}>
-            {sides.map((item) => <GenericCard key={item.name} item={item} />)}
-          </div>
-        </section>
+            {/* LEFT: Desserts */}
+            <div
+              id="desserts"
+              ref={(el) => { sectionRefs.current["desserts"] = el; }}
+            >
+              <SectionHeader title="Desserts" />
+              <div style={{ padding: "0 1rem" }}>
+                {desserts.map((item, i) => (
+                  <div key={item.name} style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    gap: "1.5rem",
+                    padding: "0.9rem 0",
+                    borderBottom: i === desserts.length - 1 ? "none" : `1px solid rgba(200,169,110,0.15)`,
+                  }}>
+                    <div style={{ flex: 1 }}>
+                      <span style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.1em", textTransform: "uppercase", color: IVORY }}>{item.name}</span>
+                      {item.desc && <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.82rem", color: MUTED, margin: "0.15rem 0 0", lineHeight: 1.5 }}>{item.desc}</p>}
+                    </div>
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", letterSpacing: "0.08em", color: GOLD, flexShrink: 0, textTransform: "uppercase" }}>{item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        {/* ── DESSERTS ── */}
-        <section
-          id="desserts"
-          ref={(el) => { sectionRefs.current["desserts"] = el; }}
-          style={{ paddingTop: "5rem" }}
-        >
-          <SectionHeader title="Desserts" />
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-            gap: "1.2rem",
-          }}>
-            {desserts.map((item) => <GenericCard key={item.name} item={item} />)}
+            {/* DIVIDER */}
+            <div style={{ background: `rgba(200,169,110,0.2)`, alignSelf: "stretch" }} />
+
+            {/* RIGHT: Sides */}
+            <div>
+              <SectionHeader title="Sides" />
+              <div style={{ padding: "0 1rem" }}>
+                {sides.map((item, i) => (
+                  <div key={item.name} style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    gap: "1.5rem",
+                    padding: "0.9rem 0",
+                    borderBottom: i === sides.length - 1 ? "none" : `1px solid rgba(200,169,110,0.15)`,
+                  }}>
+                    <div style={{ flex: 1 }}>
+                      <span style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.1em", textTransform: "uppercase", color: IVORY }}>{item.name}</span>
+                      {item.desc && <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "0.82rem", color: MUTED, margin: "0.15rem 0 0", lineHeight: 1.5 }}>{item.desc}</p>}
+                    </div>
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", letterSpacing: "0.08em", color: GOLD, flexShrink: 0, textTransform: "uppercase" }}>{item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
