@@ -188,25 +188,49 @@ export default function NavigationA() {
           Home
         </Link>
 
-        {menuLinks.map((link, i) =>
-          link.external ? (
+        {menuLinks.map((link, i) => {
+          const linkStyle: React.CSSProperties = {
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 700,
+            fontSize: "clamp(1.4rem, 4vh, 3rem)",
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: "var(--ivory)",
+            textDecoration: "none",
+            cursor: "pointer",
+            transition: `opacity 0.4s ease ${(i + 1) * 0.06}s, transform 0.4s ease ${(i + 1) * 0.06}s, color 0.2s ease`,
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? "translateY(0)" : "translateY(20px)",
+          };
+          if (link.label === "Contact Us") {
+            return (
+              <a
+                key={link.label}
+                href="#footer"
+                style={linkStyle}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMenuOpen(false);
+                  document.body.style.overflow = "";
+                  setTimeout(() => {
+                    const el = document.getElementById("footer");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }, 350);
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--gold)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--ivory)")}
+              >
+                {link.label}
+              </a>
+            );
+          }
+          return link.external ? (
             <a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                fontFamily: "'Big Shoulders Display', sans-serif",
-                fontWeight: 700,
-                fontSize: "clamp(1.4rem, 4vh, 3rem)",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: "var(--ivory)",
-                textDecoration: "none",
-                transition: `opacity 0.4s ease ${(i + 1) * 0.06}s, transform 0.4s ease ${(i + 1) * 0.06}s, color 0.2s ease`,
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(20px)",
-              }}
+              style={linkStyle}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--gold)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--ivory)")}
             >
@@ -216,25 +240,14 @@ export default function NavigationA() {
             <Link
               key={link.label}
               href={link.href}
-              style={{
-                fontFamily: "'Big Shoulders Display', sans-serif",
-                fontWeight: 700,
-                fontSize: "clamp(1.4rem, 4vh, 3rem)",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: "var(--ivory)",
-                textDecoration: "none",
-                transition: `opacity 0.4s ease ${(i + 1) * 0.06}s, transform 0.4s ease ${(i + 1) * 0.06}s, color 0.2s ease`,
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(20px)",
-              }}
+              style={linkStyle}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--gold)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--ivory)")}
             >
               {link.label}
             </Link>
-          )
-        )}
+          );
+        })}
       </div>
     </>
   );
