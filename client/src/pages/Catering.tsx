@@ -410,7 +410,7 @@ export default function Catering() {
           <img
             src={CATERING_HERO_IMG}
             alt="Francesca's Cucina catering spread"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", transform: "scaleX(-1)" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", transform: "scaleX(-1)", display: "block" }}
           />
           {/* Left-edge gradient: black → transparent over ~30% of image width */}
           <div style={{
@@ -436,24 +436,25 @@ export default function Catering() {
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 700,
-            fontSize: "0.7rem",
+            fontSize: "0.85rem",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: GOLD,
-            margin: "0 0 0.6rem",
+            margin: "0 0 0.5rem",
           }}>Catering</p>
-          <div style={{ marginBottom: "1rem" }}><SmallOrnament /></div>
+          <div style={{ marginBottom: "1.2rem" }}><SmallOrnament /></div>
 
           {/* Headline */}
           <h1 style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 700,
-            fontSize: "clamp(2.8rem, 5.5vw, 4.8rem)",
+            fontSize: "clamp(2.4rem, 4.8vw, 4.4rem)",
             color: IVORY,
             lineHeight: 1.05,
             margin: "0 0 1.2rem",
+
           }}>
-            Bring Francesca's<br />to <em>your</em> table.
+            Bring Francesca's to <em>your</em> table.
           </h1>
 
           {/* Subtext */}
@@ -488,7 +489,7 @@ export default function Catering() {
               </div>
             </a>
             {/* OR divider */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 0", borderTop: `1px solid rgba(200,169,110,0.2)`, borderBottom: `1px solid rgba(200,169,110,0.2)`, marginBottom: "0.9rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 0", marginBottom: "0.9rem" }}>
               <div style={{ flex: 1, height: 1, background: "rgba(200,169,110,0.2)" }} />
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", color: MUTED, textTransform: "uppercase" }}>Or</span>
               <div style={{ flex: 1, height: 1, background: "rgba(200,169,110,0.2)" }} />
@@ -566,7 +567,7 @@ export default function Catering() {
                 padding: "1.1rem 1.3rem",
                 cursor: "pointer",
                 transition: "color 0.2s ease, border-color 0.2s ease",
-                whiteSpace: "nowrap",
+    
               }}
             >
               {tab.label}
