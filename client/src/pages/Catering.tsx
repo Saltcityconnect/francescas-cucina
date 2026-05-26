@@ -416,7 +416,7 @@ export default function Catering() {
           <div style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to right, #0a0a08 0%, rgba(10,10,8,0.6) 8%, transparent 20%)",
+            background: "linear-gradient(to right, #0a0a08 0%, rgba(10,10,8,0.4) 5%, transparent 15%)",
             zIndex: 2,
           }} />
         </div>
@@ -442,19 +442,24 @@ export default function Catering() {
             color: GOLD,
             margin: "0 0 0.4rem",
           }}>Catering</p>
-          <SmallOrnament />
+          <svg width="40" height="10" viewBox="0 0 40 10" fill="none" style={{ display: "block", margin: "0.3rem 0 1.2rem" }}>
+            <line x1="0" y1="5" x2="15" y2="5" stroke={GOLD} strokeWidth="0.6" />
+            <circle cx="20" cy="5" r="2" stroke={GOLD} strokeWidth="0.6" fill="none" />
+            <circle cx="20" cy="5" r="0.8" fill={GOLD} />
+            <line x1="25" y1="5" x2="40" y2="5" stroke={GOLD} strokeWidth="0.6" />
+          </svg>
 
           {/* Headline */}
           <h1 style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 700,
-            fontSize: "clamp(2.4rem, 4.8vw, 4.4rem)",
+            fontSize: "clamp(2rem, 3.5vw, 3.6rem)",
             color: IVORY,
-            lineHeight: 1.05,
+            lineHeight: 1.1,
             margin: "0 0 1.2rem",
-
+            whiteSpace: "pre-line",
           }}>
-            Bring Francesca's<br />to <em>your</em> table.
+            {"Bring Francesca's\nto "}<em>your</em>{" table."}
           </h1>
 
           {/* Subtext */}
