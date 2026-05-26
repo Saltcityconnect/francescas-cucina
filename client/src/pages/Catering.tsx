@@ -430,7 +430,7 @@ export default function Catering() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          maxWidth: "clamp(320px, 45%, 560px)",
+          maxWidth: "clamp(320px, 58%, 680px)",
         }}>
           {/* Eyebrow */}
           <p style={{
