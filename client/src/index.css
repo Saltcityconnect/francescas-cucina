@@ -320,24 +320,22 @@
   .catering-hero > div:last-child div[style*='display: flex'][style*='flex-wrap'] {
     justify-content: center;
   }
-  /* Phone + email stacked on mobile, text centered, icons stay */
+  /* Phone icon directly above email icon, rows left-aligned, block centered */
   .catering-contact-row {
     flex-direction: column !important;
     gap: 1rem !important;
-    align-items: center !important;
+    align-items: flex-start !important;
+    width: fit-content;
+    margin: 0 auto;
   }
   .catering-contact-row a {
     flex-direction: row !important;
     align-items: center !important;
     white-space: nowrap;
-    justify-content: center !important;
-  }
-  .catering-contact-row a > div:last-child {
-    text-align: center;
+    justify-content: flex-start !important;
   }
   .catering-contact-row a p {
     white-space: nowrap;
-    text-align: center;
   }
 }
 
