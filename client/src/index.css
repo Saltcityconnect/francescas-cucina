@@ -320,9 +320,9 @@
   .catering-hero > div:last-child div[style*='display: flex'][style*='flex-wrap'] {
     justify-content: center;
   }
-  /* Center contact rows and fix email wrapping on mobile */
+  /* Left-align contact block on mobile */
   .catering-contact-row {
-    align-items: center !important;
+    align-items: flex-start !important;
   }
   .catering-contact-text p:last-child {
     font-size: 0.95rem !important;
