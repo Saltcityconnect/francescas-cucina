@@ -299,6 +299,8 @@
   .catering-hero > div:last-child {
     position: relative !important;
     padding: 2rem 1.5rem 2.5rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
     background: #0a0a08;
     text-align: center;
     align-items: center;
@@ -317,6 +319,22 @@
   }
   .catering-hero > div:last-child div[style*='display: flex'][style*='flex-wrap'] {
     justify-content: center;
+  }
+  /* Phone + email side by side on mobile */
+  .catering-contact-row {
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    justify-content: center;
+  }
+  .catering-contact-row a {
+    flex: 1;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 0.5rem !important;
+  }
+  .catering-contact-row a > div:first-child {
+    margin: 0 auto;
   }
 }
 

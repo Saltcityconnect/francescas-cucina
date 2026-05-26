@@ -432,19 +432,6 @@ export default function Catering() {
           justifyContent: "center",
           maxWidth: "clamp(320px, 45%, 560px)",
         }}>
-          {/* Eyebrow */}
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.7rem",
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
-            color: GOLD,
-            margin: "0 0 1rem",
-            fontWeight: 600,
-          }}>
-            Francesca's Cucina · Syracuse, NY
-          </p>
-
           {/* Headline */}
           <h1 style={{
             fontFamily: "'Big Shoulders Display', sans-serif",
@@ -473,7 +460,7 @@ export default function Catering() {
           </p>
 
           {/* Contact box */}
-          <div style={{
+          <div className="catering-contact-box" style={{
             border: `1px solid rgba(200,169,110,0.3)`,
             padding: "1.4rem 1.6rem",
             marginBottom: "2rem",
@@ -481,24 +468,27 @@ export default function Catering() {
             flexDirection: "column",
             gap: "1rem",
           }}>
-            <a href="tel:3154098848" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
-              <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <PhoneIcon />
-              </div>
-              <div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Phone</p>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>(315) 409-8848</p>
-              </div>
-            </a>
-            <a href="mailto:catering@francescas-cucina.com" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
-              <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <EmailIcon />
-              </div>
-              <div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Email</p>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>catering@francescas-cucina.com</p>
-              </div>
-            </a>
+            {/* Phone + Email row on mobile, stacked on desktop */}
+            <div className="catering-contact-row" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <a href="tel:3154098848" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
+                <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <PhoneIcon />
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Phone</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>(315) 409-8848</p>
+                </div>
+              </a>
+              <a href="mailto:catering@francescas-cucina.com" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
+                <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <EmailIcon />
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Email</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>catering@francescas-cucina.com</p>
+                </div>
+              </a>
+            </div>
           </div>
 
           {/* CTA button */}
@@ -686,21 +676,18 @@ export default function Catering() {
             gap: "0 3rem",
             alignItems: "start",
           }}>
-            {/* LEFT: Desserts */}
-            <div
-              id="desserts"
-              ref={(el) => { sectionRefs.current["desserts"] = el; }}
-            >
-              <SectionHeader title="Desserts" />
+            {/* LEFT: Sides */}
+            <div>
+              <SectionHeader title="Sides" />
               <div style={{ padding: "0 1rem" }}>
-                {desserts.map((item, i) => (
+                {sides.map((item, i) => (
                   <div key={item.name} style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
                     gap: "1.5rem",
                     padding: "0.9rem 0",
-                    borderBottom: i === desserts.length - 1 ? "none" : `1px solid rgba(200,169,110,0.15)`,
+                    borderBottom: i === sides.length - 1 ? "none" : `1px solid rgba(200,169,110,0.15)`,
                   }}>
                     <div style={{ flex: 1 }}>
                       <span style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.1em", textTransform: "uppercase", color: IVORY }}>{item.name}</span>
@@ -715,18 +702,21 @@ export default function Catering() {
             {/* DIVIDER */}
             <div className="catering-sides-divider" style={{ background: `rgba(200,169,110,0.2)`, alignSelf: "stretch" }} />
 
-            {/* RIGHT: Sides */}
-            <div>
-              <SectionHeader title="Sides" />
+            {/* RIGHT: Desserts */}
+            <div
+              id="desserts"
+              ref={(el) => { sectionRefs.current["desserts"] = el; }}
+            >
+              <SectionHeader title="Desserts" />
               <div style={{ padding: "0 1rem" }}>
-                {sides.map((item, i) => (
+                {desserts.map((item, i) => (
                   <div key={item.name} style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
                     gap: "1.5rem",
                     padding: "0.9rem 0",
-                    borderBottom: i === sides.length - 1 ? "none" : `1px solid rgba(200,169,110,0.15)`,
+                    borderBottom: i === desserts.length - 1 ? "none" : `1px solid rgba(200,169,110,0.15)`,
                   }}>
                     <div style={{ flex: 1 }}>
                       <span style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.1em", textTransform: "uppercase", color: IVORY }}>{item.name}</span>
