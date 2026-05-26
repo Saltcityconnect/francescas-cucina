@@ -493,7 +493,7 @@ export default function Catering() {
 
           {/* CTA button */}
           <a
-            href="/manus-storage/francescas_catering_menu_036ba512.pdf"
+            href="/manus-storage/CateringMenu_v2_58405c0f.pdf"
             target="_blank"
             rel="noopener noreferrer"
             style={{
