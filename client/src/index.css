@@ -328,6 +328,8 @@
   .catering-contact-box a {
     text-align: left !important;
     justify-content: flex-start !important;
+    align-self: stretch !important;
+    width: 100% !important;
   }
   .catering-contact-box > div {
     align-items: center !important;
