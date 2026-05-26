@@ -172,9 +172,17 @@ export default function Events() {
               {venue.name}
             </h2>
             <div style={{ width: 40, height: 2, background: GOLD, marginBottom: "1.2rem" }} />
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "clamp(0.85rem, 1.3vw, 0.95rem)", color: MUTED, lineHeight: 1.75, margin: "0 0 1.8rem", maxWidth: 420 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "clamp(0.85rem, 1.3vw, 0.95rem)", color: MUTED, lineHeight: 1.75, margin: "0 0 1rem", maxWidth: 420 }}>
               {venue.desc}
             </p>
+            {venue.name === "The Tuscany Terrace" && (
+              <div style={{ marginBottom: "1.8rem", maxWidth: 420 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.35rem" }}>Availability</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "clamp(0.82rem, 1.2vw, 0.9rem)", color: MUTED, lineHeight: 1.7, margin: 0 }}>
+                  Monday – Saturday until 3 pm &nbsp;·&nbsp; All day Sunday
+                </p>
+              </div>
+            )}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
               {venue.features.map(f => (
                 <div key={f.label} style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
