@@ -432,31 +432,40 @@ export default function Catering() {
           justifyContent: "center",
           maxWidth: "clamp(320px, 45%, 560px)",
         }}>
+          {/* Eyebrow */}
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: "0.7rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: GOLD,
+            margin: "0 0 0.6rem",
+          }}>Catering</p>
+          <div style={{ marginBottom: "1rem" }}><SmallOrnament /></div>
+
           {/* Headline */}
           <h1 style={{
-            fontFamily: "'Big Shoulders Display', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(2.8rem, 6vw, 5rem)",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 700,
+            fontSize: "clamp(2.8rem, 5.5vw, 4.8rem)",
             color: IVORY,
-            lineHeight: 0.95,
-            margin: "0 0 1.5rem",
+            lineHeight: 1.05,
+            margin: "0 0 1.2rem",
           }}>
-            Catering &<br />Private Events
+            Bring Francesca's<br />to <em>your</em> table.
           </h1>
 
           {/* Subtext */}
           <p style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontStyle: "italic",
-            fontWeight: 400,
-            fontSize: "clamp(1rem, 1.8vw, 1.25rem)",
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
             color: MUTED,
             margin: "0 0 2.5rem",
-            lineHeight: 1.6,
+            lineHeight: 1.7,
           }}>
-            From intimate gatherings to grand celebrations — authentic Italian cuisine delivered with care.
+            Curated Italian catering for gatherings, celebrations, and special occasions of all sizes.
           </p>
 
           {/* Contact box */}
@@ -466,29 +475,34 @@ export default function Catering() {
             marginBottom: "2rem",
             display: "flex",
             flexDirection: "column",
-            gap: "1rem",
+            gap: "0",
           }}>
-            {/* Phone + Email row on mobile, stacked on desktop */}
-            <div className="catering-contact-row" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <a href="tel:3154098848" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
-                <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <PhoneIcon />
-                </div>
-                <div className="catering-contact-text">
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Phone</p>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>(315) 409-8848</p>
-                </div>
-              </a>
-              <a href="mailto:catering@francescas-cucina.com" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
-                <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <EmailIcon />
-                </div>
-                <div className="catering-contact-text">
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Email</p>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>catering@francescas-cucina.com</p>
-                </div>
-              </a>
+            {/* Phone row */}
+            <a href="tel:3154098848" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none", paddingBottom: "0.9rem" }}>
+              <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <PhoneIcon />
+              </div>
+              <div className="catering-contact-text">
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Call</p>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>315-409-8848</p>
+              </div>
+            </a>
+            {/* OR divider */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 0", borderTop: `1px solid rgba(200,169,110,0.2)`, borderBottom: `1px solid rgba(200,169,110,0.2)`, marginBottom: "0.9rem" }}>
+              <div style={{ flex: 1, height: 1, background: "rgba(200,169,110,0.2)" }} />
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", color: MUTED, textTransform: "uppercase" }}>Or</span>
+              <div style={{ flex: 1, height: 1, background: "rgba(200,169,110,0.2)" }} />
             </div>
+            {/* Email row */}
+            <a href="mailto:catering@francescas-cucina.com" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}>
+              <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <EmailIcon />
+              </div>
+              <div className="catering-contact-text">
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Email</p>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", fontWeight: 600, color: GOLD, margin: 0 }}>catering@francescas-cucina.com</p>
+              </div>
+            </a>
           </div>
 
           {/* CTA button */}
