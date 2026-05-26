@@ -164,7 +164,7 @@ function WelcomePhotos() {
 const MENU_FOOD_PHOTOS = [
   { src: "/manus-storage/menu-food-1_bdd48938.png", alt: "Chicken Parmigiana" },
   { src: "/manus-storage/menu-food-2_765ecf7c.jpg", alt: "Gnocchi with Shrimp" },
-  { src: "/manus-storage/menu-food-3_fdf02553.png", alt: "Brownie with Caramel" },
+  { src: "/manus-storage/dessert-brownie-crop_0095aa3f.webp", alt: "Brownie with Caramel Sauce" },
   { src: "/manus-storage/menu-food-4_071cecc5.png", alt: "Surf & Turf Board" },
   { src: "/manus-storage/dessert-brownie_04fdd2c8.webp", alt: "Brownie with Caramel Sauce" },
 ];
@@ -207,7 +207,7 @@ function MenuFoodCarousel() {
                 alt={p.alt}
                 style={{
                   width: "100%", height: "100%", objectFit: "cover", display: "block",
-                  objectPosition: idx === 2 ? "center 60%" : "center center",
+                  objectPosition: "center center",
                 }}
               />
             </div>
