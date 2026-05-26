@@ -412,11 +412,11 @@ export default function Catering() {
             alt="Francesca's Cucina catering spread"
             style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", transform: "scaleX(-1)", display: "block" }}
           />
-          {/* Left-edge gradient: black → transparent over ~30% of image width */}
+          {/* Minimal left-edge blend only */}
           <div style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to right, #0a0a08 0%, #0a0a08 8%, rgba(10,10,8,0.85) 22%, rgba(10,10,8,0.3) 45%, transparent 70%)",
+            background: "linear-gradient(to right, #0a0a08 0%, rgba(10,10,8,0.6) 8%, transparent 20%)",
             zIndex: 2,
           }} />
         </div>
@@ -440,9 +440,9 @@ export default function Catering() {
             letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: GOLD,
-            margin: "0 0 0.5rem",
+            margin: "0 0 0.4rem",
           }}>Catering</p>
-          <div style={{ marginBottom: "1.2rem" }}><SmallOrnament /></div>
+          <SmallOrnament />
 
           {/* Headline */}
           <h1 style={{
@@ -454,7 +454,7 @@ export default function Catering() {
             margin: "0 0 1.2rem",
 
           }}>
-            Bring Francesca's to <em>your</em> table.
+            Bring Francesca's<br />to <em>your</em> table.
           </h1>
 
           {/* Subtext */}
