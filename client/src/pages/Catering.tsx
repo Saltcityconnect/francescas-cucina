@@ -474,7 +474,7 @@ export default function Catering() {
                 <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <PhoneIcon />
                 </div>
-                <div>
+                <div className="catering-contact-text">
                   <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Phone</p>
                   <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>(315) 409-8848</p>
                 </div>
@@ -483,7 +483,7 @@ export default function Catering() {
                 <div style={{ width: 40, height: 40, border: `1px solid rgba(200,169,110,0.35)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <EmailIcon />
                 </div>
-                <div>
+                <div className="catering-contact-text">
                   <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, margin: "0 0 0.15rem", fontWeight: 700 }}>Email</p>
                   <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 600, color: GOLD, margin: 0 }}>catering@francescas-cucina.com</p>
                 </div>
