@@ -290,7 +290,7 @@ const GenericCard = ({ item }: { item: CardItem }) => (
 
 // ─── ENTREE ROW ───────────────────────────────────────────────────────────────
 const EntreeRow = ({ item, last }: { item: EntreeItem; last: boolean }) => (
-  <div style={{
+  <div className="catering-entree-row" style={{
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "space-between",
@@ -326,7 +326,7 @@ const EntreeRow = ({ item, last }: { item: EntreeItem; last: boolean }) => (
       )}
     </div>
     {/* Right: pricing */}
-    <div style={{
+    <div className="catering-entree-pricing" style={{
       textAlign: "right",
       flexShrink: 0,
       fontFamily: "'DM Sans', sans-serif",
@@ -538,7 +538,7 @@ export default function Catering() {
         borderBottom: "1px solid rgba(200,169,110,0.2)",
         overflowX: "auto",
       }}>
-        <div style={{
+        <div className="catering-tabs-inner" style={{
           display: "flex",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -574,7 +574,7 @@ export default function Catering() {
       {/* ═══════════════════════════════════════════════════════════════
           MENU SECTIONS
       ═══════════════════════════════════════════════════════════════ */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem 8rem" }}>
+      <div className="catering-menu-wrapper" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem 8rem" }}>
 
         {/* ── APPETIZERS ── */}
         <section
@@ -583,7 +583,7 @@ export default function Catering() {
           style={{ paddingTop: "5rem" }}
         >
           <SectionHeader title="Appetizers" />
-          <div style={{
+          <div className="catering-card-grid" style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
             gap: "1.2rem",
@@ -603,7 +603,7 @@ export default function Catering() {
           <p style={{ textAlign: "center", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: MUTED, marginBottom: "1.5rem", letterSpacing: "0.08em" }}>
             Dressings available: Balsamic, Blue Cheese, Italian, Ranch, Raspberry Vinaigrette
           </p>
-          <div style={{
+          <div className="catering-card-grid" style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
             gap: "1.2rem",
@@ -627,7 +627,7 @@ export default function Catering() {
           style={{ paddingTop: "5rem" }}
         >
           <SectionHeader title="Sandwiches" subtitle="Cut into 10 pieces" />
-          <div style={{
+          <div className="catering-sandwich-grid" style={{
             display: "grid",
             gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
             gap: "1.2rem",
@@ -635,7 +635,7 @@ export default function Catering() {
             {sandwiches.slice(0, 2).map((item) => <GenericCard key={item.name} item={item} />)}
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: "1.2rem" }}>
-            <div style={{ width: "calc(50% - 0.6rem)" }}>
+            <div className="catering-sandwich-center" style={{ width: "calc(50% - 0.6rem)" }}>
               <GenericCard item={sandwiches[2]} />
             </div>
           </div>
@@ -651,7 +651,7 @@ export default function Catering() {
           <p style={{ textAlign: "center", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", color: MUTED, marginBottom: "1.5rem", letterSpacing: "0.08em" }}>
             Choice of pasta: Gemelli, Rigatoni, Gluten Free Penne
           </p>
-          <div style={{ padding: "0 2rem" }}>
+          <div className="catering-list-inner" style={{ padding: "0 2rem" }}>
             {pasta.map((item, i) => (
               <EntreeRow key={item.name} item={item} last={i === pasta.length - 1} />
             ))}
@@ -665,7 +665,7 @@ export default function Catering() {
           style={{ paddingTop: "5rem" }}
         >
           <SectionHeader title="Entrees" subtitle="Half Tray (10-12)  |  Full Tray (20-22)" />
-          <div style={{
+          <div className="catering-list-inner" style={{
             padding: "0 2rem",
           }}>
             {entrees.map((item, i) => (
@@ -680,7 +680,7 @@ export default function Catering() {
           ref={(el) => { sectionRefs.current["sides"] = el; }}
           style={{ paddingTop: "5rem" }}
         >
-          <div style={{
+          <div className="catering-sides-grid" style={{
             display: "grid",
             gridTemplateColumns: "1fr 1px 1fr",
             gap: "0 3rem",
@@ -713,7 +713,7 @@ export default function Catering() {
             </div>
 
             {/* DIVIDER */}
-            <div style={{ background: `rgba(200,169,110,0.2)`, alignSelf: "stretch" }} />
+            <div className="catering-sides-divider" style={{ background: `rgba(200,169,110,0.2)`, alignSelf: "stretch" }} />
 
             {/* RIGHT: Sides */}
             <div>

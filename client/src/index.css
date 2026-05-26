@@ -421,3 +421,55 @@
     width: 100%;
   }
 }
+
+/* ── Catering page — mobile responsive (menu sections) ─────────────────── */
+@media (max-width: 640px) {
+  /* Content wrapper: reduce side padding */
+  .catering-menu-wrapper {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Sticky tab bar: scroll from left, don't center */
+  .catering-tabs-inner {
+    justify-content: flex-start !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Appetizers / Salads: 1-column on mobile */
+  .catering-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Sandwiches: 1-column on mobile */
+  .catering-sandwich-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .catering-sandwich-center {
+    width: 100% !important;
+  }
+
+  /* EntreeRow: stack vertically on mobile */
+  .catering-entree-row {
+    flex-direction: column !important;
+    gap: 0.4rem !important;
+  }
+  .catering-entree-pricing {
+    text-align: left !important;
+  }
+
+  /* Pasta/Entrees inner padding */
+  .catering-list-inner {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Sides & Desserts: stack vertically, hide divider */
+  .catering-sides-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .catering-sides-divider {
+    display: none !important;
+  }
+}
