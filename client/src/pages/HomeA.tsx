@@ -208,8 +208,6 @@ function MenuFoodCarousel() {
                 style={{
                   width: "100%", height: "100%", objectFit: "cover", display: "block",
                   objectPosition: idx === 2 ? "center 60%" : "center center",
-                  filter: idx >= 2 ? "contrast(1.12) saturate(1.18) brightness(1.04)" : undefined,
-                  imageRendering: idx >= 2 ? "crisp-edges" : undefined,
                 }}
               />
             </div>
