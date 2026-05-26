@@ -164,11 +164,10 @@ function WelcomePhotos() {
 const MENU_FOOD_PHOTOS = [
   { src: "/manus-storage/menu-food-1_bdd48938.png", alt: "Chicken Parmigiana" },
   { src: "/manus-storage/menu-food-2_765ecf7c.jpg", alt: "Gnocchi with Shrimp" },
-  { src: "/manus-storage/carousel-3-brownie_35511fc2.webp", alt: "Caramel Brownie Sundae" },
-  { src: "/manus-storage/carousel-4-table-spread_692b7aa4.webp", alt: "Table Spread" },
   { src: "/manus-storage/carousel-5-lamb-chops_f881d107.webp", alt: "Lamb Chops" },
   { src: "/manus-storage/carousel-6-full-table_36f361f2.webp", alt: "Full Table Dining" },
   { src: "/manus-storage/carousel-7-scallops_a41f4e9f.webp", alt: "Seared Scallops" },
+  { src: "/manus-storage/carousel-3-brownie_35511fc2.webp", alt: "Caramel Brownie Sundae" },
 ];
 
 function MenuFoodCarousel() {
