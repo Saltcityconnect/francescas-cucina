@@ -320,7 +320,31 @@
   .catering-hero > div:last-child div[style*='display: flex'][style*='flex-wrap'] {
     justify-content: center;
   }
-  /* Left-align contact block; labels flush with values below */
+  /* Contact box — left-aligned on mobile */
+  .catering-contact-box {
+    align-self: stretch !important;
+    width: 100% !important;
+  }
+  .catering-contact-box a {
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+  .catering-contact-box > div {
+    align-items: center !important;
+    flex-direction: row !important;
+    width: 100% !important;
+  }
+  .catering-or-divider {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  .catering-or-divider > div {
+    flex: 1 !important;
+    height: 1px !important;
+    display: block !important;
+  }
   .catering-contact-row {
     align-items: flex-start !important;
   }

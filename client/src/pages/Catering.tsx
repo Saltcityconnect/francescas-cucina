@@ -494,7 +494,7 @@ export default function Catering() {
               </div>
             </a>
             {/* OR divider */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 0", marginBottom: "0.9rem" }}>
+            <div className="catering-or-divider" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.3rem 0", marginBottom: "0.9rem" }}>
               <div style={{ flex: 1, height: 1, background: "rgba(200,169,110,0.2)" }} />
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", color: MUTED, textTransform: "uppercase" }}>Or</span>
               <div style={{ flex: 1, height: 1, background: "rgba(200,169,110,0.2)" }} />
