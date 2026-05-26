@@ -166,7 +166,7 @@ const MENU_FOOD_PHOTOS = [
   { src: "/manus-storage/menu-food-2_765ecf7c.jpg", alt: "Gnocchi with Shrimp" },
   { src: "/manus-storage/dessert-brownie-crop_0095aa3f.webp", alt: "Brownie with Caramel Sauce" },
   { src: "/manus-storage/menu-food-4_071cecc5.png", alt: "Surf & Turf Board" },
-  { src: "/manus-storage/dessert-brownie_04fdd2c8.webp", alt: "Brownie with Caramel Sauce" },
+  { src: "/manus-storage/dessert-brownie_04fdd2c8.webp", alt: "Caramel Brownie Sundae" },
 ];
 
 function MenuFoodCarousel() {
