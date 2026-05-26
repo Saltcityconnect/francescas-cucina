@@ -451,7 +451,7 @@ export default function Catering() {
 
           {/* Headline */}
           <h1 style={{
-            fontFamily: "'Cormorant Garamond', serif",
+            fontFamily: "'Playfair Display', serif",
             fontWeight: 700,
             fontSize: "clamp(2.2rem, 4vw, 4.1rem)",
             color: IVORY,
