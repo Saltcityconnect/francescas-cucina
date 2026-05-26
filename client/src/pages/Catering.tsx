@@ -470,6 +470,7 @@ export default function Catering() {
             color: MUTED,
             margin: "0 0 2.5rem",
             lineHeight: 1.7,
+            maxWidth: "420px",
           }}>
             Curated Italian catering for gatherings, celebrations, and special occasions of all sizes.
           </p>
@@ -477,11 +478,12 @@ export default function Catering() {
           {/* Contact box */}
           <div className="catering-contact-box" style={{
             border: `1px solid rgba(200,169,110,0.3)`,
-            padding: "1.4rem 1.6rem",
+            padding: "1.2rem 1.4rem",
             marginBottom: "2rem",
-            display: "flex",
+            display: "inline-flex",
             flexDirection: "column",
             gap: "0",
+            alignSelf: "flex-start",
           }}>
             {/* Phone row */}
             <a href="tel:3154098848" style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none", paddingBottom: "0.9rem" }}>
