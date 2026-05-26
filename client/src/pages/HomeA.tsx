@@ -168,6 +168,7 @@ const MENU_FOOD_PHOTOS = [
   { src: "/manus-storage/carousel-4-table-spread_692b7aa4.webp", alt: "Table Spread" },
   { src: "/manus-storage/carousel-5-lamb-chops_f881d107.webp", alt: "Lamb Chops" },
   { src: "/manus-storage/carousel-6-full-table_36f361f2.webp", alt: "Full Table Dining" },
+  { src: "/manus-storage/carousel-7-scallops_a41f4e9f.webp", alt: "Seared Scallops" },
 ];
 
 function MenuFoodCarousel() {
