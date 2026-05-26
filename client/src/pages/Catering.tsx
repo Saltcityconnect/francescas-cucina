@@ -436,7 +436,7 @@ export default function Catering() {
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 700,
-            fontSize: "0.85rem",
+            fontSize: "1rem",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: GOLD,
@@ -453,7 +453,7 @@ export default function Catering() {
           <h1 style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 700,
-            fontSize: "clamp(2rem, 3.5vw, 3.6rem)",
+            fontSize: "clamp(2.2rem, 4vw, 4.1rem)",
             color: IVORY,
             lineHeight: 1.1,
             margin: "0 0 1.2rem",
