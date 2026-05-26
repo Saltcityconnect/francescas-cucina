@@ -49,7 +49,7 @@ const divider = "1px solid rgba(184,160,90,0.22)";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#0d0c0a", padding: "0" }}>
+    <footer id="footer" style={{ background: "#0d0c0a", padding: "0" }}>
 
       <div style={{ background: "#0d0c0a", maxWidth: "1200px", margin: "0 auto" }}>
 

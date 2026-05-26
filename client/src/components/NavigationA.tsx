@@ -16,7 +16,7 @@ const menuLinks = [
   { label: "Menu", href: "/menu", external: false },
   { label: "Catering", href: "/catering", external: false },
   { label: "Private Events", href: "/events", external: false },
-  { label: "Contact Us", href: "/contact", external: false },
+  { label: "Contact Us", href: "/#footer", external: false },
 ];
 
 export default function NavigationA() {
