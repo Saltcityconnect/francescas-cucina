@@ -742,14 +742,223 @@ function ToastTab({ isMobile }: { isMobile: boolean }) {
   );
 }
 
+// ── MORNING BRIEFING DATA ───────────────────────────────────────────────────
+const todayVips = [
+  { initials: "SL", name: "Senator Linda Caruso", badge: "VVIP", detail: "Party of 6 · 7:30 PM · 14 visits · Window table, Barolo preferred" },
+  { initials: "MR", name: "Michael Romano", badge: "VIP", detail: "Party of 4 · 8:00 PM · 8 visits · Booth preferred, no shellfish" },
+];
+const todayOccasions = [
+  { icon: "🎂", text: "Birthday — James Whitfield, party of 8 · 9:00 PM" },
+  { icon: "💍", text: "Proposal — corner table reserved · 7:30 PM · champagne on ice" },
+];
+const thisWeekVips = [
+  { initials: "SL", name: "Senator Linda Caruso", badge: "VVIP", detail: "Sat May 31 · Party of 6 · 14 visits · Window table, Barolo" },
+  { initials: "DT", name: "David & Teresa Fontaine", badge: "VIP", detail: "Thu May 29 · Party of 2 · Anniversary 🥂 · 6 visits" },
+];
+const nextWeekVips = [
+  { initials: "PB", name: "Patricia Bianchi", badge: "VIP", detail: "Mon Jun 2 · Party of 3 · 11 visits · Gluten-free, quiet table" },
+  { initials: "JM", name: "James & Maria Conti", badge: "VIP", detail: "Fri Jun 6 · Party of 2 · 9 visits · Champagne on arrival" },
+];
+const thisWeekEvents = [
+  { label: "Tue May 27 · Fitzgerald Engagement · 42 guests · $8,200", status: "booked" },
+  { label: "Sat May 31 · Rossi Corporate Dinner · 28 guests · $5,400", status: "booked" },
+];
+const nextWeekEvents = [
+  { label: "Tue Jun 3 · Moretti Family Reunion · 55 guests · Tentative", status: "tentative" },
+  { label: "Sat Jun 7 · Donovan Rehearsal Dinner · 38 guests · $6,800", status: "booked" },
+];
+const cateringFollowups = [
+  { name: "Sarah Donovan", event: "Rehearsal Dinner, Aug 16", urgency: "due", detail: "Follow-up due today · Website · 38 guests · $6,800 potential" },
+  { name: "Riccardo Bianchi", event: "Corporate Dinner, Jul 22", urgency: "overdue", detail: "Overdue by 1 day · Phone · 20 guests · $3,200 potential" },
+];
+
+// ── MORNING BRIEFING TAB ─────────────────────────────────────────────────────
+function MorningBriefingTab({ isMobile }: { isMobile: boolean }) {
+  const grid3 = { display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: "0.75rem" } as React.CSSProperties;
+  const grid2 = { display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "0.75rem" } as React.CSSProperties;
+  const card = { background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, overflow: "hidden" } as React.CSSProperties;
+  const cardHead = { padding: "0.9rem 1.2rem 0.7rem", borderBottom: `1px solid ${BORDER}`, display: "flex", justifyContent: "space-between", alignItems: "center" } as React.CSSProperties;
+  const cardBody = { padding: "1rem 1.2rem" } as React.CSSProperties;
+  const sectionLabel = { fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase" as const, marginBottom: 10, marginTop: 16 };
+
+  return (
+    <div>
+      {/* Date greeting */}
+      <div style={{ marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${BORDER}` }}>
+        <div style={{ fontSize: "1.4rem", fontWeight: 700, color: TEXT, fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.01em" }}>Tuesday, May 27, 2026</div>
+        <div style={{ fontSize: "0.82rem", color: MUTED, marginTop: 4 }}>Good morning, George. Here's your full overview for today and the week ahead.</div>
+      </div>
+
+      {/* Today at a glance KPIs */}
+      <div style={{ fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 10 }}>Today at a Glance</div>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, 1fr)", gap: "0.75rem", marginBottom: "1.5rem" }}>
+        {[
+          { label: "Covers Tonight", value: "86", sub: "Full house · waitlist 12", color: GREEN },
+          { label: "Private Events", value: "1", sub: "Fitzgerald · 42 guests", color: GOLD },
+          { label: "VIPs Tonight", value: "2", sub: "Details below", color: PURPLE },
+          { label: "Catering Leads", value: "3", sub: "2 need follow-up today", color: GOLD },
+          { label: "Special Occasions", value: "2", sub: "1 birthday · 1 proposal", color: BLUE },
+        ].map((k, i) => (
+          <div key={i} style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "1rem 1.1rem" }}>
+            <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{k.label}</div>
+            <div style={{ fontSize: "1.8rem", fontWeight: 700, color: k.color, lineHeight: 1 }}>{k.value}</div>
+            <div style={{ fontSize: "0.7rem", color: MUTED, marginTop: 4 }}>{k.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Today detail cards: VIPs, Private Event, Catering Follow-ups */}
+      <div style={{ fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 10 }}>Tonight's Details</div>
+      <div style={{ ...grid3, marginBottom: "1.5rem" }}>
+
+        {/* VIPs & Occasions */}
+        <div style={card}>
+          <div style={cardHead}>
+            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT }}>VIPs & Special Occasions</span>
+            <span style={{ fontSize: "0.65rem", color: MUTED }}>From Resy</span>
+          </div>
+          <div style={cardBody}>
+            {todayVips.map((v, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 12 }}>
+                <div style={{ width: 32, height: 32, borderRadius: "50%", background: GOLD_DIM, border: `1px solid ${GOLD}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", fontWeight: 700, color: GOLD, flexShrink: 0 }}>{v.initials}</div>
+                <div>
+                  <div style={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT }}>{v.name} <span style={{ fontSize: "0.62rem", background: GOLD_DIM, color: GOLD, padding: "1px 6px", borderRadius: 10, marginLeft: 4 }}>{v.badge}</span></div>
+                  <div style={{ fontSize: "0.7rem", color: MUTED, marginTop: 2 }}>{v.detail}</div>
+                </div>
+              </div>
+            ))}
+            <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 10, marginTop: 4 }}>
+              <div style={{ fontSize: "0.65rem", letterSpacing: "0.1em", color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Special Occasions</div>
+              {todayOccasions.map((o, i) => (
+                <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 6, fontSize: "0.78rem", color: TEXT }}>
+                  <span>{o.icon}</span><span>{o.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Private Event Tonight */}
+        <div style={card}>
+          <div style={cardHead}>
+            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT }}>Private Event Tonight</span>
+            <span style={{ fontSize: "0.65rem", color: MUTED }}>From Catering CRM</span>
+          </div>
+          <div style={cardBody}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+              <div>
+                <div style={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>Fitzgerald Engagement Party</div>
+                <div style={{ fontSize: "0.75rem", color: MUTED, marginTop: 2 }}>Rehearsal Dinner · 42 guests · Private Dining Room</div>
+              </div>
+              <span style={{ fontSize: "0.68rem", background: "rgba(74,222,128,0.12)", color: GREEN, padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap", flexShrink: 0, marginLeft: 8 }}>Confirmed</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
+              {[{ label: "Event Value", val: "$8,200", color: GREEN }, { label: "Start Time", val: "7:00 PM", color: GOLD }].map((k, i) => (
+                <div key={i} style={{ background: "rgba(255,255,255,0.03)", borderRadius: 6, padding: "8px 10px" }}>
+                  <div style={{ fontSize: "0.62rem", letterSpacing: "0.08em", color: MUTED, textTransform: "uppercase", marginBottom: 3 }}>{k.label}</div>
+                  <div style={{ fontSize: "1.1rem", fontWeight: 700, color: k.color }}>{k.val}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: "0.72rem", color: MUTED, padding: "8px 10px", background: GOLD_DIM, borderRadius: 6, borderLeft: `3px solid ${GOLD}`, lineHeight: 1.5 }}>Manager Note: Bride is gluten-free. Champagne toast at 8:30 PM. Florist arriving at 5:30 PM.</div>
+          </div>
+        </div>
+
+        {/* Catering Follow-ups */}
+        <div style={card}>
+          <div style={cardHead}>
+            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT }}>Catering Follow-Ups Due</span>
+            <span style={{ fontSize: "0.65rem", color: MUTED }}>From Catering CRM</span>
+          </div>
+          <div style={cardBody}>
+            {cateringFollowups.map((f, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 14 }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: f.urgency === "overdue" ? RED : GOLD, flexShrink: 0, marginTop: 5 }} />
+                <div>
+                  <div style={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT }}>{f.name} — {f.event}</div>
+                  <div style={{ fontSize: "0.7rem", color: MUTED, marginTop: 2 }}>{f.detail}</div>
+                </div>
+              </div>
+            ))}
+            <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 10, marginTop: 4 }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: "0.75rem", color: MUTED }}>Open leads this month</span>
+                <span style={{ fontSize: "0.75rem", fontWeight: 600, color: GOLD }}>18 leads · 64% conversion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* This Week / Next Week */}
+      <div style={{ fontSize: "0.62rem", letterSpacing: "0.15em", color: MUTED, textTransform: "uppercase", marginBottom: 10 }}>This Week & Next Week</div>
+      <div style={{ ...grid2, marginBottom: "1.5rem" }}>
+        {[
+          { title: "This Week", dates: "May 27 – Jun 1", covers: "312", fill: "87%", fillColor: GREEN, seats: "47", waitlist: "18", vips: thisWeekVips, occasions: ["🎂 Birthday — James Whitfield, Sat May 31", "💍 Proposal — corner table, Fri Jun 1 at 7:30 PM"], events: thisWeekEvents },
+          { title: "Next Week", dates: "Jun 2 – Jun 8", covers: "274", fill: "76%", fillColor: GOLD, seats: "86", waitlist: "7", vips: nextWeekVips, occasions: ["🎂 Birthday — Patricia Bianchi, Mon Jun 2", "🥂 Anniversary — Conti party, Fri Jun 6"], events: nextWeekEvents },
+        ].map((week, wi) => (
+          <div key={wi} style={card}>
+            <div style={{ ...cardHead, background: "rgba(184,160,90,0.05)" }}>
+              <div>
+                <div style={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{week.title}</div>
+                <div style={{ fontSize: "0.72rem", color: MUTED }}>{week.dates}</div>
+              </div>
+            </div>
+            <div style={cardBody}>
+              {/* KPIs */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginBottom: 14 }}>
+                {[
+                  { label: "Covers", val: week.covers },
+                  { label: "Fill Rate", val: week.fill, color: week.fillColor },
+                  { label: "Seats Left", val: week.seats },
+                  { label: "Waitlist", val: week.waitlist },
+                ].map((k, i) => (
+                  <div key={i} style={{ background: "rgba(255,255,255,0.03)", borderRadius: 6, padding: "6px 8px", textAlign: "center" }}>
+                    <div style={{ fontSize: "1rem", fontWeight: 700, color: k.color || TEXT }}>{k.val}</div>
+                    <div style={{ fontSize: "0.6rem", color: MUTED, marginTop: 2 }}>{k.label}</div>
+                  </div>
+                ))}
+              </div>
+              {/* VIPs */}
+              <div style={sectionLabel}>VIP Guests</div>
+              {week.vips.map((v, i) => (
+                <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 10 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: "50%", background: GOLD_DIM, border: `1px solid ${GOLD}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", fontWeight: 700, color: GOLD, flexShrink: 0 }}>{v.initials}</div>
+                  <div>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }}>{v.name} <span style={{ fontSize: "0.6rem", background: GOLD_DIM, color: GOLD, padding: "1px 5px", borderRadius: 8 }}>{v.badge}</span></div>
+                    <div style={{ fontSize: "0.68rem", color: MUTED, marginTop: 1 }}>{v.detail}</div>
+                  </div>
+                </div>
+              ))}
+              {/* Occasions */}
+              <div style={sectionLabel}>Special Occasions</div>
+              {week.occasions.map((o, i) => (
+                <div key={i} style={{ fontSize: "0.75rem", color: TEXT, marginBottom: 5 }}>{o}</div>
+              ))}
+              {/* Private Events */}
+              <div style={sectionLabel}>Private Events</div>
+              {week.events.map((e, i) => (
+                <div key={i} style={{ fontSize: "0.72rem", padding: "5px 8px", borderRadius: 5, marginBottom: 5, background: e.status === "booked" ? "rgba(74,222,128,0.08)" : "rgba(245,158,11,0.08)", color: e.status === "booked" ? GREEN : GOLD, border: `1px solid ${e.status === "booked" ? "rgba(74,222,128,0.2)" : "rgba(245,158,11,0.2)"}` }}>{e.label}</div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
 // ── MAIN DASHBOARD ────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState<"website" | "resy" | "toast">("website");
+  const [activeTab, setActiveTab] = useState<"briefing" | "website" | "resy" | "toast">("briefing");
   const [dateRange, setDateRange] = useState("Last 30 Days");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const tabs = [
+    { id: "briefing" as const, label: "Briefing", fullLabel: "Morning Briefing", icon: "☀️" },
     { id: "website" as const, label: "Website", fullLabel: "Website Analytics", icon: "◎" },
     { id: "resy" as const, label: "Resy", fullLabel: "Resy Reservations", icon: "⬡" },
     { id: "toast" as const, label: "Toast", fullLabel: "Toast POS", icon: "▣" },
@@ -985,6 +1194,7 @@ export default function Dashboard() {
         )}
 
         {/* Tab Content */}
+        {activeTab === "briefing" && <MorningBriefingTab isMobile={isMobile} />}
         {activeTab === "website" && <WebsiteTab isMobile={isMobile} />}
         {activeTab === "resy" && <ResyTab isMobile={isMobile} />}
         {activeTab === "toast" && <ToastTab isMobile={isMobile} />}
