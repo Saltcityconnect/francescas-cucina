@@ -643,6 +643,43 @@ export default function HomeA() {
       {/* ─── OUTDOOR DINING ─── */}
       <section style={{ background: "#0d0c0a", padding: "6rem 0" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
+          {/* Mobile-only: text header above the video */}
+          <div className="outdoor-dining-mobile-header">
+            <svg width="52" height="26" viewBox="0 0 52 26" fill="none"
+              style={{ color: "#d4a64f", margin: "0 auto 1rem" }}
+              aria-hidden="true"
+            >
+              <path d="M26 13 C20 5, 7 3, 2 13 C7 11, 15 11, 26 13Z" fill="currentColor" opacity="0.85" />
+              <path d="M26 13 C32 5, 45 3, 50 13 C45 11, 37 11, 26 13Z" fill="currentColor" opacity="0.85" />
+              <line x1="26" y1="13" x2="26" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+            </svg>
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: "0.7rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "#d4a64f",
+              marginBottom: "0.5rem",
+              textAlign: "center",
+            }}>Outdoor</p>
+            <h2 style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(3rem, 12vw, 4.5rem)",
+              color: "#f5f0e8",
+              lineHeight: 1,
+              marginBottom: "1.25rem",
+              textAlign: "center",
+            }}>Dining</h2>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem", maxWidth: "280px", margin: "0 auto 1.5rem" }}>
+              <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+              <span style={{ color: "#d4a64f", fontSize: "0.9rem" }}>✦</span>
+              <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+            </div>
+          </div>
+
           <div style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -651,15 +688,32 @@ export default function HomeA() {
           }}
           className="outdoor-dining-grid"
           >
-            {/* Left — portrait video */}
-            <div style={{
-              position: "relative",
-              aspectRatio: "9/16",
-              maxHeight: "640px",
-              overflow: "hidden",
-              border: "1px solid rgba(212,166,79,0.3)",
-              borderRadius: "2px",
-            }}>
+            {/* Left — portrait video with gilded frame */}
+            <div
+              className="outdoor-dining-video-wrap"
+              style={{
+                position: "relative",
+                aspectRatio: "9/16",
+                maxHeight: "640px",
+                margin: "0 auto",
+              }}
+            >
+              {/* Ornate gilded picture frame overlay — transparent PNG */}
+              <img
+                src="/manus-storage/gold-frame-alpha_5fc7a77c.png"
+                alt=""
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: "-14%",
+                  width: "128%",
+                  height: "128%",
+                  objectFit: "fill",
+                  zIndex: 4,
+                  pointerEvents: "none",
+                }}
+              />
+              {/* Video */}
               <video
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
                 autoPlay
@@ -669,20 +723,10 @@ export default function HomeA() {
               >
                 <source src={PATIO_VIDEO} type="video/mp4" />
               </video>
-              {/* Gold corner accent */}
-              <div style={{
-                position: "absolute",
-                bottom: "-10px",
-                right: "-10px",
-                width: "38%",
-                height: "38%",
-                border: "1px solid rgba(212,166,79,0.3)",
-                pointerEvents: "none",
-              }} />
             </div>
 
             {/* Right — editorial copy */}
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="outdoor-dining-copy" style={{ display: "flex", flexDirection: "column" }}>
               {/* Gold leaf SVG ornament */}
               <svg width="52" height="26" viewBox="0 0 52 26" fill="none"
                 style={{ marginBottom: "1.5rem", color: "#d4a64f" }}
@@ -764,6 +808,45 @@ export default function HomeA() {
               </a>
             </div>
           </div>
+
+          {/* Mobile-only: description + CTA below the video */}
+          <div className="outdoor-dining-mobile-footer">
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: "0.95rem",
+              color: "rgba(245,240,232,0.75)",
+              lineHeight: 1.8,
+              textAlign: "center",
+              marginBottom: "2rem",
+              maxWidth: "340px",
+              margin: "0 auto 2rem",
+            }}>
+              Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
+              and unforgettable flavors — Syracuse's award-winning outdoor dining experience.
+            </p>
+            <div style={{ textAlign: "center" }}>
+              <a
+                href="https://resy.com/cities/syr/francescas-cucina"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  padding: "0.85rem 2.25rem",
+                  border: "1px solid #d4a64f",
+                  color: "#d4a64f",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                }}
+              >
+                Make a Reservation
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -827,8 +910,28 @@ export default function HomeA() {
 
         /* ── Outdoor Dining ── */
         .outdoor-dining-grid { grid-template-columns: 1fr 1fr; }
+
+        /* Mobile: stack vertically, center everything */
+        .outdoor-dining-mobile-header { display: none; }
+        .outdoor-dining-mobile-footer { display: none; }
         @media (max-width: 768px) {
-          .outdoor-dining-grid { grid-template-columns: 1fr; gap: 2.5rem !important; }
+          .outdoor-dining-mobile-header { display: block; text-align: center; margin-bottom: 2rem; }
+          .outdoor-dining-grid {
+            grid-template-columns: 1fr !important;
+            gap: 0 !important;
+          }
+          .outdoor-dining-copy {
+            display: none !important;
+          }
+          .outdoor-dining-video-wrap {
+            width: 78vw !important;
+            max-height: 82vh !important;
+            margin: 0 auto !important;
+          }
+          .outdoor-dining-mobile-footer {
+            display: block !important;
+            margin-top: 2.5rem;
+          }
         }
 
         /* ── Private Dining Hero ── */
