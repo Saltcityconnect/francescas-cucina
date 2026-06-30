@@ -9,6 +9,8 @@ import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
+const PATIO_VIDEO = "/manus-storage/patio-video_9b3b041c.mp4";
+const PATIO_POSTER = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/awards-strip-mockup-eukfwHdW3QcRUvtJqeUbxU.webp";
 const HERO_VIDEO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/hero_video_f84b0e80.mp4";
 const HERO_POSTER = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/exterior_building_fcb6fd3d.webp";
 const FOOD_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/pasta_7dbb7994.jpg";
@@ -543,6 +545,129 @@ export default function Home() {
                   Order Online
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUTDOOR DINING ── */}
+      <section
+        className="py-24 md:py-32"
+        style={{ background: "var(--charcoal)" }}
+      >
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Left — portrait video panel */}
+            <div
+              className="reveal relative"
+              style={{
+                opacity: 0,
+                borderRadius: "4px",
+                overflow: "hidden",
+                border: "1px solid rgba(184,150,90,0.25)",
+                aspectRatio: "9/16",
+                maxHeight: "680px",
+                width: "100%",
+              }}
+            >
+              <video
+                className="w-full h-full"
+                style={{ objectFit: "cover", objectPosition: "center", display: "block" }}
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={PATIO_POSTER}
+              >
+                <source src={PATIO_VIDEO} type="video/mp4" />
+              </video>
+              {/* Gold corner accent */}
+              <div
+                className="absolute"
+                style={{
+                  bottom: "-10px",
+                  right: "-10px",
+                  width: "40%",
+                  height: "40%",
+                  border: "1px solid rgba(184,150,90,0.3)",
+                  pointerEvents: "none",
+                }}
+              />
+            </div>
+
+            {/* Right — editorial copy */}
+            <div className="reveal flex flex-col" style={{ opacity: 0 }}>
+              {/* Gold leaf ornament */}
+              <svg
+                width="48" height="24" viewBox="0 0 48 24" fill="none"
+                style={{ marginBottom: "1.5rem", color: "var(--gold)" }}
+                aria-hidden="true"
+              >
+                <path d="M24 12 C18 4, 6 2, 2 12 C6 10, 14 10, 24 12Z" fill="currentColor" opacity="0.8" />
+                <path d="M24 12 C30 4, 42 2, 46 12 C42 10, 34 10, 24 12Z" fill="currentColor" opacity="0.8" />
+                <line x1="24" y1="12" x2="24" y2="22" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+              </svg>
+
+              <p
+                className="section-label"
+                style={{ marginBottom: "0.75rem", letterSpacing: "0.25em" }}
+              >
+                Outdoor
+              </p>
+
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
+                  color: "var(--ivory)",
+                  lineHeight: 0.95,
+                  marginBottom: "1.5rem",
+                }}
+              >
+                Dining
+              </h2>
+
+              {/* Gold divider with ornament */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  marginBottom: "2rem",
+                }}
+              >
+                <div style={{ flex: 1, height: "1px", background: "rgba(184,150,90,0.4)" }} />
+                <span style={{ color: "var(--gold)", fontSize: "1rem" }}>✦</span>
+                <div style={{ flex: 1, height: "1px", background: "rgba(184,150,90,0.4)" }} />
+              </div>
+
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 300,
+                  fontSize: "1rem",
+                  color: "var(--ivory-muted)",
+                  lineHeight: 1.9,
+                  marginBottom: "2.5rem",
+                  maxWidth: "420px",
+                }}
+              >
+                Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
+                and unforgettable flavors — Syracuse's award-winning outdoor dining experience.
+              </p>
+
+              <a
+                href="https://resy.com/cities/syr/francescas-cucina"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold"
+                style={{ alignSelf: "flex-start", letterSpacing: "0.2em", fontSize: "0.75rem" }}
+              >
+                Make a Reservation
+              </a>
             </div>
           </div>
         </div>
