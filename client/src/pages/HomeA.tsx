@@ -9,6 +9,7 @@ import NavigationA from "@/components/NavigationA";
 import Footer from "@/components/Footer";
 
 const HERO_VIDEO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/hero_video_f84b0e80.mp4";
+const PATIO_VIDEO = "/manus-storage/patio-video_9b3b041c.mp4";
 const HERO_POSTER = "https://d2xsxph8kpxj0f.cloudfront.net/310519663452664420/JqcX8cF4MVgtYSSZ27eh99/exterior_building_fcb6fd3d.webp";
 
 // Real food photos — flat (white vignette removed)
@@ -639,6 +640,133 @@ export default function HomeA() {
         </div>
       </section>
 
+      {/* ─── OUTDOOR DINING ─── */}
+      <section style={{ background: "#0d0c0a", padding: "6rem 0" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "5rem",
+            alignItems: "center",
+          }}
+          className="outdoor-dining-grid"
+          >
+            {/* Left — portrait video */}
+            <div style={{
+              position: "relative",
+              aspectRatio: "9/16",
+              maxHeight: "640px",
+              overflow: "hidden",
+              border: "1px solid rgba(212,166,79,0.3)",
+              borderRadius: "2px",
+            }}>
+              <video
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src={PATIO_VIDEO} type="video/mp4" />
+              </video>
+              {/* Gold corner accent */}
+              <div style={{
+                position: "absolute",
+                bottom: "-10px",
+                right: "-10px",
+                width: "38%",
+                height: "38%",
+                border: "1px solid rgba(212,166,79,0.3)",
+                pointerEvents: "none",
+              }} />
+            </div>
+
+            {/* Right — editorial copy */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {/* Gold leaf SVG ornament */}
+              <svg width="52" height="26" viewBox="0 0 52 26" fill="none"
+                style={{ marginBottom: "1.5rem", color: "#d4a64f" }}
+                aria-hidden="true"
+              >
+                <path d="M26 13 C20 5, 7 3, 2 13 C7 11, 15 11, 26 13Z" fill="currentColor" opacity="0.85" />
+                <path d="M26 13 C32 5, 45 3, 50 13 C45 11, 37 11, 26 13Z" fill="currentColor" opacity="0.85" />
+                <line x1="26" y1="13" x2="26" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+              </svg>
+
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: "0.7rem",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                color: "#d4a64f",
+                marginBottom: "0.75rem",
+              }}>Outdoor</p>
+
+              <h2 style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: "clamp(3.5rem, 5.5vw, 5.5rem)",
+                color: "#f5f0e8",
+                lineHeight: 0.95,
+                marginBottom: "1.75rem",
+              }}>Dining</h2>
+
+              {/* Ornamental divider */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "2rem" }}>
+                <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+                <span style={{ color: "#d4a64f", fontSize: "0.9rem" }}>✦</span>
+                <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+              </div>
+
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 300,
+                fontSize: "1rem",
+                color: "rgba(245,240,232,0.75)",
+                lineHeight: 1.9,
+                marginBottom: "2.5rem",
+                maxWidth: "400px",
+              }}>
+                Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
+                and unforgettable flavors — Syracuse’s award-winning outdoor dining experience.
+              </p>
+
+              <a
+                href="https://resy.com/cities/syr/francescas-cucina"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  alignSelf: "flex-start",
+                  display: "inline-block",
+                  padding: "0.85rem 2.25rem",
+                  border: "1px solid #d4a64f",
+                  color: "#d4a64f",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  transition: "background 0.2s, color 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "#d4a64f";
+                  (e.currentTarget as HTMLElement).style.color = "#111";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = "#d4a64f";
+                }}
+              >
+                Make a Reservation
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── PRIVATE DINING SECTION ─── */}
       {/* ─── PRIVATE DINING HERO ─── 3-column full-width grid: text(41%) | dining(30%) | fireplace(29%) */}
       <section className="private-dining-hero">
@@ -696,6 +824,12 @@ export default function HomeA() {
 
       <style>{`
         .hero-title { white-space: nowrap; }
+
+        /* ── Outdoor Dining ── */
+        .outdoor-dining-grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 768px) {
+          .outdoor-dining-grid { grid-template-columns: 1fr; gap: 2.5rem !important; }
+        }
 
         /* ── Private Dining Hero ── */
         .private-dining-hero {
