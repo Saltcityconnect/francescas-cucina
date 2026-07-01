@@ -698,17 +698,14 @@ export default function HomeA() {
                 margin: "0 auto",
               }}
             >
-              {/* Ornate gilded picture frame overlay — transparent PNG */}
-              <img
-                src="/manus-storage/gold-frame-alpha_5fc7a77c.png"
-                alt=""
+              {/* Elegant gold border frame */}
+              <div
                 aria-hidden="true"
                 style={{
                   position: "absolute",
-                  inset: "-14%",
-                  width: "128%",
-                  height: "128%",
-                  objectFit: "fill",
+                  inset: 0,
+                  border: "2px solid #d4a64f",
+                  boxShadow: "0 0 0 6px rgba(212,166,79,0.12), inset 0 0 0 6px rgba(212,166,79,0.12)",
                   zIndex: 4,
                   pointerEvents: "none",
                 }}
