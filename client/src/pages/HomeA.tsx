@@ -641,207 +641,144 @@ export default function HomeA() {
       </section>
 
       {/* ─── OUTDOOR DINING ─── */}
-      <section style={{ background: "#0d0c0a", padding: "6rem 0" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
-          {/* Mobile-only: text header above the video */}
-          <div className="outdoor-dining-mobile-header">
-            <svg width="52" height="26" viewBox="0 0 52 26" fill="none"
-              style={{ color: "#d4a64f", margin: "0 auto 1rem" }}
-              aria-hidden="true"
-            >
-              <path d="M26 13 C20 5, 7 3, 2 13 C7 11, 15 11, 26 13Z" fill="currentColor" opacity="0.85" />
-              <path d="M26 13 C32 5, 45 3, 50 13 C45 11, 37 11, 26 13Z" fill="currentColor" opacity="0.85" />
-              <line x1="26" y1="13" x2="26" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-            </svg>
+      {/* Desktop: two-column layout | Mobile: full-screen hero-style video with overlay */}
+      <section className="outdoor-dining-section">
+
+        {/* ── MOBILE HERO (hidden on desktop) ── */}
+        <div className="outdoor-dining-mobile-hero">
+          {/* Full-screen video */}
+          <video
+            className="outdoor-dining-mobile-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={PATIO_VIDEO} type="video/mp4" />
+          </video>
+          {/* Dark overlay */}
+          <div className="outdoor-dining-mobile-overlay" />
+          {/* Text overlaid at bottom */}
+          <div className="outdoor-dining-mobile-text">
             <p style={{
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 400,
-              fontSize: "0.7rem",
-              letterSpacing: "0.25em",
+              fontSize: "0.65rem",
+              letterSpacing: "0.3em",
               textTransform: "uppercase",
               color: "#d4a64f",
-              marginBottom: "0.5rem",
-              textAlign: "center",
+              marginBottom: "0.4rem",
             }}>Outdoor</p>
             <h2 style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontStyle: "italic",
               fontWeight: 400,
-              fontSize: "clamp(3rem, 12vw, 4.5rem)",
+              fontSize: "clamp(3.2rem, 14vw, 5rem)",
               color: "#f5f0e8",
-              lineHeight: 1,
+              lineHeight: 0.95,
               marginBottom: "1.25rem",
-              textAlign: "center",
             }}>Dining</h2>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem", maxWidth: "280px", margin: "0 auto 1.5rem" }}>
-              <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
-              <span style={{ color: "#d4a64f", fontSize: "0.9rem" }}>✦</span>
-              <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
+              <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.5)" }} />
+              <span style={{ color: "#d4a64f", fontSize: "0.85rem" }}>✦</span>
+              <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.5)" }} />
             </div>
-          </div>
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "5rem",
-            alignItems: "center",
-          }}
-          className="outdoor-dining-grid"
-          >
-            {/* Left — portrait video with gilded frame */}
-            <div
-              className="outdoor-dining-video-wrap"
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: "0.9rem",
+              color: "rgba(245,240,232,0.8)",
+              lineHeight: 1.75,
+              marginBottom: "2rem",
+            }}>
+              Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
+              and unforgettable flavors — Syracuse's award-winning outdoor dining experience.
+            </p>
+            <a
+              href="https://resy.com/cities/syr/francescas-cucina"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
+                display: "inline-block",
+                padding: "0.85rem 2.25rem",
+                border: "1px solid #d4a64f",
+                color: "#d4a64f",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
+                fontSize: "0.65rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+              }}
+            >
+              Make a Reservation
+            </a>
+          </div>
+        </div>
+
+        {/* ── DESKTOP TWO-COLUMN (hidden on mobile) ── */}
+        <div className="outdoor-dining-desktop">
+          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "5rem",
+              alignItems: "center",
+            }}>
+              {/* Left — portrait video */}
+              <div style={{
                 position: "relative",
                 aspectRatio: "9/16",
                 maxHeight: "640px",
                 margin: "0 auto",
-              }}
-            >
-              {/* Elegant gold border frame */}
-              <div
-                aria-hidden="true"
-                style={{
+                overflow: "hidden",
+              }}>
+                {/* Elegant gold border */}
+                <div aria-hidden="true" style={{
                   position: "absolute",
                   inset: 0,
                   border: "2px solid #d4a64f",
                   boxShadow: "0 0 0 6px rgba(212,166,79,0.12), inset 0 0 0 6px rgba(212,166,79,0.12)",
                   zIndex: 4,
                   pointerEvents: "none",
-                }}
-              />
-              {/* Video */}
-              <video
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src={PATIO_VIDEO} type="video/mp4" />
-              </video>
-            </div>
-
-            {/* Right — editorial copy */}
-            <div className="outdoor-dining-copy" style={{ display: "flex", flexDirection: "column" }}>
-              {/* Gold leaf SVG ornament */}
-              <svg width="52" height="26" viewBox="0 0 52 26" fill="none"
-                style={{ marginBottom: "1.5rem", color: "#d4a64f" }}
-                aria-hidden="true"
-              >
-                <path d="M26 13 C20 5, 7 3, 2 13 C7 11, 15 11, 26 13Z" fill="currentColor" opacity="0.85" />
-                <path d="M26 13 C32 5, 45 3, 50 13 C45 11, 37 11, 26 13Z" fill="currentColor" opacity="0.85" />
-                <line x1="26" y1="13" x2="26" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-              </svg>
-
-              <p style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 400,
-                fontSize: "0.7rem",
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                color: "#d4a64f",
-                marginBottom: "0.75rem",
-              }}>Outdoor</p>
-
-              <h2 style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontStyle: "italic",
-                fontWeight: 400,
-                fontSize: "clamp(3.5rem, 5.5vw, 5.5rem)",
-                color: "#f5f0e8",
-                lineHeight: 0.95,
-                marginBottom: "1.75rem",
-              }}>Dining</h2>
-
-              {/* Ornamental divider */}
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "2rem" }}>
-                <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
-                <span style={{ color: "#d4a64f", fontSize: "0.9rem" }}>✦</span>
-                <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+                }} />
+                <video
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+                  autoPlay muted loop playsInline
+                >
+                  <source src={PATIO_VIDEO} type="video/mp4" />
+                </video>
               </div>
 
-              <p style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 300,
-                fontSize: "1rem",
-                color: "rgba(245,240,232,0.75)",
-                lineHeight: 1.9,
-                marginBottom: "2.5rem",
-                maxWidth: "400px",
-              }}>
-                Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
-                and unforgettable flavors — Syracuse’s award-winning outdoor dining experience.
-              </p>
-
-              <a
-                href="https://resy.com/cities/syr/francescas-cucina"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  alignSelf: "flex-start",
-                  display: "inline-block",
-                  padding: "0.85rem 2.25rem",
-                  border: "1px solid #d4a64f",
-                  color: "#d4a64f",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                  transition: "background 0.2s, color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "#d4a64f";
-                  (e.currentTarget as HTMLElement).style.color = "#111";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "transparent";
-                  (e.currentTarget as HTMLElement).style.color = "#d4a64f";
-                }}
-              >
-                Make a Reservation
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile-only: description + CTA below the video */}
-          <div className="outdoor-dining-mobile-footer">
-            <p style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: "0.95rem",
-              color: "rgba(245,240,232,0.75)",
-              lineHeight: 1.8,
-              textAlign: "center",
-              marginBottom: "2rem",
-              maxWidth: "340px",
-              margin: "0 auto 2rem",
-            }}>
-              Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
-              and unforgettable flavors — Syracuse's award-winning outdoor dining experience.
-            </p>
-            <div style={{ textAlign: "center" }}>
-              <a
-                href="https://resy.com/cities/syr/francescas-cucina"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  padding: "0.85rem 2.25rem",
-                  border: "1px solid #d4a64f",
-                  color: "#d4a64f",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 500,
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  textDecoration: "none",
-                }}
-              >
-                Make a Reservation
-              </a>
+              {/* Right — editorial copy */}
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <svg width="52" height="26" viewBox="0 0 52 26" fill="none"
+                  style={{ marginBottom: "1.5rem", color: "#d4a64f" }} aria-hidden="true">
+                  <path d="M26 13 C20 5, 7 3, 2 13 C7 11, 15 11, 26 13Z" fill="currentColor" opacity="0.85" />
+                  <path d="M26 13 C32 5, 45 3, 50 13 C45 11, 37 11, 26 13Z" fill="currentColor" opacity="0.85" />
+                  <line x1="26" y1="13" x2="26" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+                </svg>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#d4a64f", marginBottom: "0.75rem" }}>Outdoor</p>
+                <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 400, fontSize: "clamp(3.5rem, 5.5vw, 5.5rem)", color: "#f5f0e8", lineHeight: 0.95, marginBottom: "1.75rem" }}>Dining</h2>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "2rem" }}>
+                  <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+                  <span style={{ color: "#d4a64f", fontSize: "0.9rem" }}>✦</span>
+                  <div style={{ flex: 1, height: "1px", background: "rgba(212,166,79,0.4)" }} />
+                </div>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "1rem", color: "rgba(245,240,232,0.75)", lineHeight: 1.9, marginBottom: "2.5rem", maxWidth: "400px" }}>
+                  Savor authentic Italian cuisine surrounded by lush greenery, warm ambiance,
+                  and unforgettable flavors — Syracuse's award-winning outdoor dining experience.
+                </p>
+                <a
+                  href="https://resy.com/cities/syr/francescas-cucina"
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ alignSelf: "flex-start", display: "inline-block", padding: "0.85rem 2.25rem", border: "1px solid #d4a64f", color: "#d4a64f", fontFamily: "'DM Sans', sans-serif", fontWeight: 500, fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", textDecoration: "none", transition: "background 0.2s, color 0.2s" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#d4a64f"; (e.currentTarget as HTMLElement).style.color = "#111"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#d4a64f"; }}
+                >
+                  Make a Reservation
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -906,29 +843,46 @@ export default function HomeA() {
         .hero-title { white-space: nowrap; }
 
         /* ── Outdoor Dining ── */
-        .outdoor-dining-grid { grid-template-columns: 1fr 1fr; }
+        .outdoor-dining-section { background: #0d0c0a; }
 
-        /* Mobile: stack vertically, center everything */
-        .outdoor-dining-mobile-header { display: none; }
-        .outdoor-dining-mobile-footer { display: none; }
+        /* Mobile hero — full screen, hidden on desktop */
+        .outdoor-dining-mobile-hero {
+          display: none;
+          position: relative;
+          width: 100vw;
+          height: 100svh;
+          overflow: hidden;
+        }
+        .outdoor-dining-mobile-video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+        .outdoor-dining-mobile-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(10, 9, 8, 0.45);
+          z-index: 2;
+        }
+        .outdoor-dining-mobile-text {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 3;
+          padding: 3rem 2rem 4rem;
+          background: linear-gradient(to top, rgba(10,9,8,0.85) 0%, transparent 100%);
+        }
+
+        /* Desktop two-column — hidden on mobile */
+        .outdoor-dining-desktop { padding: 6rem 0; }
+
         @media (max-width: 768px) {
-          .outdoor-dining-mobile-header { display: block; text-align: center; margin-bottom: 2rem; }
-          .outdoor-dining-grid {
-            grid-template-columns: 1fr !important;
-            gap: 0 !important;
-          }
-          .outdoor-dining-copy {
-            display: none !important;
-          }
-          .outdoor-dining-video-wrap {
-            width: 78vw !important;
-            max-height: 82vh !important;
-            margin: 0 auto !important;
-          }
-          .outdoor-dining-mobile-footer {
-            display: block !important;
-            margin-top: 2.5rem;
-          }
+          .outdoor-dining-mobile-hero { display: block; }
+          .outdoor-dining-desktop { display: none; }
         }
 
         /* ── Private Dining Hero ── */
